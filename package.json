@@ -1,0 +1,25 @@
+{
+  "name": "darts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Darts scorer for Android: X01, Cricket, Around the Clock, Shanghai, Bob's 27",
+  "scripts": {
+    "android:add": "cap add android",
+    "android:sync": "cap sync android",
+    "icons": "capacitor-assets generate --android"
+  },
+  "dependencies": {
+    "@capacitor-community/keep-awake": "8.0.1",
+    "@capacitor-community/text-to-speech": "8.0.2",
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.1.1",
+    "@capacitor/core": "8.5.2",
+    "@capacitor/haptics": "8.0.2",
+    "@capacitor/preferences": "8.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "3.0.5",
+    "@capacitor/cli": "8.5.2"
+  },
+  "license": "MIT"
+}

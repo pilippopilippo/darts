@@ -1,0 +1,8 @@
+{
+  "appId": "app.darts.scorer",
+  "appName": "Darts",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#0F1E17"
+  }
+}
