@@ -1,0 +1,103 @@
+name: Build APK
+
+# - push to main      -> build and sign the APK, attach it to the run as an artifact
+# - tag v* / release  -> same, plus darts.apk attached to the GitHub Release
+#   (a release published from the web UI creates the tag; whichever event arrives
+#    second cancels the first through the concurrency group, so only one build runs)
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # only needed by the release step
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create Android project
+        run: npx cap add android
+
+      - name: Generate icons and splash
+        run: npx capacitor-assets generate --android
+        continue-on-error: true
+
+      - name: Set version and orientation
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then VN="${GITHUB_REF_NAME#v}"; else VN="dev.${{ github.run_number }}"; fi
+          echo "VN=$VN" >> "$GITHUB_ENV"
+          sed -i "s/versionCode 1$/versionCode ${{ github.run_number }}/" android/app/build.gradle
+          sed -i "s/versionName \"1.0\"/versionName \"$VN\"/" android/app/build.gradle
+          sed -i 's/android:name=".MainActivity"/android:name=".MainActivity"\n            android:screenOrientation="portrait"/' android/app/src/main/AndroidManifest.xml
+          grep -E "versionCode|versionName" android/app/build.gradle
+
+      - name: Sync web assets and plugins
+        run: npx cap sync android
+
+      - name: Build release APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      # The signing key is not in the repository: it comes from repository secrets
+      - name: Sign APK
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KS_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          if [ -z "$KS_B64" ] || [ -z "$KS_PASS" ]; then
+            echo "::error::Missing secrets ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD (see README)"; exit 1
+          fi
+          echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.p12"
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          "$BT/zipalign" -p -f 4 android/app/build/outputs/apk/release/app-release-unsigned.apk "$RUNNER_TEMP/aligned.apk"
+          "$BT/apksigner" sign --ks "$RUNNER_TEMP/release.p12" --ks-type PKCS12 --ks-key-alias darts \
+            --ks-pass env:KS_PASS --key-pass env:KS_PASS --out darts.apk "$RUNNER_TEMP/aligned.apk"
+          rm -f "$RUNNER_TEMP/release.p12"
+          "$BT/apksigner" verify --print-certs darts.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: darts-${{ env.VN }}
+          path: darts.apk
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # if the release already exists (e.g. re-run, or created from the web UI) just replace the APK
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" darts.apk --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$GITHUB_REF_NAME" darts.apk \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "Darts $VN" \
+              --generate-notes
+          fi
