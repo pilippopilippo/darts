@@ -1,5 +1,5 @@
-node_modules/
-android/
+/node_modules/
+/android/
 # signing keys must never be committed
 *.p12
 *.jks

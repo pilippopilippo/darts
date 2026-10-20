@@ -50,6 +50,7 @@ jobs:
       # Android 13+ themed (monochrome) icon and Android 12+ system splash
       - name: Themed icon and splash screen
         run: |
+          if [ ! -d assets/android/res ]; then echo "::warning::assets/android/res missing: default icon and splash kept"; exit 0; fi
           cp -r assets/android/res/* android/app/src/main/res/
           for f in android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml; do
             if [ -f "$f" ] && ! grep -q monochrome "$f"; then
