@@ -180,36 +180,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .bob .k{height:76px;font-size:34px}
 @media (max-height:720px){.k{height:44px}.mul{height:38px}.bob .k{height:60px}.rem{font-size:clamp(50px,15vw,80px)}}
 
-/* row layout (X01, Cricket) */
-.sb.rows{display:flex;flex-direction:column;gap:8px;min-height:100%}
-.sb.rows .pl{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}
-.sb.rows .pl>.pl-top,.sb.rows .slots,.sb.rows .co,.sb.rows .hint{grid-column:1/-1}
-.sb.rows .pl>.meta{grid-column:1}
-.sb.rows .pl>.rem{grid-column:2;grid-row:2/4;font-size:54px;margin:0;align-self:center}
-.sb.rows .pl.on{flex:1 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:8px;padding:12px 14px}
-.sb.rows .pl.on .rem{font-size:clamp(78px,25vw,130px);margin:0}
-.mid{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.vis{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
-.vis .slots{margin:0}
-.vis .slot{width:54px;flex:none}
-.vsum{font:800 32px/1 var(--fc);min-height:32px;font-variant-numeric:tabular-nums}
-.nmw{display:flex;align-items:center;gap:8px;min-width:0}
-.starter{width:10px;height:10px;border-radius:50%;background:var(--brass);flex:none}
-.lgs{display:flex;gap:12px;align-items:center;flex:none}
-.lgi{display:flex;align-items:center;gap:5px}
-.lgi small{font:600 12px var(--fb);color:var(--muted)}
-.dots{display:flex;gap:3px}
-.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted)}
-.dots i.w{background:var(--green);border-color:var(--green)}
-.crrow{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.crp{font:800 40px/1 var(--fc);font-variant-numeric:tabular-nums}
-.strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:6px}
-.cell{background:var(--surf2);border-radius:8px;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 22px/1 var(--fc)}
-.cell small{font:600 12px var(--fb);color:var(--muted);margin-bottom:3px}
-.cell .mk3{width:26px;height:26px;font-size:15px;border-width:2.5px}
-.cell.closed{background:var(--surf2);background:color-mix(in srgb,var(--green) 16%,var(--surf2))}
-.cell.dead{opacity:.4}
-.sb.rows.cr2 .pl.on{flex:0 0 auto;display:grid;padding:12px 14px}
 /* pad states */
 .pad.m2 .nums .k{border:2px solid var(--red);color:var(--red);background:color-mix(in srgb,var(--red) 9%,var(--surf))}
 .pad.m3 .nums .k{border:2px solid var(--green);color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--surf))}
@@ -258,72 +228,117 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .c-catScore{background:color-mix(in srgb,var(--brass) 14%,var(--surf))}.c-catScore .dic{color:var(--brass)}
 .c-catPrec{background:color-mix(in srgb,var(--green) 12%,var(--surf))}.c-catPrec .dic{color:var(--green)}
 select.field{appearance:auto}
-/* fit: all players always on screen, no scrolling */
-.board{overflow:hidden;container-type:size;display:flex;flex-direction:column;padding:8px 10px}
-.board>.banner{flex:none;margin:0 2px 6px}
-.sb.rows{flex:1;min-height:0;height:auto;gap:6px}
-.sb.rows .pl{flex:1 1 0;min-height:0;overflow:hidden;padding:6px 12px;margin:0}
-.sb.rows .pl.on{flex:var(--g) 1 0;padding:8px 12px;gap:4px}
-.sb.rows .pl>.rem{font-size:min(54px,calc(100cqh / (var(--n) - 1 + var(--g)) * .56))}
-.sb.rows .pl.on .rem{font-size:min(25vw,130px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .48))}
-.sb.rows.flat .pl.on{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}
-.sb.rows.flat .pl.on>.rem{grid-column:2;grid-row:2/4;font-size:min(64px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .42))}
-.sb.rows.dense .pl:not(.on)>.meta{display:none}
-.sb.rows .slot{height:30px}
-.cr2 .pl,.sb.rows.cr2 .pl.on{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:6px 10px}
-.cr2 .crrow{gap:8px}.cr2 .crrow .meta{flex:1;min-width:0}
-.cr2 .crp{font-size:min(38px,calc(100cqh / var(--n) * .26))}
-.cr2 .strip{margin-top:2px}
-.cr2 .cell{height:clamp(26px,calc(100cqh / var(--n) - 66px),54px)}
-.cr2 .cell small{font-size:11px;margin-bottom:1px}
-.slots.mini{margin:0;gap:4px;flex:none}.slots.mini .slot{width:40px;height:26px;font-size:15px;flex:none}
-@container (max-height:280px){.sb.rows .pl>.meta,.sb.rows .pl.on .meta,.cr2 .cell small{display:none}.sb.rows .pl.on .co span{font-size:16px;padding:1px 8px}}
+/* ---- game board: every player always on screen, every row sizes its own content ---- */
+.board{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:8px 10px}
+.board>.banner{flex:none;margin:0 2px 6px}.board>.banner b{font-size:clamp(24px,7vw,40px)}
+.sb.rows{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px}
+.sb.rows .pl{flex:1 1 0;min-height:0;min-width:0;container-type:size;overflow:hidden;margin:0;padding:6px 12px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;align-content:center;align-items:center}
+.sb.rows .pl.on{flex-grow:var(--g,1)}
+.sb.rows .pl>.pl-top{grid-column:1;grid-row:1;min-width:0}
+.sb.rows .pl>.meta{grid-column:1;grid-row:2;min-width:0}
+.sb.rows .pl>.rem{grid-column:2;grid-row:1/3;margin:0;line-height:.9;font-size:clamp(15px,min(60cqh,24cqw),58px)}
+.sb.rows .pl>.bar{grid-column:1/-1;grid-row:3;margin-top:4px}
+.sb.rows .pl>.slots,.sb.rows .pl>.co,.sb.rows .pl>.hint{grid-column:1/-1;grid-row:4;margin-top:4px}
+.sb.rows .pl>.slots .slot{height:min(34px,22cqh);font-size:min(19px,13cqh)}
+.nmw{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.nmc{display:flex;flex-direction:column;min-width:0}
+.sb .nm{font-size:clamp(14px,30cqh,21px)}
+.sb .nm.long{font-size:clamp(12px,min(30cqh,6.4cqw),21px)}
+.starter{width:10px;height:10px;border-radius:50%;background:var(--brass);flex:none}
+.lgs{display:flex;gap:10px;align-items:center;flex:none}
+.lgi{display:flex;align-items:center;gap:4px}
+.lgi small{font:600 12px var(--fb);color:var(--muted)}
+.lgn{font:700 15px var(--fc)}
+.dots{display:flex;gap:3px}
+.dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted)}
+.dots i.w{background:var(--green);border-color:var(--green)}
+.ktag{color:var(--red);font:700 15px var(--fc);flex:none}
+/* active X01 / practice row: score left, darts and checkout right */
+.sb.rows .pl.xm{display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:2px;padding:8px 12px}
+.xm .mid{flex:1;min-height:0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.xm .mid .rem{font-size:min(130px,62cqh,30cqw);margin:0;line-height:.85}
+.vis{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;flex:none;min-width:0}
+.vis .slots{display:flex;gap:5px;margin:0}
+.vis .slot{flex:none;width:min(54px,13cqw);height:min(34px,15cqh);font-size:min(19px,10cqh)}
+.vsum{font:800 min(32px,14cqh)/1 var(--fc);font-variant-numeric:tabular-nums}
+.vis .co{margin:0;justify-content:flex-end;gap:5px}
+.vis .co span{font-size:min(19px,11cqh);padding:1px 8px}
+.vis .hint{margin:0;text-align:right;max-width:46cqw}
+/* active X01 / practice row, checkout always readable: score left; darts, visit total and checkout right */
+.sb.rows .pl.xm{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto auto;column-gap:10px;row-gap:3px;align-content:stretch;align-items:center;padding:6px 12px;min-height:86px}
+.sb.rows .pl.xm>.pl-top{grid-column:1/-1;grid-row:1}
+.xm>.mid{display:contents}
+.xm .mid .rem{grid-column:1;grid-row:2;align-self:center;margin:0;line-height:.85;font-size:clamp(26px,min(52cqh,24cqw),130px)}
+.xm .vis{grid-column:2;grid-row:2;align-self:center;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.sb.rows .pl.xm>.hint{grid-column:1/-1;grid-row:3;margin:0}
+.sb.rows .pl.xm>.meta{grid-column:1/-1;grid-row:4}
+.vrow{display:flex;align-items:center;gap:6px}
+.vrow .slots{display:flex;gap:4px;margin:0}
+.vrow .slot{flex:none;width:clamp(34px,12cqw,54px);height:clamp(20px,14cqh,34px);font-size:clamp(13px,9cqh,19px)}
+.vrow .vsum{order:-1;font:800 clamp(16px,12cqh,30px)/1 var(--fc);min-width:1.4em;text-align:right}
+.xm .co{margin:0;gap:4px;justify-content:flex-end;flex-wrap:nowrap}
+.xm .co span{font-size:clamp(16px,10cqh,20px);line-height:1.25;padding:1px 7px;white-space:nowrap}
+.xm .vis .hint{max-width:46cqw;text-align:right;margin:0}
+/* many players: two columns, the player throwing on top across the full width */
+.sb.rows.dense{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-rows:minmax(0,1fr);gap:5px}
+.sb.rows.dense>.pl.on{grid-column:1/-1;order:-1}
+.sb.rows.dense.big>.pl.on{grid-row:span 2}
+.sb.rows.dense .pl{padding:3px 8px}
+/* narrow cells: name on its own line, set/leg dots underneath, so names are never squeezed */
+.sb.rows.dense .pl:not(.on) .pl-top{flex-wrap:wrap;column-gap:6px;row-gap:1px;align-items:center}
+.sb.rows.dense .pl:not(.on) .pl-top .nmw{flex:1 0 100%}
+@container (max-height:25px){.sb.rows.dense .lgs,.sb.rows.dense .ktag{display:none}}
+/* cricket */
+.sb.rows.cr2 .pl{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:3px;padding:5px 10px}
+.cr2 .crrow{display:flex;align-items:center;gap:8px;min-width:0}
+.cr2 .crp{font:800 min(38px,28cqh)/1 var(--fc);font-variant-numeric:tabular-nums;flex:none}
+.cr2 .meta{display:flex;align-items:center;gap:2px 12px}
+.cr2 .meta .lgs{margin-left:auto}
+.strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.cell{background:var(--surf2);border-radius:7px;height:clamp(14px,calc(100cqh - 62px),64px);display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 min(22px,18cqh)/1 var(--fc);min-width:0}
+.cell small{font:600 11px/1 var(--fb);color:var(--muted);margin-bottom:2px}
+.cell .mk3{width:min(26px,18cqh);height:min(26px,18cqh);font-size:min(15px,11cqh);border-width:2px}
+.cell.closed{background:color-mix(in srgb,var(--green) 16%,var(--surf2))}
+.cell.dead{opacity:.4}
+.mk3{display:inline-grid;place-items:center;border-radius:50%;border:3px solid var(--green);color:var(--green);line-height:1}
+.slots.mini{display:flex;margin:0;gap:4px;flex:none}.slots.mini .slot{flex:none;width:min(40px,10cqw);height:min(26px,22cqh);font-size:min(15px,13cqh)}
+/* compact content when a row is short or narrow */
+@container (max-height:118px){.meta{display:none!important}.lgi small{display:none}.cell{height:clamp(14px,calc(100cqh - 40px),64px)}}
+@container (max-height:80px){.cell small{display:none}.tm{display:none}}
+@container (max-width:190px){.lgi small{display:none}.lgs{gap:6px}}
 .pad.tot .typerow{display:flex;align-items:baseline;justify-content:center;gap:14px}
 .pad.tot .typed{font-size:38px;min-width:70px;text-align:right}
 .pad.tot .preview{min-width:120px;text-align:left}
 .pad.tot .keys .k{height:46px}
 .k.two{line-height:1.05;padding:0 6px}
-/* fit, second pass: one-line rows for waiting players, compact active row when crowded */
-.sb.rows .pl:not(.on){display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;align-content:center}
-.sb.rows .pl:not(.on)>.pl-top{grid-column:1;grid-row:1}
-.sb.rows .pl:not(.on)>.meta{grid-column:1;grid-row:2}
-.sb.rows .pl:not(.on)>.rem{grid-column:2;grid-row:1/3;line-height:.95}
-.sb.rows.flat .pl.on>.pl-top{grid-column:1;grid-row:1}
-.sb.rows.flat .pl.on>.meta{grid-column:1;grid-row:2}
-.sb.rows.flat .pl.on>.rem{grid-row:1/3}
-.sb.rows.dense .pl{padding:2px 10px}
-.sb.rows.dense .nm{font-size:16px}
-.sb.rows.dense .lgs small{display:none}
-.sb.rows.dense .pl.on{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-content:center;row-gap:3px}
-.sb.rows.dense .pl.on>.pl-top{grid-column:1;grid-row:1}
-.sb.rows.dense .pl.on .mid{display:contents}
-.sb.rows.dense .pl.on .rem{grid-column:2;grid-row:1/4;font-size:min(56px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .6))}
-.sb.rows.dense .pl.on .vis{grid-column:1;grid-row:2;flex-direction:row;align-items:center}
-.sb.rows.dense .pl.on>.slots{grid-column:1;grid-row:2;margin:0}
-.sb.rows.dense .pl.on .slot{width:38px;height:24px;font-size:14px;flex:none}
-.sb.rows.dense .pl.on .vsum{font-size:20px;min-height:0}
-.sb.rows.dense .pl.on .co,.sb.rows.dense .pl.on .hint{grid-column:1;grid-row:3;margin:0}
-.sb.rows.dense .pl.on .co span{font-size:15px;padding:0 7px}
-.sb.rows.dense .pl.on>.meta{display:none}
-.cr2 .crrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.cr2 .crrow .nmw{flex:1}
-.cr2 .meta{display:flex;align-items:center;gap:2px 12px}
-.cr2 .meta .lgs{margin-left:auto}
-.cr2 .cell{height:clamp(24px,calc(100cqh / var(--n) - 74px),70px)}
-.sb.rows.cr2.dense .pl>.meta{display:none}
-.sb.rows.cr2.dense .cell{height:clamp(24px,calc(100cqh / var(--n) - 52px),54px)}
-.sb.rows.cr2.dense .pl{display:flex}
-@container (max-height:300px){.sb.rows.dense .pl.on .co{display:none}}
-.sb.rows.cr2 .pl{display:flex!important;flex-direction:column;justify-content:center;align-items:stretch}
-.sb.rows.cr2 .pl>*{width:100%}
+/* small and short screens */
+.ver{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+.top h2{font-size:clamp(16px,5.2vw,21px)}
+@media (max-height:700px){.top{padding:6px 10px}.ib{height:38px;min-width:40px}.pad{padding:6px 8px;gap:5px}.nums,.row4,.mulrow,.keys,.quick{gap:5px}
+  .k{height:42px;font-size:21px}.mul{height:36px;font-size:18px}.k.wide{height:38px}.quick .k{height:36px;font-size:18px}.pad.tot .keys .k{height:40px}.pad.tot .typed{font-size:32px}.bob .k{height:56px}}
+@media (max-height:700px){.pad.tot .typerow .typed{font-size:30px}.pad.tot .quick .k{height:34px}.pad.tot .keys .k{height:38px}}
+@media (max-height:600px){.k{height:36px;font-size:19px}.mul{height:32px;font-size:17px}.k.wide{height:34px;font-size:15px}.quick .k{height:32px;font-size:17px}
+  .pad.tot .keys .k{height:34px}.pad.tot .typed{font-size:28px}.bob .k{height:46px;font-size:28px}.k.small{font-size:15px}}
+@media (max-height:520px){.top{padding:4px 8px}.ib{height:32px;min-width:36px;font-size:15px}.pad{padding:4px 6px;gap:4px}.nums,.row4,.mulrow,.keys,.quick{gap:4px}
+  .k{height:31px;font-size:17px}.mul{height:28px;font-size:15px}.k.wide{height:29px;font-size:14px}.quick .k,.pad.tot .quick .k{height:28px;font-size:15px}.pad.tot .keys .k{height:30px}.pad.tot .typerow .typed{font-size:24px}.pad.tot .quick{display:none}.bob .k{height:40px;font-size:24px}.board{padding:5px 8px}}
+@media (max-height:560px){.pad.tot .quick{display:none}}
+@media (max-width:340px){.k{font-size:19px}.k.small{font-size:14px}.mul{font-size:17px}.nm{font-size:18px}}
+.selp{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--brass);border-radius:12px;background:var(--surf);margin-bottom:6px}
+.selp b{flex:1;min-width:0;font:600 19px var(--fc);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.selp .ord{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+.selp .ib{height:36px;min-width:36px;padding:0 8px}
+.plist{max-height:min(46vh,420px);overflow-y:auto;margin:0 -4px;padding:0 4px}
+.plist .prow{margin-bottom:6px}
+.plist .prow:disabled{opacity:.45}
 /* modal & toast */
-.modal{position:fixed;inset:0;background:rgba(5,12,9,.6);display:grid;place-items:end center;z-index:50;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.modal{position:fixed;inset:0;background:rgba(5,12,9,.6);display:grid;place-items:center;z-index:50;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
 .modal[hidden]{display:none}
-.sheet{background:var(--surf);border-radius:18px;padding:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto}
+.sheet{background:var(--surf);border-radius:18px;padding:20px;width:100%;max-width:520px;max-height:100%;overflow-y:auto}
 .sheet h3{font:800 30px/1.05 var(--fc);margin-bottom:8px}
 .sheet p{color:var(--muted);margin-bottom:14px}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px;margin-bottom:12px}
-.opts .k{height:56px}
+.opts .k{height:auto;min-height:56px;padding:6px 8px;line-height:1.1;overflow-wrap:anywhere}
 .toast{position:fixed;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:12px;font:700 19px var(--fc);z-index:60;pointer-events:none;opacity:0;transition:opacity .2s;max-width:90vw;text-align:center}
 .toast.show{opacity:1}
 .big180{position:fixed;inset:0;display:grid;place-items:center;z-index:55;pointer-events:none}
@@ -416,7 +431,7 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:v=>`Record personale: leg in ${v} freccette`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
   achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
@@ -497,7 +512,7 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:v=>`Personal best: ${v}-dart leg`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
   achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
@@ -1037,11 +1052,11 @@ function kDart(n,m){
 }
 function kHl(){const p=G.turn;return G.killer[p]?G.kn.filter((_,i)=>i!==p&&!G.out[i]):[G.kn[p]]}
 function bKiller(){
-  return`<div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:1.7">`+G.players.map((pl,i)=>{
+  return`<div class="sb rows ${G.players.length>4?'dense big':''}" style="--g:1.7">`+G.players.map((pl,i)=>{
     const on=i===G.turn,lv=G.lives[i],mx=G.opts.lives||3;
     const hearts=`<span class="dots">${[...Array(mx)].map((_,k)=>`<i class="${k<lv?'w':''}"></i>`).join('')}</span>`;
-    return`<section class="pl ${on?'on':''} ${G.out[i]?'out':''}" data-p="${i}"><div class="pl-top">${nameTag(i)}<span class="lgs"><span class="lgi"><small>${t('lives')}</small>${hearts}</span></span></div>
-      <div class="meta"><span>${G.out[i]?t('outTag'):G.killer[i]?'<b class="ktag">Killer</b>':''}</span><span>${t('last')} ${lastTxt(i)}</span></div>
+    return`<section class="pl ${on?'on':''} ${G.out[i]?'out':''}" data-p="${i}"><div class="pl-top">${nameTag(i)}${G.out[i]?`<b class="ktag">${t('outTag')}</b>`:G.killer[i]?'<b class="ktag">Killer</b>':''}<span class="lgs"><span class="lgi"><small>${t('lives')}</small>${hearts}</span></span></div>
+      <div class="meta"><span>${t('last')} ${lastTxt(i)}</span></div>
       <div class="rem">D${G.kn[i]}</div>${on?slots():''}</section>`;
   }).join('')+'</div>';
 }
@@ -1108,8 +1123,8 @@ function bDrill(){
   let route='';if(co){const r=checkout(s.rem,3-G.visit.length,'double');if(r)route=`<div class="co">${r.map(x=>`<span>${lab(x)}</span>`).join('')}</div>`}
   const extra=d==='c40'?`<div class="hint">${t('c40Pts')}</div>`:d==='121'&&s.target?`<div class="hint">${t('d_121')}: ${s.target}</div>`:'';
   return`<div class="banner"><b>${t('d_'+d)}</b><span>${t('roundOf',Math.min(s.round+1,s.total),s.total)}</span></div>
-   <div class="sb rows" style="--n:1;--g:1"><section class="pl on" data-p="0"><div class="pl-top">${nameTag(0)}<span class="lg">${sub}</span></div>
-   <div class="mid"><div class="rem drt" data-anim="dr" data-v="${/^\d+$/.test(drTarget())?drTarget():''}">${drTarget()}</div><div class="vis">${slots()}</div></div>${route}${extra}
+   <div class="sb rows"><section class="pl on xm" data-p="0"><div class="pl-top">${nameTag(0)}<span class="lg">${sub}</span></div>
+   <div class="mid"><div class="rem drt" data-anim="dr" data-v="${/^\d+$/.test(drTarget())?drTarget():''}">${drTarget()}</div><div class="vis"><div class="vrow">${slots()}</div>${route}</div></div>${extra}
    <div class="meta"><span>${t('darts',G.stats[0].darts)}</span><span>${t('last')} ${lastTxt(0)}</span></div></section></div>`;
 }
 
@@ -1171,20 +1186,24 @@ function h2hHtml(){
 }
 
 /* ---------- update check (APK only) ---------- */
+const APP_BUILD='dev';
 const REPO='pilippopilippo/darts';let UPD=null;
 function cmpVer(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0}
-async function checkUpdate(){
-  const A=CAP('App');if(!A)return;
+/* checked at every start and every return to the app (at most every 15 minutes), or on demand from Settings */
+let APPVER='';
+async function checkUpdate(force){
+  const A=CAP('App'),fail=()=>{if(force)toast(t('updFail'))};if(!A)return fail();
   try{
-    const cur=(await A.getInfo()).version||'';if(!/^\d+(\.\d+)*$/.test(cur))return;
-    let u=LS.get('upd',null);
-    if(Date.now()-LS.get('updchk',0)>20*3600e3){
-      LS.set('updchk',Date.now());
-      const r=await fetch(`https://api.github.com/repos/${REPO}/releases/latest`,{headers:{Accept:'application/vnd.github+json'}});
-      if(r.ok){const j=await r.json();u={v:String(j.tag_name||'').replace(/^v/,'')};LS.set('upd',u)}
-    }
-    if(u&&/^\d+(\.\d+)*$/.test(u.v)&&cmpVer(u.v,cur)>0&&LS.get('updskip','')!==u.v){UPD=u;if(V.name==='home')render()}
-  }catch(e){}
+    if(!APPVER){APPVER=(await A.getInfo()).version||'';if(V.name==='settings')render()}
+    if(!/^\d+(\.\d+)*$/.test(APPVER))return fail();
+    if(!force&&Date.now()-LS.get('updchk',0)<15*60e3)return;
+    LS.set('updchk',Date.now());
+    const r=await fetch(`https://api.github.com/repos/${REPO}/releases/latest`,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
+    if(!r.ok)return fail();
+    const v=String((await r.json()).tag_name||'').replace(/^v/,'');
+    if(/^\d+(\.\d+)*$/.test(v)&&cmpVer(v,APPVER)>0&&(force||LS.get('updskip','')!==v)){UPD={v};if(V.name==='home'||V.name==='settings')render()}
+    else{UPD=null;if(force){toast(t('updNone'));render()}}
+  }catch(e){fail()}
 }
 
 /* ---------- backup to / from a file ---------- */
@@ -1206,6 +1225,29 @@ function vTraining(){
   </div>`;
 }
 
+
+/* ---------- player picker (popup): search, tick, add new; at most 8 players including the CPU ---------- */
+const MAXP=8;
+function recentOrder(){const last={};DB.history.forEach(h=>h.players.forEach(p=>{if(!(p.id in last))last[p.id]=h.ended||0}));
+  return DB.players.slice().sort((a,b)=>(last[b.id]||0)-(last[a.id]||0)||a.name.localeCompare(b.name))}
+function pickerHtml(q){
+  const sel=SETUP.players,max=MAXP-(SETUP.cpu.on?1:0),full=sel.length>=max;
+  const rows=recentOrder().map(p=>{const k=sel.indexOf(p.id);return`<button class="prow ${k>=0?'on':''}" data-act="ppick" data-v="${p.id}" data-name="${esc(p.name.toLowerCase())}" ${k<0&&full?'disabled':''}><span class="ord">${k>=0?k+1:''}</span>${esc(p.name)}</button>`}).join('');
+  return`<h3>${t('choosePlayers')}</h3>
+   ${DB.players.length>6?`<input class="field" id="psearch" type="search" placeholder="${t('search')}" value="${esc(q||'')}" style="width:100%;margin-bottom:8px">`:''}
+   <div class="plist">${rows||`<p class="muted">${t('addFirst')}</p>`}<p class="muted pnone" hidden>${t('noMatch')}</p></div>
+   ${full?`<p class="muted" style="font-size:14px;margin:6px 0 0">${t('maxPlayers',max)}</p>`:''}
+   <div class="addrow" style="margin-top:10px"><input id="newp" placeholder="${t('newName')}" maxlength="24" enterkeyhint="done"><button class="ib" data-act="addp">${t('add')}</button></div>
+   <button class="btn primary" data-act="pdone" style="margin-top:12px">${t('done')} (${sel.length})</button>`;
+}
+function filterPicker(){const i=document.getElementById('psearch');if(!i)return;const q=i.value.trim().toLowerCase();let any=false;
+  document.querySelectorAll('.plist .prow').forEach(b=>{const ok=!q||b.dataset.name.includes(q);b.hidden=!ok;if(ok)any=true});
+  const n=document.querySelector('.plist .pnone');if(n)n.hidden=any}
+function openPicker(focusNew){
+  const old=document.getElementById('psearch'),q=old?old.value:'',sc=document.querySelector('.modal .sheet');const top=sc?sc.scrollTop:0;
+  showModal(pickerHtml(q));const sh=document.querySelector('.modal .sheet');if(sh)sh.scrollTop=top;filterPicker();
+  const f=document.getElementById(focusNew?'newp':'psearch');if(f&&(focusNew||q))f.focus();else document.activeElement&&document.activeElement.blur();
+}
 /* ---------- navigation ---------- */
 let V={name:'home'},NAV=[];
 const PAD={mul:1,typed:''};
@@ -1249,7 +1291,7 @@ function topbar(title,right){return`<header class="top"><button class="ib" data-
 function vHome(){
   const res=G&&!G.finished?`<div class="resume"><b>${esc(modeLabel(G.mode,G.opts))}</b><div class="muted">${G.players.map(p=>esc(p.name)).join(t('vs'))}</div><button class="btn primary" data-act="resume">${t('resume')}</button><button class="btn danger" data-act="abandon">${t('abandon')}</button></div>`:'';
   const upd=UPD?`<div class="resume"><b>${t('updAvail',UPD.v)}</b><button class="btn primary" data-act="upd">${t('updGet')}</button><button class="btn" data-act="updlater">${t('updLater')}</button></div>`:'';
-  return`<div class="page"><div class="hero">${boardSVG()}<div><h1>Darts</h1><p>${t('appSub')}</p></div></div>
+  return`<div class="page"><div class="hero">${boardSVG()}<div><h1>Darts</h1></div></div>
   ${upd}${res}<button class="btn ${res?'':'primary'}" data-act="go" data-v="setup">${t('newMatch')}</button>
   <nav class="menu">
     <button data-act="go" data-v="training">${t('training')} <span></span></button>
@@ -1276,7 +1318,8 @@ function vSetup(){
   if(m==='bobs')o=`<p class="muted" style="margin-top:14px">${t('bobsInfo')}</p>`;
   if(m==='killer')o=`<div class="lbl">${t('lives')}</div>${chips('killer.lives',[[3,'3'],[5,'5']],s.killer.lives)}<p class="muted" style="margin-top:12px;font-size:14px">${t('kInfo')}</p>`;
   const sel=s.players;
-  const pl=DB.players.length?DB.players.map(p=>{const i=sel.indexOf(p.id);return`<button class="prow ${i>=0?'on':''}" data-act="pick" data-v="${p.id}"><span class="ord">${i>=0?i+1:''}</span>${esc(p.name)}</button>`}).join(''):`<p class="muted" style="margin-bottom:8px">${t('addFirst')}</p>`;
+  const pl=sel.map((id,k)=>{const p=DB.players.find(x=>x.id===id);return`<div class="selp"><span class="ord">${k+1}</span><b>${esc(p.name)}</b>${k?`<button class="ib" data-act="pmove" data-v="${id}" aria-label="${t('moveUp')}">↑</button>`:''}<button class="ib" data-act="pick" data-v="${id}" aria-label="${t('remove')}">✕</button></div>`}).join('')
+    +`<button class="btn" data-act="picker">${sel.length?t('changePlayers'):t('choosePlayers')}</button>`;
   const min=m==='cricket'||m==='killer'?2:1,tot=sel.length+(s.cpu.on?1:0);
   const canTeams=(m==='x01'||m==='cricket')&&sel.length===4&&!s.cpu.on;
   let extra='';
@@ -1287,14 +1330,13 @@ function vSetup(){
   if(tot>1&&!s.random)extra+=`<button class="toggle ${s.bulloff?'on':''}" data-act="bulloff">${t('bulloff')}<span class="sw"></span></button>`;
   return topbar(t('newMatch'))+`<div class="page">
    <div class="scroller">${SETUP_MODES.map(k=>[k,MODES[k]()]).map(([k,l])=>`<button class="chip ${m===k?'on':''}" data-act="mode" data-v="${k}">${l}</button>`).join('')}</div>
-   ${o}
    <div class="lbl">${t('order')}</div>${pl}
-   <div class="addrow"><input id="newp" placeholder="${t('newName')}" maxlength="24" enterkeyhint="done"><button class="ib" data-act="addp">${t('add')}</button></div>
    <button class="toggle ${s.cpu.on?'on':''}" data-act="cpu" style="margin-top:10px">${t('vsCpu')}<span class="sw"></span></button>
    ${s.cpu.on?`<div class="prow2" style="border-bottom:0"><b>${esc(cpuName())}</b><button class="ib" data-act="cpuname">${t('rename')}</button>${s.cpu.name?`<button class="ib" data-act="cpuauto">${t('autoName')}</button>`:''}</div>
    <div class="steps" style="margin:4px 0 4px">${stepper('cpu.level',t('skill',CPU_AVG[s.cpu.level-1]),s.cpu.level)}</div>`:''}
-   <button class="toggle ${s.random?'on':''}" data-act="rnd">${t('random')}<span class="sw"></span></button>
-   ${extra}
+   ${o}
+   <div style="margin-top:14px"><button class="toggle ${s.random?'on':''}" data-act="rnd">${t('random')}<span class="sw"></span></button>
+   ${extra}</div>
    <div class="startbar"><button class="btn primary" data-act="start" ${tot<min||!sel.length?'disabled':''}>${!sel.length?t('pickOne'):tot<min?t('needTwo'):t('start')}</button></div>
   </div>`;
 }
@@ -1304,16 +1346,17 @@ function slots(){
   let h='<div class="slots">';for(let i=0;i<3;i++){const d=G.visit[i];h+=`<div class="slot ${d?'f':''}">${d?lab(d):''}</div>`}return h+'</div>';
 }
 function lastTxt(i){const l=G.last[i];if(!l)return'–';if(l.bust)return`<span class="bust">${t('bust')}</span>`;if(l.score!=null)return l.score;return l.d.join(' ')}
-function dots(won,need){let h='<span class="dots">';for(let k=0;k<need;k++)h+=`<i class="${k<won?'w':''}"></i>`;return h+'</span>'}
+function dots(won,need){if(need>5)return`<b class="lgn">${won}/${need}</b>`;let h='<span class="dots">';for(let k=0;k<need;k++)h+=`<i class="${k<won?'w':''}"></i>`;return h+'</span>'}
 function legInfo(i){
   const o=G.opts;let h='',lbl=[];
   if(o.sets>1){h+=`<span class="lgi"><small>Set</small>${dots(G.setsWon[i],o.sets)}</span>`;lbl.push(`Set ${G.setsWon[i]}/${o.sets}`)}
   if(o.legs>1||o.sets>1){h+=`<span class="lgi"><small>Leg</small>${dots(G.legsWon[i],o.legs)}</span>`;lbl.push(`Leg ${G.legsWon[i]}/${o.legs}`)}
   return h?`<span class="lgs" role="img" aria-label="${lbl.join(', ')}">${h}</span>`:'';
 }
-function nameTag(i){return`<span class="nmw">${i===G.legStarter?`<span class="starter" role="img" aria-label="${t('startedLeg')}" title="${t('startedLeg')}"></span>`:''}<span class="nmc"><b class="nm">${esc(G.players[i].name)}</b>${G.players[i].members?`<small class="tm">${t('throwingNow',esc(pname(i)))}</small>`:''}</span></span>`}
+function nameTag(i){return`<span class="nmw">${i===G.legStarter?`<span class="starter" role="img" aria-label="${t('startedLeg')}" title="${t('startedLeg')}"></span>`:''}<span class="nmc"><b class="nm${G.players[i].name.length>12?' long':''}">${esc(G.players[i].name)}</b>${G.players[i].members?`<small class="tm">${t('throwingNow',esc(pname(i)))}</small>`:''}</span></span>`}
 function bX01(){
-  return`<div class="sb rows ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>4?2.6:G.players.length>1?2.4:1}">`+G.players.map((pl,i)=>{
+  const n=G.players.length,rowsCss=n>4?`grid-template-rows:minmax(86px,2fr) repeat(${Math.ceil((n-1)/2)},minmax(0,1fr))`:'';
+  return`<div class="sb rows ${n>4?'dense':''}" style="--g:${n>1?2.4:1};${rowsCss}">`+G.players.map((pl,i)=>{
     const on=i===G.turn,st=G.stats[i],avg=st.darts?nf(st.pts/st.darts*3,1):'–';
     const top=`<div class="pl-top">${nameTag(i)}${legInfo(i)}</div>`;
     const meta=`<div class="meta"><span>${t('avg')} ${avg}</span><span>${t('last')} ${lastTxt(i)}</span><span>${t('darts',G.legDarts[i])}</span></div>`;
@@ -1322,14 +1365,14 @@ function bX01(){
     if(!G.opened[i])co=`<div class="hint">${t(G.opts.inMode==='double'?'hintD':'hintM')}</div>`;
     else{const left=G.input==='total'?3:3-G.visit.length;const r=checkout(G.rem[i],left,G.opts.outMode);if(r)co=`<div class="co" aria-label="${t('sugg')}">${r.map(d=>`<span>${lab(d)}</span>`).join('')}</div>`}
     const sum=G.visit.reduce((a,d)=>a+(d.v||0),0);
-    const vis=G.input==='total'?'':`<div class="vis">${slots()}<div class="vsum">${G.visit.length?sum:''}</div></div>`;
-    return`<section class="pl on" data-p="${i}">${top}<div class="mid"><div class="rem" data-anim="r${i}" data-v="${G.rem[i]}">${G.rem[i]}</div>${vis}</div>${co}${meta}</section>`;
+    const vis=`<div class="vis">${G.input==='total'?'':`<div class="vrow">${slots()}<div class="vsum">${G.visit.length?sum:''}</div></div>`}${co}</div>`;
+    return`<section class="pl on xm" data-p="${i}">${top}<div class="mid"><div class="rem" data-anim="r${i}" data-v="${G.rem[i]}">${G.rem[i]}</div>${vis}</div>${meta}</section>`;
   }).join('')+'</div>';
 }
 function bCricket(){
   const P=G.players,mk=v=>v>=3?'<span class="mk3">✕</span>':v===2?'<span class="mk">✕</span>':v===1?'<span class="mk">/</span>':'';
   const dead=tg=>P.every((_,i)=>G.marks[i][tg]>=3);
-  return`<div class="sb rows cr2 ${P.length>3?'dense':''}" style="--n:${P.length};--g:1">`+P.map((pl,i)=>{
+  return`<div class="sb rows cr2 ${P.length>3?'dense':''}">`+P.map((pl,i)=>{
     const on=i===G.turn,st=G.stats[i],mpr=st.rounds?nf(st.marks/st.rounds,2):'–';
     const pts=G.opts.variant==='noscore'?'':`<div class="crp" data-anim="p${i}" data-v="${G.points[i]}">${G.points[i]}</div>`;
     return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="crrow">${nameTag(i)}${on?slots().replace('class="slots"','class="slots mini"'):''}${pts}</div>
@@ -1339,7 +1382,7 @@ function bCricket(){
 }
 function bAtc(){
   const seq=atcSeq(),v=G.opts.variant,pre=v==='double'?'D':v==='triple'?'T':'';
-  return`<div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>1?1.6:1}">`+G.players.map((pl,i)=>{const on=i===G.turn,tg=seq[G.pos[i]],st=G.stats[i];
+  return`<div class="sb rows ${G.players.length>4?'dense big':''}" style="--g:${G.players.length>1?1.6:1}">`+G.players.map((pl,i)=>{const on=i===G.turn,tg=seq[G.pos[i]],st=G.stats[i];
     const tl=tg===25?'Bull':pre+tg;
     return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b></div><div class="rem">${tl}</div><div class="meta"><span>${t('of',G.pos[i],seq.length)}</span><span>${t('darts',st.darts)}</span><span>${t('last')} ${lastTxt(i)}</span></div><div class="bar" style="grid-column:1/3"><i style="width:${G.pos[i]/seq.length*100}%"></i></div>${on?slots():''}</section>`}).join('')+'</div>';
 }
@@ -1347,7 +1390,7 @@ function bRound(){
   const sh=G.mode==='shanghai',tg=sh?G.round:BSEQ[G.round];
   const tl=sh?t('number',tg):(tg===25?'Bull':t('dblN',tg));
   const sub=sh?t('roundOf',G.round,G.opts.rounds):t('roundOf',G.round+1,BSEQ.length);
-  return`<div class="banner"><b>${tl}</b><span>${sub}</span></div><div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>1?1.4:1}">`+G.players.map((pl,i)=>{const on=i===G.turn;
+  return`<div class="banner"><b>${tl}</b><span>${sub}</span></div><div class="sb rows ${G.players.length>4?'dense big':''}" style="--g:${G.players.length>1?1.4:1}">`+G.players.map((pl,i)=>{const on=i===G.turn;
     return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b>${G.out[i]?`<span class="lg bust">${t('outTag')}</span>`:''}</div><div class="rem" data-anim="s${i}" data-v="${G.score[i]}">${G.score[i]}</div><div class="meta"><span>${t('last')} ${lastTxt(i)}</span></div>${on&&sh?slots():''}</section>`}).join('')+'</div>';
 }
 function padDarts(hl){
@@ -1514,8 +1557,10 @@ function vSettings(){
    <button class="btn" data-act="export" style="margin-top:10px">${t('copyBk')}</button>
    <textarea class="field" id="bk" placeholder="${t('pasteBk')}"></textarea>
    <button class="btn" data-act="import">${t('restoreBk')}</button>
+   ${window.Capacitor?`<div class="lbl">${t('updates')}</div>${UPD?`<div class="resume"><b>${t('updAvail',UPD.v)}</b><button class="btn primary" data-act="upd">${t('updGet')}</button></div>`:`<button class="btn" data-act="updcheck">${t('updCheck')}</button>`}`:''}
    <div class="lbl">${t('data')}</div><button class="btn danger" data-act="wipe">${t('wipeBtn')}</button>
-   <p class="muted" style="margin-top:18px;font-size:14px">${t('local')}</p></div>`;
+   <p class="muted" style="margin-top:18px;font-size:14px">${t('local')}</p>
+   <p class="ver">Darts – ${t('appVer')} ${esc(APPVER||APP_BUILD)}</p></div>`;
 }
 /* The backup is rebuilt field by field, so no HTML or unexpected values reach the interface */
 function cleanBackup(d){
@@ -1558,8 +1603,9 @@ function addPlayer(){
   const el=document.getElementById('newp');const name=(el&&el.value||'').trim();if(!name){el&&el.focus();return}
   if(DB.players.some(p=>p.name.toLowerCase()===name.toLowerCase())){toast(t('dupName'));return}
   const p={id:uid(),name};DB.players.push(p);save();
-  if(V.name==='setup'){SETUP.players.push(p.id);saveSetup()}
-  render();const n=document.getElementById('newp');n&&n.focus();
+  if(V.name==='setup'){if(SETUP.players.length<MAXP-(SETUP.cpu.on?1:0))SETUP.players.push(p.id);saveSetup()}
+  const inPicker=!document.getElementById('modal').hidden;render();
+  if(inPicker&&V.name==='setup')openPicker(true);else{const n=document.getElementById('newp');n&&n.focus()}
 }
 function saveSetup(){DB.settings.setup=SETUP;save()}
 function setPath(obj,path,val){const k=path.split('.');let o=obj;while(k.length>1)o=o[k.shift()];o[k[0]]=val}
@@ -1596,8 +1642,12 @@ const ACT={
   opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang()}else{setPath(SETUP,d.k,v);saveSetup()}render()},
   step:d=>{const cur=getPath(SETUP,d.k);const v=Math.max(1,Math.min(d.k==='cpu.level'?10:d.k.endsWith('sets')?7:11,cur+(+d.d)));setPath(SETUP,d.k,v);saveSetup();render()},
   pick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else SETUP.players.push(d.v);saveSetup();render()},
+  picker:()=>openPicker(false),
+  ppick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else if(SETUP.players.length<MAXP-(SETUP.cpu.on?1:0))SETUP.players.push(d.v);saveSetup();render();openPicker(false)},
+  pdone:()=>{closeModal();render()},
+  pmove:d=>{const a=SETUP.players,i=a.indexOf(d.v);if(i>0){[a[i-1],a[i]]=[a[i],a[i-1]];saveSetup();render()}},
   rnd:()=>{SETUP.random=!SETUP.random;saveSetup();render()},
-  cpu:()=>{SETUP.cpu.on=!SETUP.cpu.on;saveSetup();render()},
+  cpu:()=>{if(!SETUP.cpu.on&&SETUP.players.length>=MAXP){toast(t('maxPlayers',MAXP));return}SETUP.cpu.on=!SETUP.cpu.on;saveSetup();render()},
   cpuname:()=>promptBox(t('oppName'),cpuName(),v=>{if(DB.players.some(p=>p.name.toLowerCase()===v.toLowerCase())){toast(t('dupName'));return}SETUP.cpu.name=v;saveSetup();render()}),
   cpuauto:()=>{SETUP.cpu.name='';saveSetup();render()},
   addp:addPlayer,start:startMatch,
@@ -1632,6 +1682,7 @@ const ACT={
     const go2=()=>{if(v==='atc'||v==='bobs')newMatch({mode:v,plist:pl,opts:Object.assign({},SETUP[v],v==='atc'?{bull:!!SETUP.atc.bull}:{})});else newMatch({mode:'drill',plist:pl,opts:{drill:v,tgt:SETUP.tgt||'T20'}});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
     if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2()},
   upd:()=>{const u=`https://github.com/${REPO}/releases/latest/download/darts.apk`;UPD=null;render();location.href=u},
+  updcheck:()=>{toast(t('updChecking'));checkUpdate(true)},
   updlater:()=>{if(UPD)LS.set('updskip',UPD.v);UPD=null;render()},
   bkfile:()=>backupFile(),
   bkopen:()=>{const f=document.getElementById('bkfile');if(f){f.value='';f.click()}},
@@ -1650,6 +1701,7 @@ document.addEventListener('pointerdown',e=>{LPA='';const b=e.target.closest('[da
 document.addEventListener('contextmenu',e=>{if(e.target.closest('.k'))e.preventDefault()});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b||b.disabled)return;if(b.dataset.act===LPA&&Date.now()-LPT<800){LPA='';return}const f=ACT[b.dataset.act];if(!f)return;
   if(b.closest('.pad')||b.closest('.opts'))vib();f(b.dataset,b)});
+document.addEventListener('input',e=>{if(e.target.id==='psearch')filterPicker()});
 document.addEventListener('change',e=>{const el=e.target;
   if(el.dataset&&el.dataset.h2h!=null){H2H[+el.dataset.h2h]=el.value;render()}
   else if(el.dataset&&el.dataset.hcp){SETUP.x01.hcp[el.dataset.hcp]=+el.value;saveSetup()}
@@ -1672,7 +1724,8 @@ try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;
 
 (async()=>{
   await restoreFromPreferences();loadAll();applyLang();applyTheme();
-  setTimeout(checkUpdate,1500);
+  setTimeout(()=>checkUpdate(),1500);
+  try{const A=CAP('App');if(A)A.addListener('resume',()=>checkUpdate())}catch(e){}
   if(G&&G.finished){G=null;saveGame()}
   render();
 })();
