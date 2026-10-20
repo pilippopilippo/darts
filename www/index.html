@@ -215,7 +215,10 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .pad.m3 .nums .k{border:2px solid var(--green);color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--surf))}
 .k{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .k.miss{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
-.k.miss small{font:500 10.5px/1.15 var(--fb);color:var(--muted);margin-top:3px;max-width:96%}
+.k.miss small{font:500 10.5px/1.15 var(--fb);color:var(--muted);margin-top:3px;max-width:96%;overflow:hidden}
+/* the hint only shows when the key is big enough; otherwise a one-time tip explains the long press */
+.k.miss{container-type:size;overflow:hidden}
+@container (max-width:88px) or (max-height:54px){.k.miss small{display:none}}
 .k.wide{width:100%;height:42px}
 
 .shake{animation:shake .45s;box-shadow:inset 0 0 0 2px var(--red)!important}
@@ -413,7 +416,7 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:v=>`Record personale: leg in ${v} freccette`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
   achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
@@ -494,7 +497,7 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:v=>`Personal best: ${v}-dart leg`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
   achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
@@ -1600,7 +1603,7 @@ const ACT={
   addp:addPlayer,start:startMatch,
   mul:d=>{const m=+d.v;PAD.mul=PAD.mul===m?1:m;render()},
   missrest:()=>missRest(),
-  num:d=>dart(+d.v,PAD.mul),bull:()=>dart(25,2),miss:()=>dart(0,0),undo:()=>{closeModal();undo()},
+  num:d=>dart(+d.v,PAD.mul),bull:()=>dart(25,2),miss:()=>{dart(0,0);if(!LS.get('missTip',false)){LS.set('missTip',true);toast(t('missTip'))}},undo:()=>{closeModal();undo()},
   inmode:()=>{G.input=G.input==='total'?'dart':'total';if(G.visit.length&&G.input==='total'){G.input='dart';toast(t('finishVisit'));return}PAD.typed='';saveGame();render()},
   digit:d=>{if(PAD.typed.length<3)PAD.typed=(PAD.typed==='0'?'':PAD.typed)+d.v;render()},
   del:()=>{PAD.typed=PAD.typed.slice(0,-1);render()},
