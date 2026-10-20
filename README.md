@@ -15,17 +15,15 @@ Updates install over the previous version and keep your players and match histor
 
 ## Features
 
-- **X01** from 101 to 1001: straight, double or master in and out; matches in legs and sets
-- **Cricket**: standard, cut-throat and no score
-- **Practice games**: Around the Clock (any segment, doubles or trebles), Shanghai, Bob’s 27
-- **CPU opponent** with 10 skill levels (averages from about 21 to 95), named after darts champions
-  and simulated on the real board geometry
-- **Score entry** dart by dart or as a visit total, with a live preview of the remaining score
+- **X01** from 101 to 1001: straight, double or master in and out; legs and sets; handicap starts; 2 vs 2 teams
+- **Cricket** (standard, cut-throat, no score) and **Killer**
+- **Practice**: checkout practice, 121, Catch 40, round the doubles, Bob’s 27, Count Up, target practice, Around the Clock, Halve-It, Shanghai
+- **CPU opponent** with 10 skill levels, named after darts champions and simulated on the real board geometry
+- **Fast entry**: dart by dart or visit total, hold Miss to end a visit, edit any past visit from the scoresheet, bull-off to decide who starts
 - **Checkout suggestions** from the standard chart, updated after every dart
-- **Statistics**: 3-dart and first-9 averages, checkout %, hit rate per double, 180/140+/100+, MPR,
-  trends over time, scoresheet and leg-by-leg summary
-- Unlimited undo, match resume, caller voice, light and dark themes, backup and restore
-- English and Italian interface, chosen automatically from the phone language or set in Settings
+- **Statistics**: averages, checkout % per double, hit map, match charts, head to head, personal bests and achievements
+- Rolling scores, reactions to busts, 180s and game shots, synthesised sound effects, caller voice
+- English and Italian, light and dark themes, file backup via the Android share sheet, update notice for new releases
 
 ### CPU skill levels
 

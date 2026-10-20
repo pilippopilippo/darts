@@ -47,6 +47,18 @@ jobs:
         run: npx capacitor-assets generate --android
         continue-on-error: true
 
+      # Android 13+ themed (monochrome) icon and Android 12+ system splash
+      - name: Themed icon and splash screen
+        run: |
+          cp -r assets/android/res/* android/app/src/main/res/
+          for f in android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml; do
+            if [ -f "$f" ] && ! grep -q monochrome "$f"; then
+              sed -i 's|</adaptive-icon>|    <monochrome>\n        <inset android:drawable="@mipmap/ic_launcher_monochrome" android:inset="16.7%" />\n    </monochrome>\n</adaptive-icon>|' "$f"
+            fi
+          done
+          sed -i 's|<item name="android:background">@drawable/splash</item>|<item name="android:background">@drawable/splash</item>\n        <item name="windowSplashScreenBackground">#0F1E17</item>\n        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>\n        <item name="postSplashScreenTheme">@style/AppTheme.NoActionBar</item>|' android/app/src/main/res/values/styles.xml
+          cat android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml android/app/src/main/res/values/styles.xml
+
       - name: Set version and orientation
         run: |
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then VN="${GITHUB_REF_NAME#v}"; else VN="dev.${{ github.run_number }}"; fi

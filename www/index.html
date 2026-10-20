@@ -180,6 +180,139 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .bob .k{height:76px;font-size:34px}
 @media (max-height:720px){.k{height:44px}.mul{height:38px}.bob .k{height:60px}.rem{font-size:clamp(50px,15vw,80px)}}
 
+/* row layout (X01, Cricket) */
+.sb.rows{display:flex;flex-direction:column;gap:8px;min-height:100%}
+.sb.rows .pl{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}
+.sb.rows .pl>.pl-top,.sb.rows .slots,.sb.rows .co,.sb.rows .hint{grid-column:1/-1}
+.sb.rows .pl>.meta{grid-column:1}
+.sb.rows .pl>.rem{grid-column:2;grid-row:2/4;font-size:54px;margin:0;align-self:center}
+.sb.rows .pl.on{flex:1 0 auto;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;gap:8px;padding:12px 14px}
+.sb.rows .pl.on .rem{font-size:clamp(78px,25vw,130px);margin:0}
+.mid{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.vis{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none}
+.vis .slots{margin:0}
+.vis .slot{width:54px;flex:none}
+.vsum{font:800 32px/1 var(--fc);min-height:32px;font-variant-numeric:tabular-nums}
+.nmw{display:flex;align-items:center;gap:8px;min-width:0}
+.starter{width:10px;height:10px;border-radius:50%;background:var(--brass);flex:none}
+.lgs{display:flex;gap:12px;align-items:center;flex:none}
+.lgi{display:flex;align-items:center;gap:5px}
+.lgi small{font:600 12px var(--fb);color:var(--muted)}
+.dots{display:flex;gap:3px}
+.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted)}
+.dots i.w{background:var(--green);border-color:var(--green)}
+.crrow{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.crp{font:800 40px/1 var(--fc);font-variant-numeric:tabular-nums}
+.strip{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:6px}
+.cell{background:var(--surf2);border-radius:8px;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 22px/1 var(--fc)}
+.cell small{font:600 12px var(--fb);color:var(--muted);margin-bottom:3px}
+.cell .mk3{width:26px;height:26px;font-size:15px;border-width:2.5px}
+.cell.closed{background:var(--surf2);background:color-mix(in srgb,var(--green) 16%,var(--surf2))}
+.cell.dead{opacity:.4}
+.sb.rows.cr2 .pl.on{flex:0 0 auto;display:grid;padding:12px 14px}
+/* pad states */
+.pad.m2 .nums .k{border:2px solid var(--red);color:var(--red);background:color-mix(in srgb,var(--red) 9%,var(--surf))}
+.pad.m3 .nums .k{border:2px solid var(--green);color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--surf))}
+.k{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.k.miss{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.k.miss small{font:500 10.5px/1.15 var(--fb);color:var(--muted);margin-top:3px;max-width:96%}
+.k.wide{width:100%;height:42px}
+
+.shake{animation:shake .45s;box-shadow:inset 0 0 0 2px var(--red)!important}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.glow{animation:glow 1.3s ease-out}
+@keyframes glow{0%{box-shadow:0 0 0 0 rgba(217,180,76,.95)}35%{box-shadow:0 0 0 9px rgba(217,180,76,.45)}100%{box-shadow:0 0 0 0 rgba(217,180,76,0)}}
+.celeb{position:fixed;inset:0;display:grid;place-items:center;z-index:54;pointer-events:none}
+.celeb>div{display:grid;justify-items:center;gap:12px;animation:celebIn 1.6s ease-out forwards}
+.celeb svg{width:min(44vw,190px);height:auto}
+.celeb b{font:800 min(12vw,58px)/1 var(--fc);color:var(--brass);text-shadow:0 3px 0 var(--wire)}
+@keyframes celebIn{0%{transform:scale(.3) rotate(-30deg);opacity:0}25%{transform:scale(1.06) rotate(4deg);opacity:1}40%{transform:scale(1) rotate(0)}80%{opacity:1}100%{opacity:0;transform:scale(1.04)}}
+.nmc{display:flex;flex-direction:column;min-width:0}
+.tm{font:500 13px var(--fb);color:var(--muted)}
+.pl.out{opacity:.45}
+.ktag{color:var(--red);font-weight:700}
+.drt{font-size:clamp(56px,18vw,96px)!important}
+.ws td.ed{cursor:pointer}.ws td.ed b{text-decoration:underline dotted;text-underline-offset:3px}
+.chart{width:100%;height:auto;display:block;margin-top:4px}
+.chart .ax,.heat .ax{font:600 10px var(--fb);fill:var(--muted)}
+.heat .ax{font-size:15px}
+.leg2{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;margin:4px 0 6px}
+.leg2 i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.heat{width:100%;max-width:330px;display:block;margin:6px auto}
+.ach{display:flex;flex-wrap:wrap;gap:6px}
+.ach span{border:1px dashed var(--line);border-radius:999px;padding:4px 10px;font-size:13px;color:var(--muted)}
+.ach span.on{border-style:solid;border-color:var(--brass);color:var(--text)}
+.h2hsel{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px}
+.h2hsel .field{padding:10px;font-size:15px}
+.h2hsc{font:800 48px/1 var(--fc);text-align:center;margin:6px 0}
+.hsel{flex:none;width:auto;padding:8px 10px}
+.drill{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 14px;border-radius:16px;margin-bottom:10px;border:1px solid var(--line);background:var(--surf)}
+.drill b{display:block;font:700 21px/1.15 var(--fc)}
+.drill small{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.dic{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;flex:none;font:800 19px var(--fc);background:var(--surf2)}
+.c-catCo{background:color-mix(in srgb,#4B8FD6 13%,var(--surf))}.c-catCo .dic{color:#3A7BC0}
+.c-catDbl{background:color-mix(in srgb,var(--red) 11%,var(--surf))}.c-catDbl .dic{color:var(--red)}
+.c-catScore{background:color-mix(in srgb,var(--brass) 14%,var(--surf))}.c-catScore .dic{color:var(--brass)}
+.c-catPrec{background:color-mix(in srgb,var(--green) 12%,var(--surf))}.c-catPrec .dic{color:var(--green)}
+select.field{appearance:auto}
+/* fit: all players always on screen, no scrolling */
+.board{overflow:hidden;container-type:size;display:flex;flex-direction:column;padding:8px 10px}
+.board>.banner{flex:none;margin:0 2px 6px}
+.sb.rows{flex:1;min-height:0;height:auto;gap:6px}
+.sb.rows .pl{flex:1 1 0;min-height:0;overflow:hidden;padding:6px 12px;margin:0}
+.sb.rows .pl.on{flex:var(--g) 1 0;padding:8px 12px;gap:4px}
+.sb.rows .pl>.rem{font-size:min(54px,calc(100cqh / (var(--n) - 1 + var(--g)) * .56))}
+.sb.rows .pl.on .rem{font-size:min(25vw,130px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .48))}
+.sb.rows.flat .pl.on{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}
+.sb.rows.flat .pl.on>.rem{grid-column:2;grid-row:2/4;font-size:min(64px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .42))}
+.sb.rows.dense .pl:not(.on)>.meta{display:none}
+.sb.rows .slot{height:30px}
+.cr2 .pl,.sb.rows.cr2 .pl.on{flex:1 1 0;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:6px 10px}
+.cr2 .crrow{gap:8px}.cr2 .crrow .meta{flex:1;min-width:0}
+.cr2 .crp{font-size:min(38px,calc(100cqh / var(--n) * .26))}
+.cr2 .strip{margin-top:2px}
+.cr2 .cell{height:clamp(26px,calc(100cqh / var(--n) - 66px),54px)}
+.cr2 .cell small{font-size:11px;margin-bottom:1px}
+.slots.mini{margin:0;gap:4px;flex:none}.slots.mini .slot{width:40px;height:26px;font-size:15px;flex:none}
+@container (max-height:280px){.sb.rows .pl>.meta,.sb.rows .pl.on .meta,.cr2 .cell small{display:none}.sb.rows .pl.on .co span{font-size:16px;padding:1px 8px}}
+.pad.tot .typerow{display:flex;align-items:baseline;justify-content:center;gap:14px}
+.pad.tot .typed{font-size:38px;min-width:70px;text-align:right}
+.pad.tot .preview{min-width:120px;text-align:left}
+.pad.tot .keys .k{height:46px}
+.k.two{line-height:1.05;padding:0 6px}
+/* fit, second pass: one-line rows for waiting players, compact active row when crowded */
+.sb.rows .pl:not(.on){display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;align-content:center}
+.sb.rows .pl:not(.on)>.pl-top{grid-column:1;grid-row:1}
+.sb.rows .pl:not(.on)>.meta{grid-column:1;grid-row:2}
+.sb.rows .pl:not(.on)>.rem{grid-column:2;grid-row:1/3;line-height:.95}
+.sb.rows.flat .pl.on>.pl-top{grid-column:1;grid-row:1}
+.sb.rows.flat .pl.on>.meta{grid-column:1;grid-row:2}
+.sb.rows.flat .pl.on>.rem{grid-row:1/3}
+.sb.rows.dense .pl{padding:2px 10px}
+.sb.rows.dense .nm{font-size:16px}
+.sb.rows.dense .lgs small{display:none}
+.sb.rows.dense .pl.on{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-content:center;row-gap:3px}
+.sb.rows.dense .pl.on>.pl-top{grid-column:1;grid-row:1}
+.sb.rows.dense .pl.on .mid{display:contents}
+.sb.rows.dense .pl.on .rem{grid-column:2;grid-row:1/4;font-size:min(56px,calc(100cqh * var(--g) / (var(--n) - 1 + var(--g)) * .6))}
+.sb.rows.dense .pl.on .vis{grid-column:1;grid-row:2;flex-direction:row;align-items:center}
+.sb.rows.dense .pl.on>.slots{grid-column:1;grid-row:2;margin:0}
+.sb.rows.dense .pl.on .slot{width:38px;height:24px;font-size:14px;flex:none}
+.sb.rows.dense .pl.on .vsum{font-size:20px;min-height:0}
+.sb.rows.dense .pl.on .co,.sb.rows.dense .pl.on .hint{grid-column:1;grid-row:3;margin:0}
+.sb.rows.dense .pl.on .co span{font-size:15px;padding:0 7px}
+.sb.rows.dense .pl.on>.meta{display:none}
+.cr2 .crrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cr2 .crrow .nmw{flex:1}
+.cr2 .meta{display:flex;align-items:center;gap:2px 12px}
+.cr2 .meta .lgs{margin-left:auto}
+.cr2 .cell{height:clamp(24px,calc(100cqh / var(--n) - 74px),70px)}
+.sb.rows.cr2.dense .pl>.meta{display:none}
+.sb.rows.cr2.dense .cell{height:clamp(24px,calc(100cqh / var(--n) - 52px),54px)}
+.sb.rows.cr2.dense .pl{display:flex}
+@container (max-height:300px){.sb.rows.dense .pl.on .co{display:none}}
+.sb.rows.cr2 .pl{display:flex!important;flex-direction:column;justify-content:center;align-items:stretch}
+.sb.rows.cr2 .pl>*{width:100%}
 /* modal & toast */
 .modal{position:fixed;inset:0;background:rgba(5,12,9,.6);display:grid;place-items:end center;z-index:50;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 .modal[hidden]{display:none}
@@ -235,7 +368,7 @@ it:{
   appSub:'Segnapunti per X01, Cricket e allenamento',quota:'Memoria piena: esporta un backup ed elimina partite vecchie',
   m_atc:'Giro dell’orologio',outS:'uscita libera',outD:'doppia uscita',outM:'master out',inD:'doppia entrata, ',inM:'master in, ',
   crNo:' senza punti',atcD:' sui doppi',atcT:' sui tripli',shRounds:n=>`Shanghai (${n} round)`,
-  vBust:'Sballato',v180:'Centottanta!',vNone:'Nessun punto',vReq:(n,r)=>`${n}, ti servono ${r}`,
+  vBust:'Sballato',v180:'Centottanta!',vNone:'Nessun punto',vReq:(n,r)=>`${n}, ti mancano ${r} punti`,
   vLeg:(set,n)=>`Game shot. ${set?'Set':'Leg'} a ${n}`,vMatch:n=>`Game shot, e partita. Vince ${n}`,vDraw:'Pareggio',
   coX01:(s,d,l)=>`Chiusura ${s} con ${d} ${d===1?'freccetta':'freccette'}, leg in ${l} freccette`,
   coCr:r=>`Tutti i numeri chiusi in ${r} round`,coAtc:d=>`Giro completato in ${d} freccette`,
@@ -280,6 +413,36 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
+  missHint:'tieni premuto: turno a vuoto',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:v=>`Record personale: leg in ${v} freccette`,recAvg:v=>`Record personale: media ${v}`,
+  a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
+  achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
+  heat:'Mappa dei colpi',heatNote:'Solo con le freccette segnate una alla volta',misses:n=>`Mancate: ${n}`,
+  chAvg:'Media turno per turno',chDist:'Punteggi dei turni',
+  h2h:'Testa a testa',h2hNone:'Nessuna partita tra i due.',h2hMatches:n=>`${n} ${n===1?'partita':'partite'}`,h2hDraws:n=>`${n} ${n===1?'pareggio':'pareggi'}`,h2hLast:'Ultime sfide',
+  editVisit:'Correggi turno',editBad:'Non si può: cambierebbe uno sballato o una chiusura. Usa Annulla.',edited:'Turno corretto',editHint:'Tocca un punteggio per correggerlo.',editIn:'Con la doppia entrata usa Annulla.',
+  training:'Allenamenti',trSub:'Esercizi in solitario, salvati nelle statistiche.',trPlayer:'Chi si allena',
+  catCo:'Chiusure',catDbl:'Doppi',catScore:'Punteggio',catPrec:'Precisione',
+  d_co:'Allenamento chiusure',dd_co:'10 chiusure casuali, un turno ciascuna',
+  d_121:'121',dd_121:'Hai 9 freccette per chiudere: se ci riesci, sali di uno',
+  d_c40:'Catch 40',dd_c40:'Chiudi da 61 a 100, massimo 6 freccette',
+  d_dbl:'Giro dei doppi',dd_dbl:'3 freccette su ogni doppio, da D1 al Bull',dd_bobs:'Da D1 al Bull, difendendo il punteggio',
+  d_cu:'Count Up',dd_cu:'Più punti possibile in 8 turni',
+  d_tgt:'Bersaglio fisso',dd_tgt:'10 turni sullo stesso bersaglio',
+  dd_atc:'Dall’1 al 20 e il Bull, in ordine',
+  d_hi:'Halve-It',dd_hi:'Se manchi il bersaglio, il punteggio si dimezza',
+  trOk:'Chiusa!',trKo:'Mancata',anyDouble:'Un doppio',anyTreble:'Un triplo',
+  sc_co:'Chiusure',sc_121:'Massimo chiuso',sc_c40:'Punti',sc_dbl:'Centri',sc_cu:'Punti',sc_tgt:'Centri',sc_hi:'Punti',
+  c40Pts:'2 freccette: 3 punti · 3: 2 punti · da 4 a 6: 1 punto',
+  killerL:n=>`Killer (${n} vite)`,lives:'Vite',
+  kInfo:'Colpisci il tuo doppio per diventare killer, poi togli vite agli altri colpendo i loro doppi. Se da killer colpisci il tuo, perdi una vita.',
+  vKiller:n=>`${n} è killer!`,
+  teams:'A squadre (2 contro 2)',teamsInfo:'I primi due contro gli ultimi due, tiri alternati.',throwingNow:n=>`Tira ${n}`,
+  hcp:'Handicap',hcpInfo:'Punteggio di partenza per ogni giocatore',
+  bulloff:'Bull-off per decidere chi inizia',bullQ:'Bull-off: chi è più vicino al centro?',
+  updAvail:v=>`È disponibile la versione ${v}`,updGet:'Scarica',updLater:'Più tardi',
+  bkFile:'Salva il backup su file',bkOpen:'Ripristina da file',bkSaved:'Backup salvato',
+  gameShot:'Game shot!',matchShot:'Game shot e partita!',
   abandon:'Abbandona partita',abandonQ:'Abbandonare la partita?',abandonTxt:'La partita in corso verrà chiusa e non comparirà nello storico né nelle statistiche.',abandoned:'Partita abbandonata'
 },
 en:{
@@ -331,6 +494,36 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
+  missHint:'hold: miss the rest',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:v=>`Personal best: ${v}-dart leg`,recAvg:v=>`Personal best: ${v} average`,
+  a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
+  achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
+  heat:'Hit map',heatNote:'Dart-by-dart entries only',misses:n=>`Misses: ${n}`,
+  chAvg:'Average by visit',chDist:'Visit scores',
+  h2h:'Head to head',h2hNone:'They haven’t played each other yet.',h2hMatches:n=>`${n} ${n===1?'match':'matches'}`,h2hDraws:n=>`${n} ${n===1?'draw':'draws'}`,h2hLast:'Recent meetings',
+  editVisit:'Edit visit',editBad:'Can’t do that: it would change a bust or a checkout. Use Undo.',edited:'Visit updated',editHint:'Tap a score to edit it.',editIn:'With double in, use Undo.',
+  training:'Practice',trSub:'Solo drills, saved to your stats.',trPlayer:'Player',
+  catCo:'Checkouts',catDbl:'Doubles',catScore:'Scoring',catPrec:'Accuracy',
+  d_co:'Checkout practice',dd_co:'10 random checkouts, one visit each',
+  d_121:'121',dd_121:'9 darts to check out; succeed and move up one',
+  d_c40:'Catch 40',dd_c40:'Check out 61 to 100, 6 darts max each',
+  d_dbl:'Round the doubles',dd_dbl:'3 darts at every double, D1 to Bull',dd_bobs:'D1 to Bull, defending your score',
+  d_cu:'Count Up',dd_cu:'Score as much as you can in 8 visits',
+  d_tgt:'Target practice',dd_tgt:'10 visits at a single target',
+  dd_atc:'1 to 20 and the Bull, in order',
+  d_hi:'Halve-It',dd_hi:'Miss the target and your score is halved',
+  trOk:'Checked out!',trKo:'Missed',anyDouble:'Any double',anyTreble:'Any treble',
+  sc_co:'Checkouts',sc_121:'Highest checkout',sc_c40:'Points',sc_dbl:'Hits',sc_cu:'Points',sc_tgt:'Hits',sc_hi:'Points',
+  c40Pts:'2 darts: 3 pts · 3: 2 pts · 4 to 6: 1 pt',
+  killerL:n=>`Killer (${n} lives)`,lives:'Lives',
+  kInfo:'Hit your own double to become a killer, then take lives off the others by hitting their doubles. Hit your own as a killer and you lose a life.',
+  vKiller:n=>`${n} is a killer!`,
+  teams:'Teams (2 vs 2)',teamsInfo:'First two vs last two, alternating throws.',throwingNow:n=>`${n} to throw`,
+  hcp:'Handicap',hcpInfo:'Starting score for each player',
+  bulloff:'Bull-off to decide who starts',bullQ:'Bull-off: who’s closest to the bull?',
+  updAvail:v=>`Version ${v} is available`,updGet:'Download',updLater:'Later',
+  bkFile:'Save backup to a file',bkOpen:'Restore from a file',bkSaved:'Backup saved',
+  gameShot:'Game shot!',matchShot:'Game shot and the match!',
   abandon:'Abandon match',abandonQ:'Abandon this match?',abandonTxt:'The match in progress will be closed and won’t appear in history or statistics.',abandoned:'Match abandoned'
 }};
 let LANG='it',LOC='it-IT';
@@ -350,10 +543,10 @@ const LS={
     const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.set({key:'frc_'+k,value:txt}).catch(()=>{})},
   del(k){try{localStorage.removeItem('frc_'+k)}catch(e){}const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.remove({key:'frc_'+k}).catch(()=>{})}
 };
-const DEF_SETTINGS={voice:true,vibrate:true,theme:'auto',lang:'auto',awake:true,input:'dart',setup:null};
-const DEF_SETUP={mode:'x01',players:[],random:false,cpu:{on:false,level:5,name:''},
-  x01:{start:501,inMode:'single',outMode:'double',legs:1,sets:1},
-  cricket:{variant:'standard',legs:1},atc:{variant:'any',bull:true},shanghai:{rounds:7},bobs:{}};
+const DEF_SETTINGS={voice:true,vibrate:true,sfx:true,theme:'auto',lang:'auto',awake:true,input:'dart',setup:null};
+const DEF_SETUP={mode:'x01',players:[],random:false,cpu:{on:false,level:5,name:''},teams:false,bulloff:false,tgt:'T20',trp:null,
+  x01:{start:501,inMode:'single',outMode:'double',legs:1,sets:1,hcpOn:false,hcp:{}},
+  cricket:{variant:'standard',legs:1},killer:{lives:3},atc:{variant:'any',bull:true},shanghai:{rounds:7},bobs:{}};
 const DB={players:[],history:[],settings:{}};
 let G=null,UNDO=[],SETUP=null;
 function loadAll(){
@@ -406,11 +599,14 @@ function checkout(rem,darts,out){
   if(!best&&darts>=3)for(const a of ALL)for(const b of ALL){const f=F[rem-a.v-b.v];if(f){const c=setCost(a)+setCost(b)+f.c;if(c<bc){bc=c;best=[a,b,f.t]}}}
   return COC[k]=best;
 }
-const MODES={x01:()=>'X01',cricket:()=>'Cricket',atc:()=>t('m_atc'),shanghai:()=>'Shanghai',bobs:()=>'Bob’s 27'};
+const MODES={x01:()=>'X01',cricket:()=>'Cricket',killer:()=>'Killer',atc:()=>t('m_atc'),shanghai:()=>'Shanghai',bobs:()=>'Bob’s 27',drill:()=>t('training')};
+const SETUP_MODES=['x01','cricket','killer','atc','shanghai','bobs'];
 const OUTL={single:'outS',double:'outD',master:'outM'};
 const INL={single:'',double:'inD',master:'inM'};
 function modeLabel(mode,o){
   if(mode==='x01')return `${o.start} – ${INL[o.inMode]?t(INL[o.inMode]):''}${t(OUTL[o.outMode])}`;
+  if(mode==='killer')return t('killerL',o.lives||3);
+  if(mode==='drill')return t('d_'+o.drill)+(o.drill==='tgt'?' '+(o.tgt||'T20'):'');
   if(mode==='cricket')return 'Cricket'+({standard:'',cut:' cut-throat',noscore:t('crNo')}[o.variant]||'');
   if(mode==='atc')return t('m_atc')+({any:'',double:t('atcD'),triple:t('atcT')}[o.variant]||'');
   if(mode==='shanghai')return t('shRounds',o.rounds);
@@ -419,7 +615,9 @@ function modeLabel(mode,o){
 
 /* ---------- feedback ---------- */
 let TT=null;
-function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(TT);TT=setTimeout(()=>el.classList.remove('show'),1800)}
+const TQ=[];let TBUSY=false;
+function toast(msg){TQ.push(msg);if(!TBUSY)nextToast()}
+function nextToast(){const el=document.getElementById('toast'),m=TQ.shift();if(m==null){TBUSY=false;return}TBUSY=true;el.textContent=m;el.classList.add('show');clearTimeout(TT);TT=setTimeout(()=>{el.classList.remove('show');setTimeout(nextToast,240)},1900)}
 function big180(){const d=document.createElement('div');d.className='big180';d.innerHTML='<b>180</b>';document.body.appendChild(d);setTimeout(()=>d.remove(),1000)}
 let FX=null;
 function vib(strong){if(!DB.settings.vibrate)return;const H=CAP('Haptics');if(H){H.impact({style:strong?'HEAVY':'LIGHT'}).catch(()=>{});return}if(navigator.vibrate)try{navigator.vibrate(strong?[35,50,35]:12)}catch(e){}}
@@ -446,24 +644,35 @@ function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor
 function freshStats(){return{pts:0,darts:0,f9p:0,f9d:0,visits:[],coHit:0,coAtt:0,hiCo:0,legDarts:[],marks:0,rounds:0,hits:0,score:0,dbl:{}}}
 function newMatch(cfg){
   let ps=cfg.plist.map(p=>Object.assign({},p));if(cfg.random)ps=shuffle(ps);
+  if(cfg.teams&&ps.length===4)ps=[[ps[0],ps[1]],[ps[2],ps[3]]].map((m,k)=>({id:'team'+k,name:m[0].name+' & '+m[1].name,members:m,mi:0}));
   const o=Object.assign({legs:1,sets:1},JSON.parse(JSON.stringify(cfg.opts)));
+  delete o.hcp;delete o.hcpOn;
   if(cfg.mode!=='x01'&&cfg.mode!=='cricket')o.legs=1;if(cfg.mode!=='x01')o.sets=1;
   G={id:uid(),mode:cfg.mode,opts:o,players:ps,created:Date.now(),legNo:1,setNo:1,legStarter:0,setStarter:0,
      legsWon:ps.map(()=>0),setsWon:ps.map(()=>0),stats:ps.map(freshStats),finished:false,winner:null,
-     input:cfg.mode==='x01'?DB.settings.input:'dart',notice:null,legsHist:[]};
+     input:'dart',notice:null,legsHist:[]};
+  G.starts=ps.map(p=>(cfg.hcp&&!p.members&&cfg.hcp[p.id])||o.start);
+  G.bulloff=!!cfg.bulloff&&ps.length>1;
+  G.rb=ps.map(p=>p.cpu||p.members?null:playerBests(p.id));
   UNDO=[];initLeg();
 }
 function initLeg(){
   const o=G.opts;G.turn=G.legStarter;G.visit=[];G.thrown=[];G.last=G.players.map(()=>null);
   G.legLog=[];G.legBase=G.stats.map(s=>({m:s.marks,r:s.rounds}));
-  if(G.mode==='x01'){G.rem=G.players.map(()=>o.start);G.opened=G.players.map(()=>o.inMode==='single');G.legDarts=G.players.map(()=>0);G.legVisits=G.players.map(()=>0)}
+  if(G.mode==='killer')killerInit();
+  if(G.mode==='drill')drInit();
+  if(G.mode==='x01'){G.rem=G.players.map((_,i)=>(G.starts&&G.starts[i])||o.start);G.opened=G.players.map(()=>o.inMode==='single');G.legDarts=G.players.map(()=>0);G.legVisits=G.players.map(()=>0)}
   if(G.mode==='cricket'){G.marks=G.players.map(()=>({20:0,19:0,18:0,17:0,16:0,15:0,25:0}));G.points=G.players.map(()=>0)}
   if(G.mode==='atc')G.pos=G.players.map(()=>0);
   if(G.mode==='shanghai'||G.mode==='bobs'){G.round=G.mode==='shanghai'?1:0;G.score=G.players.map(()=>G.mode==='bobs'?27:0);G.out=G.players.map(()=>false)}
   G.visitStart=G.mode==='x01'?G.rem[G.turn]:0;
   if(G.mode==='x01')G.visitOpen=G.opened[G.turn];
 }
-function nextTurn(){G.visit=[];G.turn=(G.turn+1)%G.players.length;if(G.mode==='x01'){G.visitStart=G.rem[G.turn];G.visitOpen=G.opened[G.turn]}}
+function nextTurn(){
+  const cur=G.players[G.turn];if(cur&&cur.members)cur.mi=(cur.mi+1)%cur.members.length;
+  G.visit=[];const n=G.players.length;let k=G.turn;do{k=(k+1)%n}while(G.mode==='killer'&&G.out[k]&&k!==G.turn);G.turn=k;
+  if(G.mode==='x01'){G.visitStart=G.rem[G.turn];G.visitOpen=G.opened[G.turn]}
+}
 function roundNext(){
   const n=G.players.length;G.thrown.push(G.turn);G.visit=[];
   const order=[...Array(n)].map((_,i)=>(G.legStarter+i)%n);
@@ -487,7 +696,7 @@ function legSummary(p){
 }
 function legWon(p){
   if(G.mode==='x01'||G.mode==='cricket')G.legsHist.push(legSummary(p));
-  FX='win';
+  FX={k:'win'};
   const o=G.opts,n=G.players.length;G.legsWon[p]++;let setDone=false;
   if(o.sets>1&&G.legsWon[p]>=o.legs){G.setsWon[p]++;setDone=true}
   const done=o.sets>1?G.setsWon[p]>=o.sets:G.legsWon[p]>=o.legs;
@@ -499,8 +708,9 @@ function legWon(p){
   say(t('vLeg',setDone,G.players[p].name));
 }
 function matchWon(p){
-  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;
-  DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist});
+  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1};
+  DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist,starts:G.starts});
+  recMatch();
   if(DB.history.length>600)DB.history.length=600;save();
   say(p===null?t('vDraw'):t('vMatch',G.players[p].name));
   V={name:'results'};NAV=[];
@@ -522,7 +732,7 @@ function x01Dart(n,m){
 }
 function x01Record(p,score,nd,bust){
   const st=G.stats[p];st.pts+=score;st.darts+=nd;
-  G.legLog.push({p,s:score,n:nd,r:G.rem[p],b:bust?1:0});
+  G.legLog.push({p,s:score,n:nd,r:G.rem[p],b:bust?1:0,vi:st.visits.length});
   if(G.legVisits[p]<3){st.f9p+=score;st.f9d+=nd}
   st.visits.push(score);G.legVisits[p]++;G.legDarts[p]+=nd;
 }
@@ -532,21 +742,23 @@ function x01EndVisit(bust){
   const score=G.visitStart-G.rem[p];
   x01Record(p,score,nd,bust);
   G.last[p]={score,bust,d:G.visit.filter(d=>!d.tot).map(lab)};
-  if(score===180&&!bust){big180();FX='180'}else if(bust)FX='bust';
+  if(score===180&&!bust){big180();FX={k:'180',p}}else if(bust)FX={k:'bust',p};
+  if(!bust)recVisit(p,score);
   nextTurn();
   const q=G.turn,r=G.rem[q];
   let txt=bust?t('vBust'):score===180?t('v180'):score===0?t('vNone'):String(score);
-  if(G.opened[q]&&checkout(r,3,G.opts.outMode))txt+='. '+t('vReq',G.players[q].name,r);
+  if(G.opened[q]&&checkout(r,3,G.opts.outMode))txt+='. '+t('vReq',pname(q),r);
   say(txt);
 }
 function x01Checkout(){
   const p=G.turn,st=G.stats[p],nd=G.visit.length,score=G.visitStart;
   x01Record(p,score,nd,false);st.coHit++;st.hiCo=Math.max(st.hiCo,score);st.legDarts.push(G.legDarts[p]);
   G.coInfo={k:'coX01',a:[score,nd,G.legDarts[p]]};
+  recVisit(p,score);recCheckout(p,score,G.legDarts[p]);
   legWon(p);
 }
 function x01Total(tv,used,dbl){
-  pushUndo();
+  pushUndo();sfxThud();
   const p=G.turn,o=G.opts,rem=G.visitStart;
   if(!G.opened[p]&&tv>0)G.opened[p]=true;
   G.stats[p].coAtt+=dbl;
@@ -601,7 +813,7 @@ function shDart(n,m){
 }
 /* Bob's 27 */
 function bobHits(h){
-  if(!G||G.finished)return;pushUndo();
+  if(!G||G.finished)return;pushUndo();sfxThud();
   const p=G.turn,st=G.stats[p],tg=BSEQ[G.round],val=tg===25?50:2*tg;
   G.score[p]+=h>0?h*val:-val;st.darts+=3;st.hits+=h;st.rounds++;
   G.last[p]={d:[`${h}/3 ${tg===25?'Bull':'D'+tg}`]};
@@ -610,7 +822,16 @@ function bobHits(h){
 }
 function dart(n,m){
   if(!G||G.finished)return;pushUndo();PAD.mul=1;
-  ({x01:x01Dart,cricket:crDart,atc:atcDart,shanghai:shDart})[G.mode](n,m);
+  const st=G.stats[G.turn];st.hm=st.hm||{};st.hm[n+'-'+m]=(st.hm[n+'-'+m]||0)+1;sfxThud();
+  ({x01:x01Dart,cricket:crDart,atc:atcDart,shanghai:shDart,killer:kDart,drill:drDart})[G.mode](n,m);
+  after();
+}
+function missRest(){
+  if(!G||G.finished||G.notice||G.players[G.turn].cpu||G.mode==='bobs')return;
+  const p=G.turn,n=3-G.visit.length;if(n<=0)return;
+  pushUndo();PAD.mul=1;
+  const f={x01:x01Dart,cricket:crDart,atc:atcDart,shanghai:shDart,killer:kDart,drill:drDart}[G.mode];sfxThud();
+  for(let k=0;k<n&&!G.finished&&!G.notice&&G.turn===p;k++){const st=G.stats[p];st.hm=st.hm||{};st.hm['0-0']=(st.hm['0-0']||0)+1;f(0,0)}
   after();
 }
 function undo(){
@@ -647,6 +868,7 @@ const CPU_DSIG=[34,26,21,18,15.5,13,11.5,10,8.5,7.3];
 function throwAt(t,level){const L=Math.max(1,Math.min(10,level))-1,s=t.m===2?CPU_DSIG[L]:CPU_SIGMA[L],[x,y]=aimPoint(t);return hitAt(x+gauss()*s,y+gauss()*s)}
 function cpuTarget(){
   const p=G.turn,o=G.opts;
+  if(G.mode==='killer'){if(!G.killer[p])return{n:G.kn[p],m:2};const q=G.players.map((_,i)=>i).filter(i=>i!==p&&!G.out[i]).sort((a,b)=>G.lives[a]-G.lives[b])[0];return{n:G.kn[q],m:2}}
   if(G.mode==='x01'){
     if(!G.opened[p])return{n:20,m:2};
     const rem=G.rem[p],left=3-G.visit.length,r=checkout(rem,left,o.outMode);
@@ -672,13 +894,313 @@ function cpuTarget(){
   if(G.mode==='atc'){const t=atcSeq()[G.pos[p]],v=o.variant;if(t===25)return{n:25,m:v==='any'?1:2};return{n:t,m:v==='double'?2:v==='triple'?3:1}}
   return{n:G.round,m:3};
 }
-function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&G.players[G.turn].cpu}
+function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.bulloff&&G.players[G.turn].cpu}
 function scheduleCpu(){if(CPU_T||!cpuActive())return;CPU_T=setTimeout(()=>{CPU_T=null;if(cpuActive())cpuStep()},G.visit.length?650:950)}
 function stopCpu(){clearTimeout(CPU_T);CPU_T=null}
 function cpuStep(){
   const pl=G.players[G.turn];
   if(G.mode==='bobs'){const tg=BSEQ[G.round];let h=0;for(let i=0;i<3;i++){const r=throwAt({n:tg,m:2},pl.level);if(r.n===tg&&r.m===2)h++}return bobHits(h)}
   const r=throwAt(cpuTarget(),pl.level);dart(r.n,r.m);
+}
+
+/* ---------- helpers: names, sounds, effects ---------- */
+function pname(i){const P=G.players[i];return P.members?P.members[P.mi].name:P.name}
+let AC=null,CLAP=null;
+function actx(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
+function noiseBuf(a,sec,decay){const b=a.createBuffer(1,Math.max(1,Math.floor(a.sampleRate*sec)),a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,decay);return b}
+/* synthesised, so no third-party audio files or licences are needed */
+function sfxThud(){
+  if(!DB.settings.sfx)return;const a=actx();if(!a)return;const t0=a.currentTime;
+  const s=a.createBufferSource();s.buffer=noiseBuf(a,.09,7);const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=2400;const g=a.createGain();g.gain.value=.5;
+  s.connect(f);f.connect(g);g.connect(a.destination);s.start(t0);
+  const o=a.createOscillator(),og=a.createGain();o.type='sine';o.frequency.setValueAtTime(190,t0);o.frequency.exponentialRampToValueAtTime(70,t0+.09);
+  og.gain.setValueAtTime(.4,t0);og.gain.exponentialRampToValueAtTime(.001,t0+.11);o.connect(og);og.connect(a.destination);o.start(t0);o.stop(t0+.12);
+}
+function sfxApplause(dur){
+  if(!DB.settings.sfx)return;const a=actx();if(!a)return;const t0=a.currentTime+.05;
+  if(!CLAP)CLAP=noiseBuf(a,.03,4);
+  const out=a.createGain();out.gain.setValueAtTime(0,t0);out.gain.linearRampToValueAtTime(.55,t0+.25);out.gain.setValueAtTime(.55,t0+dur*.55);out.gain.linearRampToValueAtTime(0,t0+dur);out.connect(a.destination);
+  for(let i=0,n=Math.round(dur*45);i<n;i++){const s=a.createBufferSource();s.buffer=CLAP;s.playbackRate.value=.8+Math.random()*.5;
+    const f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=900+Math.random()*1600;f.Q.value=.9;const g=a.createGain();g.gain.value=.12+Math.random()*.22;
+    s.connect(f);f.connect(g);g.connect(out);s.start(t0+Math.random()*dur*.95)}
+  const bed=a.createBufferSource();bed.buffer=noiseBuf(a,dur,.6);const bf=a.createBiquadFilter();bf.type='bandpass';bf.frequency.value=1200;bf.Q.value=.5;
+  const bg=a.createGain();bg.gain.value=.08;bed.connect(bf);bf.connect(bg);bg.connect(out);bed.start(t0);
+}
+function vibTriple(){if(!DB.settings.vibrate)return;const H=CAP('Haptics');
+  if(H){[0,140,280].forEach(d=>setTimeout(()=>H.impact({style:'HEAVY'}).catch(()=>{}),d));return}
+  if(navigator.vibrate)try{navigator.vibrate([40,70,40,70,40])}catch(e){}}
+function celebrate(match){
+  const d=document.createElement('div');d.className='celeb';d.innerHTML=`<div>${boardSVG()}<b>${t(match?'matchShot':'gameShot')}</b></div>`;
+  document.body.appendChild(d);setTimeout(()=>d.remove(),1600);
+}
+function runFx(){
+  if(!FX)return;const f=FX;FX=null;
+  const row=f.p!=null?document.querySelector(`.sb [data-p="${f.p}"]`):null;
+  if(f.k==='bust'){if(row)row.classList.add('shake');vib(true)}
+  if(f.k==='180'){if(row)row.classList.add('glow');vibTriple();sfxApplause(2.2)}
+  if(f.k==='win'){celebrate(f.match);vibTriple();sfxApplause(f.match?3.4:2)}
+}
+/* rolling numbers: [data-anim] elements count from their previous value to the new one */
+const ANIM={};
+function animNums(){
+  if(!G||V.name!=='game')return;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-anim]').forEach(el=>{
+    const k=G.id+'|'+G.setNo+'|'+G.legNo+'|'+el.dataset.anim,v=+el.dataset.v,pv=ANIM[k];ANIM[k]=v;
+    if(still||pv==null||pv===v)return;const t0=performance.now(),dur=420;el.textContent=pv;
+    const step=now=>{const q=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-q,3);el.textContent=Math.round(pv+(v-pv)*e);if(q<1&&el.isConnected)requestAnimationFrame(step)};
+    requestAnimationFrame(step);
+  });
+}
+
+/* ---------- personal bests and achievements ---------- */
+function playerBests(pid,skipId){
+  const b={hiCo:0,leg:0,hiV:0,avg:0,has180:false,games:0};
+  for(const h of DB.history){
+    if(h.id===skipId||h.mode==='drill')continue;const i=h.players.findIndex(p=>p.id===pid);if(i<0)continue;b.games++;
+    if(h.mode!=='x01')continue;const s=h.stats[i];b.hiCo=Math.max(b.hiCo,s.hiCo||0);
+    s.visits.forEach(v=>{if(v>b.hiV)b.hiV=v;if(v===180)b.has180=true});
+    if((h.starts?h.starts[i]:h.opts.start)===501)s.legDarts.forEach(x=>{if(!b.leg||x<b.leg)b.leg=x});
+    if(s.darts>=9)b.avg=Math.max(b.avg,s.pts/s.darts*3);
+  }
+  return b;
+}
+function recVisit(p,score){
+  const b=G.rb&&G.rb[p];if(!b)return;
+  if(score===180&&!b.has180){b.has180=true;toast(t('achUnlocked',t('a180')))}
+  else if(b.hiV&&score>b.hiV)toast(t('recVisit',score));
+  if(score>b.hiV)b.hiV=score;
+}
+function recCheckout(p,score,ld){
+  const b=G.rb&&G.rb[p];if(!b)return;
+  if(score>=100&&b.hiCo<100)toast(t('achUnlocked',t('aCo100')));else if(b.hiCo&&score>b.hiCo)toast(t('recCo',score));
+  b.hiCo=Math.max(b.hiCo,score);
+  if(G.starts[p]===501){
+    if(ld===9&&b.leg!==9)toast(t('achUnlocked',t('aNine')));
+    else if(ld<15&&(!b.leg||b.leg>=15))toast(t('achUnlocked',t('aLeg15')));
+    else if(b.leg&&ld<b.leg)toast(t('recLeg',ld));
+    if(!b.leg||ld<b.leg)b.leg=ld;
+  }
+}
+function recMatch(){
+  G.players.forEach((pl,i)=>{
+    if(pl.cpu||pl.members)return;
+    const n=DB.history.filter(h=>h.mode!=='drill'&&h.players.some(p=>p.id===pl.id)).length;
+    if(n===100)toast(t('achUnlocked',t('aGames')));
+    const b=G.rb&&G.rb[i],s=G.stats[i];
+    if(b&&G.mode==='x01'&&s.darts>=9&&b.avg&&s.pts/s.darts*3>b.avg)toast(t('recAvg',nf(s.pts/s.darts*3,1)));
+  });
+}
+function achievements(pid){
+  const b=playerBests(pid);
+  return[['a180',b.has180],['aCo100',b.hiCo>=100],['aLeg15',b.leg&&b.leg<15],['aNine',b.leg===9],['aGames',b.games>=100]];
+}
+
+/* ---------- edit a past visit (X01, current leg) ---------- */
+function editVisit(idx){
+  const e=G.legLog[idx];if(!e||G.finished)return;const p=e.p;
+  if(G.opts.inMode!=='single'){toast(t('editIn'));return}
+  if(G.turn===p&&G.visit.length){toast(t('finishVisit'));return}
+  promptNum(t('editVisit'),e.b?0:e.s,val=>{
+    const S=parseInt(val,10);
+    if(!(S>=0&&S<=180)||IMPOSSIBLE.includes(S)){toast(t('cantScore',isNaN(S)?'?':S));return}
+    const own=G.legLog.map((x,j)=>({x,j})).filter(o=>o.x.p===p),pos=own.findIndex(o=>o.j===idx);
+    const before=pos===0?G.starts[p]:own[pos-1].x.r,min=G.opts.outMode==='single'?1:2;
+    let r=before-S;if(r<min){toast(t('editBad'));return}
+    for(let k=pos+1;k<own.length;k++){const x=own[k].x;if(x.b){toast(t('editBad'));return}r-=x.s;if(r<min){toast(t('editBad'));return}}
+    pushUndo();
+    const delta=S-(e.b?0:e.s),st=G.stats[p];
+    st.pts+=delta;if(e.vi!=null&&st.visits[e.vi]!=null)st.visits[e.vi]=S;if(pos<3)st.f9p+=delta;
+    e.s=S;e.b=0;r=before;for(let k=pos;k<own.length;k++){r-=own[k].x.s;own[k].x.r=r}
+    G.rem[p]=r;if(G.turn===p)G.visitStart=r;
+    if(pos===own.length-1)G.last[p]={score:S,bust:false,d:[]};
+    saveGame();render();toast(t('edited'));
+  });
+}
+
+/* ---------- Killer ---------- */
+function killerInit(){
+  if(!G.kn){const nums=shuffle([...Array(20)].map((_,i)=>i+1));G.kn=G.players.map((_,i)=>nums[i])}
+  G.lives=G.players.map(()=>G.opts.lives||3);G.killer=G.players.map(()=>false);G.out=G.players.map(()=>false);
+}
+function kLife(i){G.lives[i]--;if(G.lives[i]<=0){G.out[i]=true;toast(t('isOut',pname(i)))}}
+function kDart(n,m){
+  const p=G.turn,st=G.stats[p];G.visit.push({n,m});st.darts++;
+  if(m===2&&n!==25){const q=G.kn.indexOf(n);
+    if(q===p){if(!G.killer[p]){G.killer[p]=true;st.hits++;toast(t('vKiller',pname(p)));say(t('vKiller',pname(p)))}else kLife(p)}
+    else if(q>=0&&G.killer[p]&&!G.out[q]){st.hits++;kLife(q)}}
+  const alive=G.players.map((_,i)=>i).filter(i=>!G.out[i]);
+  if(alive.length<=1){st.rounds++;return legWon(alive.length?alive[0]:p)}
+  if(G.out[p]||G.visit.length===3){st.rounds++;G.last[p]={d:G.visit.map(lab)};nextTurn()}
+}
+function kHl(){const p=G.turn;return G.killer[p]?G.kn.filter((_,i)=>i!==p&&!G.out[i]):[G.kn[p]]}
+function bKiller(){
+  return`<div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:1.7">`+G.players.map((pl,i)=>{
+    const on=i===G.turn,lv=G.lives[i],mx=G.opts.lives||3;
+    const hearts=`<span class="dots">${[...Array(mx)].map((_,k)=>`<i class="${k<lv?'w':''}"></i>`).join('')}</span>`;
+    return`<section class="pl ${on?'on':''} ${G.out[i]?'out':''}" data-p="${i}"><div class="pl-top">${nameTag(i)}<span class="lgs"><span class="lgi"><small>${t('lives')}</small>${hearts}</span></span></div>
+      <div class="meta"><span>${G.out[i]?t('outTag'):G.killer[i]?'<b class="ktag">Killer</b>':''}</span><span>${t('last')} ${lastTxt(i)}</span></div>
+      <div class="rem">D${G.kn[i]}</div>${on?slots():''}</section>`;
+  }).join('')+'</div>';
+}
+
+/* ---------- practice drills (solo) ---------- */
+const HI_SEQ=[15,16,'D',17,18,'T',19,20,'B'];
+const DRILLS=[['catCo',['co','121','c40']],['catDbl',['dbl','bobs']],['catScore',['cu','tgt']],['catPrec',['atc','hi']]];
+const DICON={co:'170','121':'121',c40:'40',dbl:'D',bobs:'27',cu:'Σ',tgt:'T20',atc:'1›20',hi:'½'};
+function randCo(){let r;do{r=2+Math.floor(Math.random()*169)}while(!checkout(r,3,'double'));return r}
+function drInit(){
+  const d=G.opts.drill,s={round:0,score:0,hits:0,vn:0,dartsIn:0};
+  if(d==='co'){s.total=10;s.target=randCo()}
+  if(d==='121'){s.total=10;s.target=121;s.best=0}
+  if(d==='c40'){s.total=40;s.target=61}
+  if(d==='dbl')s.total=21;
+  if(d==='cu')s.total=8;
+  if(d==='tgt'){s.total=10;s.tg=parseDart(G.opts.tgt||'T20')}
+  if(d==='hi'){s.total=HI_SEQ.length;s.score=40;s.rp=0}
+  s.rem=s.vs=s.target||0;G.dr=s;
+}
+function coEnd(ok){
+  const s=G.dr,d=G.opts.drill,used=s.dartsIn;
+  if(ok){s.hits++;if(d==='co')s.score++;if(d==='c40')s.score+=used<=2?3:used===3?2:1;if(d==='121'){s.best=Math.max(s.best,s.target);s.score=s.best;s.target++}}
+  toast(t(ok?'trOk':'trKo'));if(ok)sfxApplause(1.2);
+  s.round++;G.visit=[];
+  if(s.round>=s.total)return drFinish();
+  if(d==='co')s.target=randCo();if(d==='c40')s.target=61+s.round;
+  s.rem=s.vs=s.target;s.vn=0;s.dartsIn=0;
+}
+function coNextVisit(maxV){const s=G.dr;s.vn++;s.dartsIn=s.vn*3;G.last[0]={d:G.visit.map(lab)};G.visit=[];s.vs=s.rem;if(s.vn>=maxV)coEnd(false)}
+function drDart(n,m){
+  const s=G.dr,d=G.opts.drill,st=G.stats[0],v=n*m;G.visit.push({n,m,v});st.darts++;
+  if(d==='co'||d==='121'||d==='c40'){
+    const maxV=d==='co'?1:d==='c40'?2:3,nr=s.rem-v;s.dartsIn++;
+    if(nr===0&&m===2)return coEnd(true);
+    if(nr<0||nr<=1){s.rem=s.vs;return coNextVisit(maxV)}
+    s.rem=nr;if(G.visit.length===3)coNextVisit(maxV);return;
+  }
+  if(d==='dbl'){const tg=s.round<20?s.round+1:25;if(n===tg&&m===2){s.hits++;s.score++}}
+  if(d==='cu')s.score+=v;
+  if(d==='tgt'&&n===s.tg.n&&m===s.tg.m){s.hits++;s.score++}
+  if(d==='hi'){const x=HI_SEQ[s.round],ok=x==='D'?m===2:x==='T'?m===3:x==='B'?n===25:n===x&&m>0;if(ok&&v){s.rp+=v;s.hits++}}
+  if(G.visit.length===3){
+    if(d==='hi'){s.score=s.rp?s.score+s.rp:Math.ceil(s.score/2);s.rp=0}
+    G.last[0]={d:G.visit.map(lab)};G.visit=[];s.round++;
+    if(s.round>=s.total)drFinish();
+  }
+}
+function drFinish(){const st=G.stats[0];st.score=G.dr.score;st.hits=G.dr.hits;st.rounds=G.dr.round;legWon(0)}
+function drTarget(){
+  const s=G.dr,d=G.opts.drill;
+  if(d==='co'||d==='121'||d==='c40')return String(s.rem);
+  if(d==='dbl'){const tg=s.round<20?s.round+1:25;return tg===25?'Bull':'D'+tg}
+  if(d==='cu')return String(s.score);
+  if(d==='tgt')return G.opts.tgt;
+  const x=HI_SEQ[s.round];return x==='D'?t('anyDouble'):x==='T'?t('anyTreble'):x==='B'?'Bull':String(x);
+}
+function drHl(){const s=G.dr,d=G.opts.drill;
+  if(d==='dbl')return[s.round<20?s.round+1:25];if(d==='tgt')return[s.tg.n];
+  if(d==='hi'){const x=HI_SEQ[s.round];return typeof x==='number'?[x]:x==='B'?[25]:[]}return[]}
+function bDrill(){
+  const s=G.dr,d=G.opts.drill,co=d==='co'||d==='121'||d==='c40';
+  const sub=co?(d==='121'?`${t('sc_121')}: ${s.best||'–'}`:`${t('sc_'+d)}: ${s.score}`):(d==='cu'?'':`${t('sc_'+d)}: ${s.score}`);
+  let route='';if(co){const r=checkout(s.rem,3-G.visit.length,'double');if(r)route=`<div class="co">${r.map(x=>`<span>${lab(x)}</span>`).join('')}</div>`}
+  const extra=d==='c40'?`<div class="hint">${t('c40Pts')}</div>`:d==='121'&&s.target?`<div class="hint">${t('d_121')}: ${s.target}</div>`:'';
+  return`<div class="banner"><b>${t('d_'+d)}</b><span>${t('roundOf',Math.min(s.round+1,s.total),s.total)}</span></div>
+   <div class="sb rows" style="--n:1;--g:1"><section class="pl on" data-p="0"><div class="pl-top">${nameTag(0)}<span class="lg">${sub}</span></div>
+   <div class="mid"><div class="rem drt" data-anim="dr" data-v="${/^\d+$/.test(drTarget())?drTarget():''}">${drTarget()}</div><div class="vis">${slots()}</div></div>${route}${extra}
+   <div class="meta"><span>${t('darts',G.stats[0].darts)}</span><span>${t('last')} ${lastTxt(0)}</span></div></section></div>`;
+}
+
+/* ---------- charts (SVG, no libraries) ---------- */
+const PCOL=['#2FA866','#D9483E','#C9A23A','#4B8FD6','#9B6BD3','#D9822B','#2BB3B3','#C2589B'];
+function legendHtml(names){return`<div class="leg2">${names.map((n,i)=>`<span><i style="background:${PCOL[i%8]}"></i>${esc(n)}</span>`).join('')}</div>`}
+function lineChart(series,names){
+  const W=320,H=150,L=30,B=18,mx=Math.max(10,...series.flat())*1.1,len=Math.max(...series.map(s=>s.length));if(len<2)return'';
+  const X=i=>L+i/(len-1)*(W-L-6),Y=v=>H-B-v/mx*(H-B-8);
+  let g=`<line x1="${L}" y1="${H-B}" x2="${W-6}" y2="${H-B}" stroke="var(--line)"/>`;
+  [0,.5,1].forEach(f=>{const v=Math.round(mx/1.1*f);g+=`<text x="${L-4}" y="${Y(v)+4}" text-anchor="end" class="ax">${v}</text><line x1="${L}" x2="${W-6}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-dasharray="2 4"/>`});
+  series.forEach((s,i)=>{if(s.length>1)g+=`<polyline points="${s.map((v,k)=>`${X(k).toFixed(1)},${Y(v).toFixed(1)}`).join(' ')}" fill="none" stroke="${PCOL[i%8]}" stroke-width="2.5" stroke-linejoin="round"/>`});
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('chAvg')}">${g}</svg>${legendHtml(names)}`;
+}
+function barChart(groups,labels,names){
+  const W=320,H=150,B=20,mx=Math.max(1,...groups.flat()),gw=(W-8)/labels.length,bw=Math.min(14,(gw-6)/groups.length);let g='';
+  labels.forEach((l,j)=>{const x0=4+j*gw+(gw-bw*groups.length)/2;
+    groups.forEach((gr,i)=>{const h=gr[j]/mx*(H-B-14);if(gr[j])g+=`<rect x="${(x0+i*bw).toFixed(1)}" y="${(H-B-h).toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${PCOL[i%8]}"/>`});
+    g+=`<text x="${(4+j*gw+gw/2).toFixed(1)}" y="${H-5}" text-anchor="middle" class="ax">${l}</text>`});
+  return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('chDist')}"><line x1="4" y1="${H-B}" x2="${W-4}" y2="${H-B}" stroke="var(--line)"/>${g}</svg>${legendHtml(names)}`;
+}
+function matchCharts(r){
+  if(r.mode!=='x01'||r.stats.every(s=>s.visits.length<2))return'';
+  const series=r.stats.map(s=>{let sum=0;return s.visits.map((v,k)=>(sum+=v)/(k+1))});
+  const BK=[[0,20,'0+'],[20,40,'20+'],[40,60,'40+'],[60,80,'60+'],[80,100,'80+'],[100,140,'100+'],[140,180,'140+'],[180,181,'180']];
+  const groups=r.stats.map(s=>BK.map(([a,b])=>cnt(s.visits,a,b)));const names=r.players.map(p=>p.name);
+  return`<div class="lbl">${t('chAvg')}</div>${lineChart(series,names)}<div class="lbl">${t('chDist')}</div>${barChart(groups,BK.map(b=>b[2]),names)}`;
+}
+/* hit map: every bed of the board coloured by how often it was hit */
+function heatSVG(hm){
+  const c=0,P=(r,a)=>{const q=(a-90)*Math.PI/180;return(r*Math.cos(q)).toFixed(1)+' '+(r*Math.sin(q)).toFixed(1)};
+  const seg=(r1,r2,a1,a2,fill,op)=>`<path d="M${P(r2,a1)}A${r2} ${r2} 0 0 1 ${P(r2,a2)}L${P(r1,a2)}A${r1} ${r1} 0 0 0 ${P(r1,a1)}Z" fill="${fill}" fill-opacity="${op}" stroke="var(--line)" stroke-width=".6"/>`;
+  const vals=Object.entries(hm).filter(([k])=>k!=='0-0').map(([,v])=>v),mx=Math.max(1,...vals);
+  const op=k=>{const v=hm[k]||0;return v?(.12+.85*Math.sqrt(v/mx)).toFixed(2):0};
+  let g=`<circle r="170" fill="var(--surf2)" stroke="var(--line)"/>`;
+  BOARD.forEach((n,i)=>{const a1=i*18-9,a2=a1+18;
+    g+=seg(162,170,a1,a2,'var(--red)',op(n+'-2'))+seg(107,162,a1,a2,'var(--red)',op(n+'-1'))+seg(99,107,a1,a2,'var(--red)',op(n+'-3'))+seg(16,99,a1,a2,'var(--red)',op(n+'-1'));
+    const q=(i*18-90)*Math.PI/180;g+=`<text x="${(186*Math.cos(q)).toFixed(1)}" y="${(186*Math.sin(q)+5).toFixed(1)}" text-anchor="middle" class="ax">${n}</text>`});
+  g+=`<circle r="16" fill="var(--red)" fill-opacity="${op('25-1')}" stroke="var(--line)"/><circle r="6.4" fill="var(--red)" fill-opacity="${op('25-2')}" stroke="var(--line)"/>`;
+  const tot=Object.values(hm).reduce((a,b)=>a+b,0);
+  return`<svg class="heat" viewBox="-200 -200 400 400" role="img" aria-label="${t('heat')}">${g}</svg><div class="meta" style="justify-content:space-between"><span>${t('darts',tot)}</span><span>${t('misses',hm['0-0']||0)}</span></div>`;
+}
+
+/* ---------- head to head ---------- */
+let H2H=[null,null];
+function h2hHtml(){
+  const ps=DB.players;if(ps.length<2)return'';let[a,b]=H2H;
+  if(!ps.some(p=>p.id===a))a=ps[0].id;if(!ps.some(p=>p.id===b)||b===a)b=ps.find(p=>p.id!==a).id;H2H=[a,b];
+  const sel=(k,v)=>`<select class="field" data-h2h="${k}" aria-label="${t('players')}">${ps.map(p=>`<option value="${p.id}" ${p.id===v?'selected':''}>${esc(p.name)}</option>`).join('')}</select>`;
+  const ms=DB.history.filter(h=>h.mode!=='drill'&&h.players.some(p=>p.id===a)&&h.players.some(p=>p.id===b));
+  let wa=0,wb=0,dr=0,pa=0,da=0,pb=0,db=0;
+  ms.forEach(h=>{const ia=h.players.findIndex(p=>p.id===a),ib=h.players.findIndex(p=>p.id===b);
+    if(h.winner===ia)wa++;else if(h.winner===ib)wb++;else if(h.winner==null)dr++;
+    if(h.mode==='x01'){pa+=h.stats[ia].pts;da+=h.stats[ia].darts;pb+=h.stats[ib].pts;db+=h.stats[ib].darts}});
+  let body=`<p class="muted">${t('h2hNone')}</p>`;
+  if(ms.length)body=`<div class="h2hsc">${wa} – ${wb}</div><p class="muted" style="text-align:center">${t('h2hMatches',ms.length)}${dr?', '+t('h2hDraws',dr):''}${da&&db?`. ${t('avg')} ${nf(pa/da*3,1)} – ${nf(pb/db*3,1)}`:''}</p>
+    <div class="lbl">${t('h2hLast')}</div>${ms.slice(0,5).map(h=>`<div class="legrow"><b>${winTitle(h)}</b><div>${esc(modeLabel(h.mode,h.opts))}, ${fmtDate(h.ended)}</div></div>`).join('')}`;
+  return`<div class="card"><h3>${t('h2h')}</h3><div class="h2hsel">${sel(0,a)}<span>vs</span>${sel(1,b)}</div>${body}</div>`;
+}
+
+/* ---------- update check (APK only) ---------- */
+const REPO='pilippopilippo/darts';let UPD=null;
+function cmpVer(a,b){const x=a.split('.').map(Number),y=b.split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0?1:-1}return 0}
+async function checkUpdate(){
+  const A=CAP('App');if(!A)return;
+  try{
+    const cur=(await A.getInfo()).version||'';if(!/^\d+(\.\d+)*$/.test(cur))return;
+    let u=LS.get('upd',null);
+    if(Date.now()-LS.get('updchk',0)>20*3600e3){
+      LS.set('updchk',Date.now());
+      const r=await fetch(`https://api.github.com/repos/${REPO}/releases/latest`,{headers:{Accept:'application/vnd.github+json'}});
+      if(r.ok){const j=await r.json();u={v:String(j.tag_name||'').replace(/^v/,'')};LS.set('upd',u)}
+    }
+    if(u&&/^\d+(\.\d+)*$/.test(u.v)&&cmpVer(u.v,cur)>0&&LS.get('updskip','')!==u.v){UPD=u;if(V.name==='home')render()}
+  }catch(e){}
+}
+
+/* ---------- backup to / from a file ---------- */
+async function backupFile(){
+  const data=JSON.stringify({app:'darts',v:1,players:DB.players,history:DB.history}),name=`darts-backup-${new Date().toISOString().slice(0,10)}.json`;
+  const FS=CAP('Filesystem'),SH=CAP('Share');
+  if(FS&&SH){try{const w=await FS.writeFile({path:name,data,directory:'CACHE',encoding:'utf8'});await SH.share({title:name,files:[w.uri]});return}catch(e){if(/cancel/i.test(String(e&&e.message||e)))return}}
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();toast(t('bkSaved'))}catch(e){toast(t('copyBox'))}
+}
+
+function vTraining(){
+  const ps=DB.players;
+  if(!ps.length)return topbar(t('training'))+`<div class="page"><div class="empty">${t('noPlayers')}</div><button class="btn primary" data-act="go" data-v="players">${t('players')}</button></div>`;
+  const cur=SETUP.trp&&ps.some(p=>p.id===SETUP.trp)?SETUP.trp:ps[0].id;
+  const card=(k,cat)=>`<button class="drill c-${cat}" data-act="drill" data-v="${k}"><span class="dic">${k==='tgt'?esc(SETUP.tgt||'T20'):DICON[k]}</span><span><b>${k==='atc'?t('m_atc'):k==='bobs'?'Bob’s 27':t('d_'+k)}</b><small>${t('dd_'+k)}</small></span></button>`;
+  return topbar(t('training'))+`<div class="page"><p class="muted" style="margin-bottom:12px">${t('trSub')}</p>
+   <div class="lbl" style="margin-top:0">${t('trPlayer')}</div><select class="field" id="trp" style="width:100%">${ps.map(p=>`<option value="${p.id}" ${p.id===cur?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+   ${DRILLS.map(([cat,list])=>`<div class="lbl">${t(cat)}</div>`+list.map(k=>card(k,cat)+(k==='tgt'?`<div class="chips" style="margin:-2px 0 10px">${['T20','T19','T18','D16','D20','Bull'].map(v=>`<button class="chip ${(SETUP.tgt||'T20')===v?'on':''}" data-act="opt" data-k="tgt" data-v="${v}">${v}</button>`).join('')}</div>`:'')).join('')).join('')}
+  </div>`;
 }
 
 /* ---------- navigation ---------- */
@@ -700,6 +1222,11 @@ function confirmBox(title,text,okLabel,cb,danger){
   ASKCB=cb;
   showModal(`<h3>${title}</h3><p>${text}</p><button class="btn ${danger?'danger':'primary'}" data-act="askpick" data-v="1">${okLabel}</button><button class="btn" data-act="closemodal">${t('cancel')}</button>`);
 }
+function promptNum(title,value,cb){
+  ASKCB=cb;
+  showModal(`<h3>${title}</h3><input class="field" id="pin" type="number" inputmode="numeric" min="0" max="180" value="${+value||0}" style="width:100%;margin:6px 0 14px;font-size:24px"><button class="btn primary" data-act="promptok">${t('save')}</button><button class="btn" data-act="closemodal">${t('cancel')}</button>`);
+  const i=document.getElementById('pin');if(i)i.select();
+}
 function promptBox(title,value,cb){
   ASKCB=cb;
   showModal(`<h3>${title}</h3><input class="field" id="pin" maxlength="24" value="${esc(value||'')}" style="width:100%;margin:6px 0 14px"><button class="btn primary" data-act="promptok">${t('save')}</button><button class="btn" data-act="closemodal">${t('cancel')}</button>`);
@@ -718,9 +1245,11 @@ function topbar(title,right){return`<header class="top"><button class="ib" data-
 
 function vHome(){
   const res=G&&!G.finished?`<div class="resume"><b>${esc(modeLabel(G.mode,G.opts))}</b><div class="muted">${G.players.map(p=>esc(p.name)).join(t('vs'))}</div><button class="btn primary" data-act="resume">${t('resume')}</button><button class="btn danger" data-act="abandon">${t('abandon')}</button></div>`:'';
+  const upd=UPD?`<div class="resume"><b>${t('updAvail',UPD.v)}</b><button class="btn primary" data-act="upd">${t('updGet')}</button><button class="btn" data-act="updlater">${t('updLater')}</button></div>`:'';
   return`<div class="page"><div class="hero">${boardSVG()}<div><h1>Darts</h1><p>${t('appSub')}</p></div></div>
-  ${res}<button class="btn ${res?'':'primary'}" data-act="go" data-v="setup">${t('newMatch')}</button>
+  ${upd}${res}<button class="btn ${res?'':'primary'}" data-act="go" data-v="setup">${t('newMatch')}</button>
   <nav class="menu">
+    <button data-act="go" data-v="training">${t('training')} <span></span></button>
     <button data-act="go" data-v="players">${t('players')} <span>${DB.players.length}</span></button>
     <button data-act="go" data-v="stats">${t('stats')} <span></span></button>
     <button data-act="go" data-v="history">${t('history')} <span>${DB.history.length}</span></button>
@@ -742,11 +1271,19 @@ function vSetup(){
     <div class="lbl">${t('finish')}</div>${chips('atc.bull',[[1,t('finBull')],[0,t('fin20')]],s.atc.bull?1:0)}`;
   if(m==='shanghai')o=`<div class="lbl">${t('nRounds')}</div>${chips('shanghai.rounds',[[7,'7'],[10,'10'],[20,'20']],s.shanghai.rounds)}`;
   if(m==='bobs')o=`<p class="muted" style="margin-top:14px">${t('bobsInfo')}</p>`;
+  if(m==='killer')o=`<div class="lbl">${t('lives')}</div>${chips('killer.lives',[[3,'3'],[5,'5']],s.killer.lives)}<p class="muted" style="margin-top:12px;font-size:14px">${t('kInfo')}</p>`;
   const sel=s.players;
   const pl=DB.players.length?DB.players.map(p=>{const i=sel.indexOf(p.id);return`<button class="prow ${i>=0?'on':''}" data-act="pick" data-v="${p.id}"><span class="ord">${i>=0?i+1:''}</span>${esc(p.name)}</button>`}).join(''):`<p class="muted" style="margin-bottom:8px">${t('addFirst')}</p>`;
-  const min=m==='cricket'?2:1,tot=sel.length+(s.cpu.on?1:0);
+  const min=m==='cricket'||m==='killer'?2:1,tot=sel.length+(s.cpu.on?1:0);
+  const canTeams=(m==='x01'||m==='cricket')&&sel.length===4&&!s.cpu.on;
+  let extra='';
+  if(canTeams)extra+=`<button class="toggle ${s.teams?'on':''}" data-act="teams">${t('teams')}<span class="sw"></span></button>${s.teams?`<p class="muted" style="font-size:14px;margin-top:6px">${t('teamsInfo')}</p>`:''}`;
+  if(m==='x01'&&!(canTeams&&s.teams)&&tot>0){extra+=`<button class="toggle ${s.x01.hcpOn?'on':''}" data-act="hcpon">${t('hcp')}<span class="sw"></span></button>`;
+    if(s.x01.hcpOn){const who=sel.map(id=>({id,name:DB.players.find(p=>p.id===id).name}));if(s.cpu.on)who.push({id:'cpu',name:cpuName()});
+      extra+=`<p class="muted" style="font-size:14px;margin:6px 0">${t('hcpInfo')}</p>`+who.map(w=>`<div class="prow2"><b>${esc(w.name)}</b><select class="field hsel" data-hcp="${w.id}" aria-label="${t('startScore')}">${[101,201,301,401,501,601,701,801,901,1001].map(v=>`<option ${(s.x01.hcp[w.id]||s.x01.start)===v?'selected':''}>${v}</option>`).join('')}</select></div>`).join('')}}
+  if(tot>1&&!s.random)extra+=`<button class="toggle ${s.bulloff?'on':''}" data-act="bulloff">${t('bulloff')}<span class="sw"></span></button>`;
   return topbar(t('newMatch'))+`<div class="page">
-   <div class="scroller">${Object.keys(MODES).map(k=>[k,MODES[k]()]).map(([k,l])=>`<button class="chip ${m===k?'on':''}" data-act="mode" data-v="${k}">${l}</button>`).join('')}</div>
+   <div class="scroller">${SETUP_MODES.map(k=>[k,MODES[k]()]).map(([k,l])=>`<button class="chip ${m===k?'on':''}" data-act="mode" data-v="${k}">${l}</button>`).join('')}</div>
    ${o}
    <div class="lbl">${t('order')}</div>${pl}
    <div class="addrow"><input id="newp" placeholder="${t('newName')}" maxlength="24" enterkeyhint="done"><button class="ib" data-act="addp">${t('add')}</button></div>
@@ -754,6 +1291,7 @@ function vSetup(){
    ${s.cpu.on?`<div class="prow2" style="border-bottom:0"><b>${esc(cpuName())}</b><button class="ib" data-act="cpuname">${t('rename')}</button>${s.cpu.name?`<button class="ib" data-act="cpuauto">${t('autoName')}</button>`:''}</div>
    <div class="steps" style="margin:4px 0 4px">${stepper('cpu.level',t('skill',CPU_AVG[s.cpu.level-1]),s.cpu.level)}</div>`:''}
    <button class="toggle ${s.random?'on':''}" data-act="rnd">${t('random')}<span class="sw"></span></button>
+   ${extra}
    <div class="startbar"><button class="btn primary" data-act="start" ${tot<min||!sel.length?'disabled':''}>${!sel.length?t('pickOne'):tot<min?t('needTwo'):t('start')}</button></div>
   </div>`;
 }
@@ -763,56 +1301,70 @@ function slots(){
   let h='<div class="slots">';for(let i=0;i<3;i++){const d=G.visit[i];h+=`<div class="slot ${d?'f':''}">${d?lab(d):''}</div>`}return h+'</div>';
 }
 function lastTxt(i){const l=G.last[i];if(!l)return'–';if(l.bust)return`<span class="bust">${t('bust')}</span>`;if(l.score!=null)return l.score;return l.d.join(' ')}
+function dots(won,need){let h='<span class="dots">';for(let k=0;k<need;k++)h+=`<i class="${k<won?'w':''}"></i>`;return h+'</span>'}
+function legInfo(i){
+  const o=G.opts;let h='',lbl=[];
+  if(o.sets>1){h+=`<span class="lgi"><small>Set</small>${dots(G.setsWon[i],o.sets)}</span>`;lbl.push(`Set ${G.setsWon[i]}/${o.sets}`)}
+  if(o.legs>1||o.sets>1){h+=`<span class="lgi"><small>Leg</small>${dots(G.legsWon[i],o.legs)}</span>`;lbl.push(`Leg ${G.legsWon[i]}/${o.legs}`)}
+  return h?`<span class="lgs" role="img" aria-label="${lbl.join(', ')}">${h}</span>`:'';
+}
+function nameTag(i){return`<span class="nmw">${i===G.legStarter?`<span class="starter" role="img" aria-label="${t('startedLeg')}" title="${t('startedLeg')}"></span>`:''}<span class="nmc"><b class="nm">${esc(G.players[i].name)}</b>${G.players[i].members?`<small class="tm">${t('throwingNow',esc(pname(i)))}</small>`:''}</span></span>`}
 function bX01(){
-  const n=G.players.length,cls=n===1?'one':n===2?'two':'list';
-  return`<div class="sb ${cls}">`+G.players.map((pl,i)=>{
+  return`<div class="sb rows ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>4?2.6:G.players.length>1?2.4:1}">`+G.players.map((pl,i)=>{
     const on=i===G.turn,st=G.stats[i],avg=st.darts?nf(st.pts/st.darts*3,1):'–';
-    const lg=G.opts.sets>1?`Set ${G.setsWon[i]}  Leg ${G.legsWon[i]}`:`Leg ${G.legsWon[i]}`;
+    const top=`<div class="pl-top">${nameTag(i)}${legInfo(i)}</div>`;
+    const meta=`<div class="meta"><span>${t('avg')} ${avg}</span><span>${t('last')} ${lastTxt(i)}</span><span>${t('darts',G.legDarts[i])}</span></div>`;
+    if(!on)return`<section class="pl" data-p="${i}">${top}${meta}<div class="rem" data-anim="r${i}" data-v="${G.rem[i]}">${G.rem[i]}</div></section>`;
     let co='';
-    if(on){if(!G.opened[i])co=`<div class="hint">${t(G.opts.inMode==='double'?'hintD':'hintM')}</div>`;
-      else{const left=G.input==='total'?3:3-G.visit.length;const r=checkout(G.rem[i],left,G.opts.outMode);if(r)co=`<div class="co" aria-label="${t('sugg')}">${r.map(d=>`<span>${lab(d)}</span>`).join('')}</div>`}}
-    return`<section class="pl ${on?'on':''}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b><span class="lg">${lg}</span></div><div class="rem">${G.rem[i]}</div><div class="meta"><span>${t('avg')} ${avg}</span><span>${t('last')} ${lastTxt(i)}</span><span>${t('darts',G.legDarts[i])}</span></div>${on?slots()+co:''}</section>`;
+    if(!G.opened[i])co=`<div class="hint">${t(G.opts.inMode==='double'?'hintD':'hintM')}</div>`;
+    else{const left=G.input==='total'?3:3-G.visit.length;const r=checkout(G.rem[i],left,G.opts.outMode);if(r)co=`<div class="co" aria-label="${t('sugg')}">${r.map(d=>`<span>${lab(d)}</span>`).join('')}</div>`}
+    const sum=G.visit.reduce((a,d)=>a+(d.v||0),0);
+    const vis=G.input==='total'?'':`<div class="vis">${slots()}<div class="vsum">${G.visit.length?sum:''}</div></div>`;
+    return`<section class="pl on" data-p="${i}">${top}<div class="mid"><div class="rem" data-anim="r${i}" data-v="${G.rem[i]}">${G.rem[i]}</div>${vis}</div>${co}${meta}</section>`;
   }).join('')+'</div>';
 }
 function bCricket(){
   const P=G.players,mk=v=>v>=3?'<span class="mk3">✕</span>':v===2?'<span class="mk">✕</span>':v===1?'<span class="mk">/</span>':'';
-  const dead=t=>P.every((_,i)=>G.marks[i][t]>=3);
-  const head=P.map((p,i)=>{const st=G.stats[i];const mpr=st.rounds?nf(st.marks/st.rounds,2):'–';
-    return`<th class="${i===G.turn?'on':''}">${esc(p.name)}<small>${G.opts.variant==='noscore'?G.legsWon[i]:G.points[i]}</small><span class="muted" style="font:500 12px var(--fb)">MPR ${mpr}${G.opts.legs>1?'  Leg '+G.legsWon[i]:''}</span></th>`}).join('');
-  return`<table class="cr"><thead><tr><th></th>${head}</tr></thead><tbody>${CT.map(t=>`<tr class="${dead(t)?'dead':''}"><th>${t===25?'Bull':t}</th>${P.map((_,i)=>`<td class="${i===G.turn?'on':''}">${mk(G.marks[i][t])}</td>`).join('')}</tr>`).join('')}</tbody></table>${slots()}`;
+  const dead=tg=>P.every((_,i)=>G.marks[i][tg]>=3);
+  return`<div class="sb rows cr2 ${P.length>3?'dense':''}" style="--n:${P.length};--g:1">`+P.map((pl,i)=>{
+    const on=i===G.turn,st=G.stats[i],mpr=st.rounds?nf(st.marks/st.rounds,2):'–';
+    const pts=G.opts.variant==='noscore'?'':`<div class="crp" data-anim="p${i}" data-v="${G.points[i]}">${G.points[i]}</div>`;
+    return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="crrow">${nameTag(i)}${on?slots().replace('class="slots"','class="slots mini"'):''}${pts}</div>
+      <div class="meta"><span>MPR ${mpr}</span><span>${t('last')} ${lastTxt(i)}</span>${legInfo(i)}</div>
+      <div class="strip">${CT.map(tg=>{const m=G.marks[i][tg];return`<div class="cell ${m>=3?'closed':''} ${dead(tg)?'dead':''}"><small>${tg===25?'B':tg}</small>${mk(m)||'&nbsp;'}</div>`}).join('')}</div></section>`;
+  }).join('')+'</div>';
 }
 function bAtc(){
   const seq=atcSeq(),v=G.opts.variant,pre=v==='double'?'D':v==='triple'?'T':'';
-  return`<div class="sb list">`+G.players.map((pl,i)=>{const on=i===G.turn,tg=seq[G.pos[i]],st=G.stats[i];
+  return`<div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>1?1.6:1}">`+G.players.map((pl,i)=>{const on=i===G.turn,tg=seq[G.pos[i]],st=G.stats[i];
     const tl=tg===25?'Bull':pre+tg;
-    return`<section class="pl ${on?'on':''}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b></div><div class="rem">${tl}</div><div class="meta"><span>${t('of',G.pos[i],seq.length)}</span><span>${t('darts',st.darts)}</span><span>${t('last')} ${lastTxt(i)}</span></div><div class="bar" style="grid-column:1/3"><i style="width:${G.pos[i]/seq.length*100}%"></i></div>${on?slots():''}</section>`}).join('')+'</div>';
+    return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b></div><div class="rem">${tl}</div><div class="meta"><span>${t('of',G.pos[i],seq.length)}</span><span>${t('darts',st.darts)}</span><span>${t('last')} ${lastTxt(i)}</span></div><div class="bar" style="grid-column:1/3"><i style="width:${G.pos[i]/seq.length*100}%"></i></div>${on?slots():''}</section>`}).join('')+'</div>';
 }
 function bRound(){
   const sh=G.mode==='shanghai',tg=sh?G.round:BSEQ[G.round];
   const tl=sh?t('number',tg):(tg===25?'Bull':t('dblN',tg));
   const sub=sh?t('roundOf',G.round,G.opts.rounds):t('roundOf',G.round+1,BSEQ.length);
-  return`<div class="banner"><b>${tl}</b><span>${sub}</span></div><div class="sb list">`+G.players.map((pl,i)=>{const on=i===G.turn;
-    return`<section class="pl ${on?'on':''}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b>${G.out[i]?`<span class="lg bust">${t('outTag')}</span>`:''}</div><div class="rem">${G.score[i]}</div><div class="meta"><span>${t('last')} ${lastTxt(i)}</span></div>${on&&sh?slots():''}</section>`}).join('')+'</div>';
+  return`<div class="banner"><b>${tl}</b><span>${sub}</span></div><div class="sb rows flat ${G.players.length>4?'dense':''}" style="--n:${G.players.length};--g:${G.players.length>1?1.4:1}">`+G.players.map((pl,i)=>{const on=i===G.turn;
+    return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b>${G.out[i]?`<span class="lg bust">${t('outTag')}</span>`:''}</div><div class="rem" data-anim="s${i}" data-v="${G.score[i]}">${G.score[i]}</div><div class="meta"><span>${t('last')} ${lastTxt(i)}</span></div>${on&&sh?slots():''}</section>`}).join('')+'</div>';
 }
 function padDarts(hl){
   const m=PAD.mul,pre=m===2?'D':m===3?'T':'';
-  let h=`<div class="pad"><div class="mulrow"><button class="mul d ${m===2?'on':''}" data-act="mul" data-v="2" aria-pressed="${m===2}">${t('double')}</button><button class="mul t ${m===3?'on':''}" data-act="mul" data-v="3" aria-pressed="${m===3}">${t('treble')}</button></div><div class="nums">`;
+  let h=`<div class="pad ${m>1?'m'+m:''}"><div class="mulrow"><button class="mul d ${m===2?'on':''}" data-act="mul" data-v="2" aria-pressed="${m===2}">${t('double')}</button><button class="mul t ${m===3?'on':''}" data-act="mul" data-v="3" aria-pressed="${m===3}">${t('treble')}</button></div><div class="nums">`;
   for(let i=1;i<=20;i++)h+=`<button class="k ${hl.includes(i)?'hl':''}" data-act="num" data-v="${i}">${pre}${i}</button>`;
-  h+=`</div><div class="row4"><button class="k ${hl.includes(25)?'hl':''}" data-act="num" data-v="25" ${m===3?'disabled':''}>25</button><button class="k bull" data-act="bull">Bull</button><button class="k miss" data-act="miss">Miss</button><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
-  if(G.mode==='x01')h+=`<button class="link" data-act="inmode">${t('enterTotal')}</button>`;
+  h+=`</div><div class="row4"><button class="k ${hl.includes(25)?'hl':''}" data-act="num" data-v="25" ${m===3?'disabled':''}>25</button><button class="k bull" data-act="bull">Bull</button><button class="k miss" data-act="miss" data-long="missrest">Miss<small>${t('missHint')}</small></button><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
+  if(G.mode==='x01')h+=`<button class="k small wide" data-act="inmode">${t('enterTotal')}</button>`;
   return h+'</div>';
 }
 function padTotal(){
-  const q=[26,41,45,60,81,85,100,140];
+  const q=[26,41,45,60,85,100,140,180];
   let pv='';
   if(PAD.typed){const tv=+PAD.typed,o=G.opts,nr=G.visitStart-tv;
     if(tv>180||IMPOSSIBLE.includes(tv))pv=`<span class="bust">${t('impossible')}</span>`;
     else if(nr<0||(nr===1&&o.outMode!=='single')||(nr===0&&!checkout(G.visitStart,3,o.outMode)))pv=`<span class="bust">${t('bust')}</span>`;
     else pv=nr===0?t('checkoutWord'):t('left',nr)}
-  return`<div class="pad"><div class="typed" aria-live="polite">${PAD.typed||'0'}</div><div class="preview">${pv}</div><div class="quick">${q.map(v=>`<button class="k" data-act="quick" data-v="${v}">${v}</button>`).join('')}</div>
+  return`<div class="pad tot"><div class="typerow"><div class="typed" aria-live="polite">${PAD.typed||'0'}</div><div class="preview">${pv}</div></div><div class="quick">${q.map(v=>`<button class="k" data-act="quick" data-v="${v}">${v}</button>`).join('')}</div>
   <div class="keys">${[1,2,3,4,5,6,7,8,9].map(d=>`<button class="k" data-act="digit" data-v="${d}">${d}</button>`).join('')}<button class="k small" data-act="del">⌫</button><button class="k" data-act="digit" data-v="0">0</button><button class="k ok" data-act="totok">OK</button></div>
-  <div class="mulrow"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoVisit')}</button><button class="k small" data-act="quick" data-v="180">180</button></div>
-  <button class="link" data-act="inmode">${t('enterDarts')}</button></div>`;
+  <div class="mulrow"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoVisit')}</button><button class="k small two" data-act="inmode">${t('enterDarts')}</button></div></div>`;
 }
 function padBob(){
   const tg=BSEQ[G.round];
@@ -826,9 +1378,10 @@ function vGame(){
   if(G.mode==='atc'){b=bAtc();p=padDarts([atcSeq()[G.pos[G.turn]]])}
   if(G.mode==='shanghai'){b=bRound();p=padDarts([G.round])}
   if(G.mode==='bobs'){b=bRound();p=padBob()}
+  if(G.mode==='killer'){b=bKiller();p=padDarts(kHl())}
+  if(G.mode==='drill'){b=bDrill();p=padDarts(drHl())}
   if(!G.finished&&G.players[G.turn].cpu)p=`<div class="pad"><div class="cpuwait" aria-live="polite">${t('throwing',esc(G.players[G.turn].name))}</div><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoMine')}</button></div>`;
-  const fmt=G.opts.sets>1?`Set ${G.setNo}, leg ${G.legNo}`:G.opts.legs>1?`Leg ${G.legNo}`:'';
-  return`<div class="game">${topbar(esc(modeLabel(G.mode,G.opts))+(fmt?` <span class="muted" style="font-size:16px">${fmt}</span>`:''),`<button class="ib" data-act="mstats">${t('statsBtn')}</button>`)}<div class="board">${b}</div>${p}</div>`;
+  return`<div class="game">${topbar(esc(modeLabel(G.mode,G.opts)),`<button class="ib" data-act="mstats">${t('statsBtn')}</button>`)}<div class="board">${b}</div>${p}</div>`;
 }
 
 /* stats rows */
@@ -848,6 +1401,8 @@ function statRows(r){
     [t('r_darts'),f(s=>s.darts)]];
   if(r.mode==='cricket')return[['MPR',f(s=>s.rounds?nf(s.marks/s.rounds,2):'–')],[t('r_marks'),f(s=>s.marks)],[t('r_rounds'),f(s=>s.rounds)]];
   if(r.mode==='atc')return[[t('r_darts'),f(s=>s.darts)],[t('r_acc'),f(s=>pct(s.hits,s.darts))]];
+  if(r.mode==='killer')return[[t('sc_dbl'),f(s=>s.hits)],[t('r_darts'),f(s=>s.darts)]];
+  if(r.mode==='drill')return[[t('sc_'+r.opts.drill),f(s=>s.score)],[t('r_darts'),f(s=>s.darts)],[t('r_acc'),f(s=>pct(s.hits,s.darts))]];
   return[[t('r_score'),f(s=>s.score)],[t('r_acc'),f(s=>pct(s.hits,s.darts))],[t('r_darts'),f(s=>s.darts)]];
 }
 function statTable(r){
@@ -864,14 +1419,14 @@ function vResults(){
   return`<header class="top"><h2>${t('over')}</h2></header><div class="page">
    <div class="muted">${esc(modeLabel(G.mode,G.opts))}</div>
    <div class="winner">${winTitle(G)}</div><div class="score">${scoreLine(G)}</div>
-   ${statTable(G)}${legsList(Object.assign({},G,{legs:G.legsHist}))}
+   ${statTable(G)}${matchCharts(G)}${legsList(Object.assign({},G,{legs:G.legsHist}))}
    <div style="margin-top:20px"><button class="btn primary" data-act="rematch">${t('rematch')}</button><button class="btn" data-act="home">${t('home')}</button><button class="btn" data-act="undo">${t('undoLast')}</button></div></div>`;
 }
-function worksheet(log,players,start){
-  const cols=players.map((_,i)=>log.filter(v=>v.p===i));const rows=Math.max(0,...cols.map(c=>c.length));
+function worksheet(log,players,start,editable){
+  const cols=players.map((_,i)=>log.map((v,j)=>Object.assign({j},v)).filter(v=>v.p===i));const rows=Math.max(0,...cols.map(c=>c.length));
   if(!rows)return`<p class="muted">${t('noVisits')}</p>`;
-  let h=`<div class="tw"><table class="ws"><thead><tr><th></th>${players.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody><tr><td class="n">${t('wsStart')}</td>${players.map(()=>`<td><span>${start}</span></td>`).join('')}</tr>`;
-  for(let r=0;r<rows;r++)h+=`<tr><td class="n">${(r+1)*3}</td>${cols.map(c=>{const v=c[r];return v?`<td>${v.b?`<b class="bust">${t('wsBust')}</b>`:`<b>${v.s}</b>`}<span>${v.r}</span></td>`:'<td></td>'}).join('')}</tr>`;
+  let h=`<div class="tw"><table class="ws"><thead><tr><th></th>${players.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody><tr><td class="n">${t('wsStart')}</td>${players.map((_,i)=>`<td><span>${Array.isArray(start)?start[i]:start}</span></td>`).join('')}</tr>`;
+  for(let r=0;r<rows;r++)h+=`<tr><td class="n">${(r+1)*3}</td>${cols.map(c=>{const v=c[r];return v?`<td ${editable?`class="ed" data-act="editv" data-v="${v.j}"`:''}>${v.b?`<b class="bust">${t('wsBust')}</b>`:`<b>${v.s}</b>`}<span>${v.r}</span></td>`:'<td></td>'}).join('')}</tr>`;
   return h+'</tbody></table></div>';
 }
 function legsList(r){
@@ -880,34 +1435,36 @@ function legsList(r){
     const det=r.mode==='x01'?t('legX01',e.d,e.co,r.players.map((p,i)=>esc(p.name)+' '+(e.avg&&e.avg[i]?nf(e.avg[i],1):'–')).join(', '))
       :t('legCr',e.r,r.players.map((p,i)=>esc(p.name)+' '+(e.mpr?nf(e.mpr[i],2):'–')).join(', '));
     const head=`<b>${r.opts.sets>1?`Set ${e.set}, leg ${e.leg}`:`Leg ${e.leg}`}: ${w}</b><div>${det}</div>`;
-    return e.log&&e.log.length?`<details class="legrow"><summary>${head}<div style="color:var(--text);text-decoration:underline">${t('showSheet')}</div></summary>${worksheet(e.log,r.players,r.opts.start)}</details>`:`<div class="legrow">${head}</div>`}).join('');
+    return e.log&&e.log.length?`<details class="legrow"><summary>${head}<div style="color:var(--text);text-decoration:underline">${t('showSheet')}</div></summary>${worksheet(e.log,r.players,r.starts||r.opts.start)}</details>`:`<div class="legrow">${head}</div>`}).join('');
 }
 function vMstats(){
-  const ws=G.mode==='x01'?`<div class="lbl">${t('curSheet')}</div>${worksheet(G.legLog,G.players,G.opts.start)}`:'';
-  return topbar(t('matchStats'))+`<div class="page"><div class="score">${scoreLine(G)}</div>${statTable(G)}${ws}${legsList(Object.assign({},G,{legs:G.legsHist}))}${G.finished?'':`<div style="margin-top:24px"><button class="btn danger" data-act="abandon">${t('abandon')}</button></div>`}</div>`;
+  const ws=G.mode==='x01'?`<div class="lbl">${t('curSheet')}</div>${G.finished||!G.legLog.length?'':`<p class="muted" style="font-size:14px">${t('editHint')}</p>`}${worksheet(G.legLog,G.players,G.starts||G.opts.start,!G.finished)}`:'';
+  return topbar(t('matchStats'))+`<div class="page"><div class="score">${scoreLine(G)}</div>${statTable(G)}${ws}${matchCharts(G)}${legsList(Object.assign({},G,{legs:G.legsHist}))}${G.finished?'':`<div style="margin-top:24px"><button class="btn danger" data-act="abandon">${t('abandon')}</button></div>`}</div>`;
 }
 function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})+', '+d.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})}
 let HFILT='all';
 function vHistory(){
   const L=DB.history.filter(h=>HFILT==='all'||h.mode===HFILT);
-  const used=['x01','cricket','atc','shanghai','bobs'].filter(m=>DB.history.some(h=>h.mode===m));
+  const used=['x01','cricket','killer','atc','shanghai','bobs','drill'].filter(m=>DB.history.some(h=>h.mode===m));
   const f=used.length>1?`<div class="scroller" style="margin-bottom:6px">${[['all',t('all')]].concat(used.map(m=>[m,MODES[m]()])).map(([k,l])=>`<button class="chip ${HFILT===k?'on':''}" data-act="hfilt" data-v="${k}">${l}</button>`).join('')}</div>`:'';
   return topbar(t('history'))+`<div class="page">${f}${L.length?L.map(h=>`<button class="hrow" data-act="match" data-v="${h.id}"><b>${esc(modeLabel(h.mode,h.opts))}</b><div>${h.players.map((p,i)=>i===h.winner&&h.players.length>1?`<strong style="color:var(--text)">${esc(p.name)}</strong>`:esc(p.name)).join(', ')}${scoreLine(h)?'  '+scoreLine(h):''}</div><div>${fmtDate(h.ended)}</div></button>`).join(''):`<div class="empty">${t('noHistory')}</div>`}</div>`;
 }
 function vMatch(){
   const h=DB.history.find(x=>x.id===V.arg);if(!h)return vHistory();
-  return topbar(esc(modeLabel(h.mode,h.opts)))+`<div class="page"><div class="muted">${fmtDate(h.ended)}</div><div class="winner" style="font-size:40px">${winTitle(h)}</div><div class="score">${scoreLine(h)}</div>${statTable(h)}${legsList(h)}<div style="margin-top:22px"><button class="btn danger" data-act="delmatch" data-v="${h.id}">${t('delMatch')}</button></div></div>`;
+  return topbar(esc(modeLabel(h.mode,h.opts)))+`<div class="page"><div class="muted">${fmtDate(h.ended)}</div><div class="winner" style="font-size:40px">${winTitle(h)}</div><div class="score">${scoreLine(h)}</div>${statTable(h)}${matchCharts(h)}${legsList(h)}<div style="margin-top:22px"><button class="btn danger" data-act="delmatch" data-v="${h.id}">${t('delMatch')}</button></div></div>`;
 }
 function vPlayers(){
   return topbar(t('players'))+`<div class="page"><div class="addrow"><input id="newp" placeholder="${t('newName')}" maxlength="24" enterkeyhint="done"><button class="ib" data-act="addp">${t('add')}</button></div>
   <div style="margin-top:12px">${DB.players.length?DB.players.map(p=>`<div class="prow2"><b>${esc(p.name)}</b><button class="ib" data-act="renp" data-v="${p.id}">${t('renameBtn')}</button><button class="ib" data-act="delp" data-v="${p.id}">${t('del')}</button></div>`).join(''):`<div class="empty">${t('noPlayers')}</div>`}</div></div>`;
 }
 function aggregate(pid,since){
-  const a={g:0,w:0,pts:0,d:0,f9p:0,f9d:0,coH:0,coA:0,hiCo:0,best:0,v180:0,v140:0,v100:0,hiV:0,crM:0,crR:0,bob:null,atc:0,x01:0,cr:0,tx:[],tc:[],dbl:{}};
+  const a={g:0,w:0,pts:0,d:0,f9p:0,f9d:0,coH:0,coA:0,hiCo:0,best:0,v180:0,v140:0,v100:0,hiV:0,crM:0,crR:0,bob:null,atc:0,x01:0,cr:0,tx:[],tc:[],dbl:{},hm:{},dr:{}};
   for(const h of DB.history){if(h.ended<since)continue;const i=h.players.findIndex(p=>p.id===pid);if(i<0)continue;
+    for(const k in h.stats[i].hm||{})a.hm[k]=(a.hm[k]||0)+h.stats[i].hm[k];
+    if(h.mode==='drill'){const d=h.opts.drill;a.dr[d]=Math.max(a.dr[d]||0,h.stats[i].score||0);continue}
     a.g++;if(h.winner===i&&h.players.length>1)a.w++;const s=h.stats[i];
     if(h.mode==='x01'){a.x01++;a.pts+=s.pts;a.d+=s.darts;a.f9p+=s.f9p;a.f9d+=s.f9d;a.coH+=s.coHit;a.coA+=s.coAtt;a.hiCo=Math.max(a.hiCo,s.hiCo);
-      if(h.opts.start===501)s.legDarts.forEach(x=>{if(!a.best||x<a.best)a.best=x});a.v180+=cnt(s.visits,180,181);a.v140+=cnt(s.visits,140,180);a.v100+=cnt(s.visits,100,140);
+      if((h.starts?h.starts[i]:h.opts.start)===501)s.legDarts.forEach(x=>{if(!a.best||x<a.best)a.best=x});a.v180+=cnt(s.visits,180,181);a.v140+=cnt(s.visits,140,180);a.v100+=cnt(s.visits,100,140);
       s.visits.forEach(x=>{if(x>a.hiV)a.hiV=x});if(s.darts)a.tx.push(s.pts/s.darts*3);
       for(const k in s.dbl||{}){const d=a.dbl[k]=a.dbl[k]||[0,0];d[0]+=s.dbl[k][0];d[1]+=s.dbl[k][1]}}
     if(h.mode==='cricket'){a.cr++;a.crM+=s.marks;a.crR+=s.rounds;if(s.rounds)a.tc.push(s.marks/s.rounds)}
@@ -924,20 +1481,23 @@ function spark(v,dec){
 }
 function vStats(){
   const since={week:Date.now()-7*864e5,month:Date.now()-30*864e5,all:0}[STATP];
-  const cards=DB.players.map(p=>{const a=aggregate(p.id,since);if(!a.g)return'';
+  const cards=DB.players.map(p=>{const a=aggregate(p.id,since);if(!a.g&&!Object.keys(a.dr).length)return'';
     const cell=(v,l)=>`<div><b>${v}</b><span>${l}</span></div>`;
     let g=cell(a.g,t('c_games'))+cell(a.g?Math.round(a.w/a.g*100)+'%':'–',t('c_wins'));
     if(a.x01)g+=cell(a.d?nf(a.pts/a.d*3,1):'–',t('c_avg'))+cell(a.f9d?nf(a.f9p/a.f9d*3,1):'–',t('c_f9'))+cell(a.coA?pct(a.coH,a.coA):'–',t('c_co'))+cell(a.hiCo||'–',t('c_hico'))+cell(a.best?t('darts',a.best):'–',t('c_best'))+cell(a.v180,'180')+cell(a.v140,'140+')+cell(a.v100,'100+')+cell(a.hiV||'–',t('c_hiv'));
     if(a.cr)g+=cell(a.crR?nf(a.crM/a.crR,2):'–',t('c_mpr'));
     if(a.bob!=null)g+=cell(a.bob,t('c_bob'));
     if(a.atc)g+=cell(t('darts',a.atc),t('c_atc'));
+    for(const d in a.dr)g+=cell(a.dr[d],t('d_'+d));
     let ex='';
     if(a.tx.length>1)ex+=`<div class="lbl" style="margin-top:14px">${t('trX01',Math.min(a.tx.length,30))}</div>${spark(a.tx.slice(0,30).reverse(),1)}`;
     if(a.tc.length>1)ex+=`<div class="lbl" style="margin-top:14px">${t('trCr',Math.min(a.tc.length,30))}</div>${spark(a.tc.slice(0,30).reverse(),2)}`;
     const dk=Object.entries(a.dbl).sort((x,y)=>y[1][0]-x[1][0]).slice(0,8);
     if(dk.length)ex+=`<div class="lbl" style="margin-top:14px">${t('dblTitle')}</div><div class="dbls">${dk.map(([k,[tt,h]])=>`<span><b>${k}</b> ${h}/${tt} ${pct(h,tt)}</span>`).join('')}</div>`;
+    if(Object.keys(a.hm).length)ex+=`<div class="lbl" style="margin-top:14px">${t('heat')}</div>${heatSVG(a.hm)}<p class="muted" style="font-size:12.5px;text-align:center">${t('heatNote')}</p>`;
+    ex+=`<div class="lbl" style="margin-top:14px">${t('achTitle')}</div><div class="ach">${achievements(p.id).map(([k,on])=>`<span class="${on?'on':''}">${on?'★':'☆'} ${t(k)}</span>`).join('')}</div>`;
     return`<div class="card"><h3>${esc(p.name)}</h3><div class="grid">${g}</div>${ex}</div>`}).join('');
-  return topbar(t('stats'))+`<div class="page"><div class="chips" style="margin-bottom:14px">${[['week',t('d7')],['month',t('d30')],['all',t('ever')]].map(([k,l])=>`<button class="chip ${STATP===k?'on':''}" data-act="statp" data-v="${k}">${l}</button>`).join('')}</div>${cards||`<div class="empty">${t('noPeriod')}</div>`}</div>`;
+  return topbar(t('stats'))+`<div class="page"><div class="chips" style="margin-bottom:14px">${[['week',t('d7')],['month',t('d30')],['all',t('ever')]].map(([k,l])=>`<button class="chip ${STATP===k?'on':''}" data-act="statp" data-v="${k}">${l}</button>`).join('')}</div>${cards||`<div class="empty">${t('noPeriod')}</div>`}${h2hHtml()}</div>`;
 }
 function tg(key,label){return`<button class="toggle ${DB.settings[key]?'on':''}" data-act="tset" data-v="${key}">${label}<span class="sw"></span></button>`}
 function vSettings(){
@@ -945,10 +1505,10 @@ function vSettings(){
   return topbar(t('settings'))+`<div class="page">
    <div class="lbl" style="margin-top:4px">${t('lang')}</div>${chips('s.lang',[['auto',t('langAuto')],['it','Italiano'],['en','English']],s.lang)}
    <div class="lbl">${t('theme')}</div>${chips('s.theme',[['auto',t('auto')],['light',t('light')],['dark',t('dark')]],s.theme)}
-   <div class="lbl">${t('s_input')}</div>${chips('s.input',[['dart',t('dartByDart')],['total',t('visitTotal')]],s.input)}
-   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('vibrate',t('s_vib'))}${tg('awake',t('s_awake'))}</div>
+   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('sfx',t('sfx'))}${tg('vibrate',t('s_vib'))}${tg('awake',t('s_awake'))}</div>
    <div class="lbl">Backup</div>
-   <button class="btn" data-act="export">${t('copyBk')}</button>
+   <button class="btn" data-act="bkfile">${t('bkFile')}</button><button class="btn" data-act="bkopen">${t('bkOpen')}</button><input type="file" id="bkfile" accept="application/json,.json" hidden>
+   <button class="btn" data-act="export" style="margin-top:10px">${t('copyBk')}</button>
    <textarea class="field" id="bk" placeholder="${t('pasteBk')}"></textarea>
    <button class="btn" data-act="import">${t('restoreBk')}</button>
    <div class="lbl">${t('data')}</div><button class="btn danger" data-act="wipe">${t('wipeBtn')}</button>
@@ -957,15 +1517,16 @@ function vSettings(){
 /* The backup is rebuilt field by field, so no HTML or unexpected values reach the interface */
 function cleanBackup(d){
   const num=x=>{x=Number(x);return isFinite(x)?x:0},str=x=>String(x==null?'':x).slice(0,40),one=(v,l,def)=>l.includes(v)?v:def,arr=x=>Array.isArray(x)?x:[];
-  const modes=['x01','cricket','atc','shanghai','bobs'];
+  const modes=['x01','cricket','killer','atc','shanghai','bobs','drill'];
   const players=d.players.filter(p=>p&&p.id).map(p=>({id:str(p.id),name:str(p.name)||'?'}));
   const history=d.history.filter(h=>h&&modes.includes(h.mode)&&Array.isArray(h.players)&&Array.isArray(h.stats)&&h.players.length===h.stats.length).map(h=>{const o=h.opts||{};return{
     id:str(h.id)||uid(),mode:h.mode,created:num(h.created),ended:num(h.ended),
     opts:{start:num(o.start)||501,inMode:one(o.inMode,['single','double','master'],'single'),outMode:one(o.outMode,['single','double','master'],'double'),
-      legs:num(o.legs)||1,sets:num(o.sets)||1,variant:one(o.variant,['standard','cut','noscore','any','double','triple'],h.mode==='atc'?'any':'standard'),rounds:num(o.rounds)||7,bull:!!o.bull},
+      legs:num(o.legs)||1,sets:num(o.sets)||1,variant:one(o.variant,['standard','cut','noscore','any','double','triple'],h.mode==='atc'?'any':'standard'),rounds:num(o.rounds)||7,bull:!!o.bull,lives:num(o.lives)||3,hcp:!!o.hcp,drill:one(o.drill,['co','121','c40','dbl','cu','tgt','hi'],'co'),tgt:/^(T|D)?\d{1,2}$|^Bull$|^25$/.test(o.tgt)?o.tgt:'T20'},
+    starts:h.starts?arr(h.starts).map(num):undefined,
     players:h.players.map(p=>({id:str(p&&p.id),name:str(p&&p.name),cpu:!!(p&&p.cpu),level:num(p&&p.level)})),
     winner:h.winner==null||!(num(h.winner)<h.players.length)?null:num(h.winner),legsWon:arr(h.legsWon).map(num),setsWon:arr(h.setsWon).map(num),
-    stats:h.stats.map(s=>{s=s||{};const r={};['pts','darts','f9p','f9d','coHit','coAtt','hiCo','marks','rounds','hits','score'].forEach(k=>r[k]=num(s[k]));r.visits=arr(s.visits).map(num);r.legDarts=arr(s.legDarts).map(num);r.dbl={};if(s.dbl&&typeof s.dbl==='object')for(const k in s.dbl)if(/^(D\d{1,2}|T\d{1,2}|Bull|\d{1,2}|25)$/.test(k)&&Array.isArray(s.dbl[k]))r.dbl[k]=[num(s.dbl[k][0]),num(s.dbl[k][1])];return r}),
+    stats:h.stats.map(s=>{s=s||{};const r={};['pts','darts','f9p','f9d','coHit','coAtt','hiCo','marks','rounds','hits','score'].forEach(k=>r[k]=num(s[k]));r.visits=arr(s.visits).map(num);r.legDarts=arr(s.legDarts).map(num);r.hm={};if(s.hm&&typeof s.hm==='object')for(const k in s.hm)if(/^\d{1,2}-[0-3]$/.test(k))r.hm[k]=num(s.hm[k]);r.dbl={};if(s.dbl&&typeof s.dbl==='object')for(const k in s.dbl)if(/^(D\d{1,2}|T\d{1,2}|Bull|\d{1,2}|25)$/.test(k)&&Array.isArray(s.dbl[k]))r.dbl[k]=[num(s.dbl[k][0]),num(s.dbl[k][1])];return r}),
     legs:arr(h.legs).map(e=>{e=e||{};return{set:num(e.set),leg:num(e.leg),w:num(e.w),d:num(e.d),co:num(e.co),r:num(e.r),avg:e.avg?arr(e.avg).map(num):undefined,mpr:e.mpr?arr(e.mpr).map(num):undefined,log:arr(e.log).map(v=>({p:num(v&&v.p),s:num(v&&v.s),n:num(v&&v.n),r:num(v&&v.r),b:v&&v.b?1:0}))}})}});
   return{players,history};
 }
@@ -973,9 +1534,9 @@ function applyTheme(){const t=DB.settings.theme;if(t==='auto')document.documentE
 
 function render(){
   const app=document.getElementById('app');
-  const map={home:vHome,setup:vSetup,game:vGame,results:vResults,history:vHistory,match:vMatch,players:vPlayers,stats:vStats,settings:vSettings,mstats:vMstats};
+  const map={home:vHome,setup:vSetup,training:vTraining,game:vGame,results:vResults,history:vHistory,match:vMatch,players:vPlayers,stats:vStats,settings:vSettings,mstats:vMstats};
   app.innerHTML=(map[V.name]||vHome)();
-  if(FX){const el=document.querySelector('.board');if(el)el.classList.add('fx-'+FX);vib(true);FX=null}
+  runFx();animNums();
   keepAwake(V.name==='game'&&DB.settings.awake);
   if(V.name==='game'&&G&&G.notice){const n=G.notice,nm=esc(G.players[n.p].name);
     const sc=G.opts.sets>1?`Set ${G.setsWon.join(' – ')}, leg ${G.legsWon.join(' – ')}`:`Leg ${G.legsWon.join(' – ')}`;
@@ -983,7 +1544,9 @@ function render(){
     if(ls&&ls.avg)rec=`<p>${t('legAvg')}: ${G.players.map((p,i)=>esc(p.name)+' '+(ls.avg[i]?nf(ls.avg[i],1):'–')).join(', ')}.</p>`;
     if(ls&&ls.mpr)rec=`<p>${t('legMpr')}: ${G.players.map((p,i)=>esc(p.name)+' '+nf(ls.mpr[i],2)).join(', ')}.</p>`;
     const det=!n.detail?'':typeof n.detail==='string'?n.detail:n.detail.k==='shanghai'?'Shanghai!':t(n.detail.k,...n.detail.a);
-    showModal(`<h3>${t('legTo',n.set,nm)}</h3><p>${esc(det)}${det?'. ':''}${G.players.length>1?sc+'.':''}</p>${rec}<p>${t('throwsFirst',esc(G.players[G.turn].name))}</p><button class="btn primary" data-act="noticeok">${t('cont')}</button><button class="btn" data-act="undo">${t('undoLast')}</button>`);}
+    showModal(`<h3>${t('legTo',n.set,nm)}</h3><p>${esc(det)}${det?'. ':''}${G.players.length>1?sc+'.':''}</p>${rec}<p>${t('throwsFirst',esc(pname(G.turn)))}</p><button class="btn primary" data-act="noticeok">${t('cont')}</button><button class="btn" data-act="undo">${t('undoLast')}</button>`);}
+  if(V.name==='game'&&G&&G.bulloff&&!G.finished&&document.getElementById('modal').hidden)
+    ask(t('bullQ'),'',G.players.map((pl,i)=>({v:i,l:esc(pl.name)})),i=>{G.legStarter=G.setStarter=G.turn=i;G.bulloff=false;if(G.mode==='x01'){G.visitStart=G.rem[i];G.visitOpen=G.opened[i]}saveGame();render()});
   scheduleCpu();
 }
 
@@ -1002,7 +1565,8 @@ function startMatch(){
   const s=SETUP;
   const plist=s.players.map(id=>({id,name:DB.players.find(p=>p.id===id).name}));
   if(s.cpu.on)plist.push({id:'cpu',name:cpuName(),cpu:true,level:s.cpu.level});
-  const go2=()=>{newMatch({mode:s.mode,plist,random:s.random,opts:Object.assign({},s[s.mode],s.mode==='atc'?{bull:!!s.atc.bull}:{})});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
+  const teams=s.teams&&(s.mode==='x01'||s.mode==='cricket')&&plist.length===4&&!s.cpu.on;
+  const go2=()=>{newMatch({mode:s.mode,plist,random:s.random,teams,bulloff:s.bulloff&&!s.random,hcp:s.mode==='x01'&&s.x01.hcpOn&&!teams?s.x01.hcp:null,opts:Object.assign({},s[s.mode],s.mode==='atc'?{bull:!!s.atc.bull}:{})});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
   if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2();
 }
 function totOk(){
@@ -1021,6 +1585,7 @@ function totOk(){
     return ask(t('atDbl'),t('atDblQ'),[0,1,2,3].map(d=>({v:d,l:d})),d=>x01Total(tv,3,d));
   x01Total(tv,3,0);
 }
+function importText(txt){ACT._import(txt)}
 const ACT={
   go:d=>go(d.v),back:()=>back(),home:()=>{NAV=[];V={name:'home'};render()},
   resume:()=>{NAV=[{name:'home'}];V={name:'game'};render()},
@@ -1034,6 +1599,7 @@ const ACT={
   cpuauto:()=>{SETUP.cpu.name='';saveSetup();render()},
   addp:addPlayer,start:startMatch,
   mul:d=>{const m=+d.v;PAD.mul=PAD.mul===m?1:m;render()},
+  missrest:()=>missRest(),
   num:d=>dart(+d.v,PAD.mul),bull:()=>dart(25,2),miss:()=>dart(0,0),undo:()=>{closeModal();undo()},
   inmode:()=>{G.input=G.input==='total'?'dart':'total';if(G.visit.length&&G.input==='total'){G.input='dart';toast(t('finishVisit'));return}PAD.typed='';saveGame();render()},
   digit:d=>{if(PAD.typed.length<3)PAD.typed=(PAD.typed==='0'?'':PAD.typed)+d.v;render()},
@@ -1054,14 +1620,39 @@ const ACT={
   statp:d=>{STATP=d.v;render()},
   hfilt:d=>{HFILT=d.v;render()},
   tset:d=>{DB.settings[d.v]=!DB.settings[d.v];save();render()},
+  teams:()=>{SETUP.teams=!SETUP.teams;saveSetup();render()},
+  hcpon:()=>{SETUP.x01.hcpOn=!SETUP.x01.hcpOn;saveSetup();render()},
+  bulloff:()=>{SETUP.bulloff=!SETUP.bulloff;saveSetup();render()},
+  editv:d=>editVisit(+d.v),
+  drill:d=>{const pid=SETUP.trp&&DB.players.some(p=>p.id===SETUP.trp)?SETUP.trp:(DB.players[0]||{}).id;if(!pid)return;
+    const pl=[{id:pid,name:DB.players.find(p=>p.id===pid).name}],v=d.v;
+    const go2=()=>{if(v==='atc'||v==='bobs')newMatch({mode:v,plist:pl,opts:Object.assign({},SETUP[v],v==='atc'?{bull:!!SETUP.atc.bull}:{})});else newMatch({mode:'drill',plist:pl,opts:{drill:v,tgt:SETUP.tgt||'T20'}});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
+    if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2()},
+  upd:()=>{const u=`https://github.com/${REPO}/releases/latest/download/darts.apk`;UPD=null;render();location.href=u},
+  updlater:()=>{if(UPD)LS.set('updskip',UPD.v);UPD=null;render()},
+  bkfile:()=>backupFile(),
+  bkopen:()=>{const f=document.getElementById('bkfile');if(f){f.value='';f.click()}},
   export:async()=>{const data=JSON.stringify({app:'darts',v:1,players:DB.players,history:DB.history});const ta=document.getElementById('bk');ta.value=data;
     try{await navigator.clipboard.writeText(data);toast(t('copied'))}catch(e){ta.select();try{document.execCommand('copy');toast(t('copied'))}catch(e2){toast(t('copyBox'))}}},
-  import:()=>{const txt=document.getElementById('bk').value.trim();try{const raw=JSON.parse(txt);/* 'freccette' = backups made by the first prototype */if(!['darts','freccette'].includes(raw.app)||!Array.isArray(raw.players)||!Array.isArray(raw.history))throw 0;const d=cleanBackup(raw);
+  import:()=>importText(document.getElementById('bk').value.trim()),
+  _import:txt=>{try{const raw=JSON.parse(txt);/* 'freccette' = backups made by the first prototype */if(!['darts','freccette'].includes(raw.app)||!Array.isArray(raw.players)||!Array.isArray(raw.history))throw 0;const d=cleanBackup(raw);
     confirmBox(t('restoreQ'),t('restoreTxt',d.players.length,d.history.length),t('restore'),()=>{DB.players=d.players;DB.history=d.history;save();SETUP=getSetup();toast(t('restored'));render()},true)}catch(e){toast(t('badBk'))}},
   wipe:()=>confirmBox(t('wipeQ'),t('wipeTxt'),t('wipeAll'),()=>{DB.players=[];DB.history=[];G=null;UNDO=[];DB.settings.setup=null;SETUP=getSetup();save();saveGame();toast(t('wiped'));render()},true)
 };
-document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b||b.disabled)return;const f=ACT[b.dataset.act];if(!f)return;
+/* long press: [data-long] runs its own action after 450 ms; the click that follows is ignored */
+let LP=null,LPT=0,LPA='';
+document.addEventListener('pointerdown',e=>{LPA='';const b=e.target.closest('[data-long]');if(!b||b.disabled)return;clearTimeout(LP);
+  LP=setTimeout(()=>{LPT=Date.now();LPA=b.dataset.act;vib(true);const f=ACT[b.dataset.long];f&&f(b.dataset,b)},450)});
+['pointerup','pointercancel'].forEach(ev=>document.addEventListener(ev,()=>clearTimeout(LP),true));
+document.addEventListener('contextmenu',e=>{if(e.target.closest('.k'))e.preventDefault()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b||b.disabled)return;if(b.dataset.act===LPA&&Date.now()-LPT<800){LPA='';return}const f=ACT[b.dataset.act];if(!f)return;
   if(b.closest('.pad')||b.closest('.opts'))vib();f(b.dataset,b)});
+document.addEventListener('change',e=>{const el=e.target;
+  if(el.dataset&&el.dataset.h2h!=null){H2H[+el.dataset.h2h]=el.value;render()}
+  else if(el.dataset&&el.dataset.hcp){SETUP.x01.hcp[el.dataset.hcp]=+el.value;saveSetup()}
+  else if(el.id==='trp'){SETUP.trp=el.value;saveSetup()}
+  else if(el.id==='bkfile'&&el.files&&el.files[0])el.files[0].text().then(importText).catch(()=>toast(t('badBk')));
+});
 document.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&e.target.id==='newp'){e.preventDefault();addPlayer();return}
   if(e.key==='Enter'&&e.target.id==='pin'){e.preventDefault();ACT.promptok();return}
@@ -1078,6 +1669,7 @@ try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;
 
 (async()=>{
   await restoreFromPreferences();loadAll();applyLang();applyTheme();
+  setTimeout(checkUpdate,1500);
   if(G&&G.finished){G=null;saveGame()}
   render();
 })();

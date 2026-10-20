@@ -1,0 +1,8 @@
+node_modules/
+android/
+# signing keys must never be committed
+*.p12
+*.jks
+*.keystore
+*.pem
+ks.txt
