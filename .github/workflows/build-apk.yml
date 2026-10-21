@@ -69,6 +69,8 @@ jobs:
           sed -i 's/android:name=".MainActivity"/android:name=".MainActivity"\n            android:screenOrientation="portrait"/' android/app/src/main/AndroidManifest.xml
           grep -E "versionCode|versionName" android/app/build.gradle
           sed -i "s/const APP_BUILD='dev'/const APP_BUILD='$VN'/" www/index.html
+          # the APK ships its own fonts: drop the Google Fonts links so the app never waits on the network at start-up
+          sed -i '/fonts\.googleapis\.com\|fonts\.gstatic\.com/d' www/index.html
 
       - name: Sync web assets and plugins
         run: npx cap sync android

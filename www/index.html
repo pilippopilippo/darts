@@ -431,7 +431,7 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:v=>`Record personale: leg in ${v} freccette`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
   achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
@@ -512,7 +512,7 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:v=>`Personal best: ${v}-dart leg`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
   achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
@@ -556,7 +556,7 @@ const MIRROR=['players','history','settings','current'];
 let QUOTA_WARNED=false;
 const LS={
   get(k,d){try{const v=localStorage.getItem('frc_'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
-  set(k,v){const txt=JSON.stringify(v);
+  set(k,v,pre){const txt=pre||JSON.stringify(v);
     try{localStorage.setItem('frc_'+k,txt)}catch(e){if(!QUOTA_WARNED){QUOTA_WARNED=true;toast(t('quota'))}}
     const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.set({key:'frc_'+k,value:txt}).catch(()=>{})},
   del(k){try{localStorage.removeItem('frc_'+k)}catch(e){}const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.remove({key:'frc_'+k}).catch(()=>{})}
@@ -579,8 +579,16 @@ async function restoreFromPreferences(){
   try{if(localStorage.getItem('frc_players')!=null||localStorage.getItem('frc_history')!=null)return;
     for(const k of MIRROR){const r=await P.get({key:'frc_'+k});if(r&&r.value!=null)localStorage.setItem('frc_'+k,r.value)}}catch(e){}
 }
-function save(){LS.set('players',DB.players);LS.set('history',DB.history);LS.set('settings',DB.settings)}
-function saveGame(){if(G&&!G.finished){LS.set('current',G);LS.set('undo',UNDO.slice(-30))}else{LS.del('current');LS.del('undo')}}
+/* Performance: small keys are compared as text; the archive (the big one) is rewritten only when its signature changes */
+let HREV=0;const LASTW={};
+function histSig(){const h=DB.history;return h.length+'|'+(h[0]&&h[0].id)+'|'+(h.length&&h[h.length-1].id)+'|'+HREV}
+function saveKey(k,v){const s=JSON.stringify(v);if(LASTW[k]===s)return;LASTW[k]=s;LS.set(k,v,s)}
+function save(){saveKey('players',DB.players);saveKey('settings',DB.settings);const sg=histSig();if(LASTW.history!==sg){LASTW.history=sg;LS.set('history',DB.history)}}
+let SAVE_T=null;
+function flushGame(){clearTimeout(SAVE_T);SAVE_T=null;if(G&&!G.finished){LS.set('current',G);LS.set('undo',UNDO.slice(-10))}else{LS.del('current');LS.del('undo')}}
+function saveGame(){if(!G||G.finished)return flushGame();if(!SAVE_T)SAVE_T=setTimeout(flushGame,400)}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&SAVE_T)flushGame()});
+addEventListener('pagehide',()=>{if(SAVE_T)flushGame()});
 function getSetup(){const s=JSON.parse(JSON.stringify(DEF_SETUP));const v=DB.settings.setup||{};
   for(const k in v){if(v[k]&&typeof v[k]==='object'&&!Array.isArray(v[k]))s[k]=Object.assign(s[k]||{},v[k]);else s[k]=v[k]}
   s.players=(s.players||[]).filter(id=>DB.players.some(p=>p.id===id));return s}
@@ -703,7 +711,7 @@ function roundNext(){
   G.turn=nxt;
 }
 function finishByScore(){const mx=Math.max(...G.score);const top=G.score.map((s,i)=>s===mx?i:-1).filter(i=>i>=0);G.stats.forEach((st,i)=>st.score=G.score[i]);if(top.length>1)return matchWon(null);legWon(top[0])}
-function pushUndo(){UNDO.push(JSON.stringify(G));if(UNDO.length>400)UNDO.shift()}
+function pushUndo(){UNDO.push(JSON.stringify(G));if(UNDO.length>200)UNDO.shift()}
 
 function legSummary(p){
   const e={set:G.setNo,leg:G.legNo,w:p};
@@ -727,7 +735,7 @@ function legWon(p){
 }
 function matchWon(p){
   G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1};
-  DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist,starts:G.starts});
+  DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist.map(e=>Object.assign({},e,{log:(e.log||[]).map(v=>[v.p,v.s,v.n,v.r,v.b])})),starts:G.starts});
   recMatch();
   if(DB.history.length>600)DB.history.length=600;save();
   say(p===null?t('vDraw'):t('vMatch',G.players[p].name));
@@ -927,9 +935,10 @@ let AC=null,CLAP=null;
 function actx(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
 function noiseBuf(a,sec,decay){const b=a.createBuffer(1,Math.max(1,Math.floor(a.sampleRate*sec)),a.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,decay);return b}
 /* synthesised, so no third-party audio files or licences are needed */
+let THUD=null;const BEDS={};
 function sfxThud(){
   if(!DB.settings.sfx)return;const a=actx();if(!a)return;const t0=a.currentTime;
-  const s=a.createBufferSource();s.buffer=noiseBuf(a,.09,7);const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=2400;const g=a.createGain();g.gain.value=.5;
+  const s=a.createBufferSource();s.buffer=THUD||(THUD=noiseBuf(a,.09,7));const f=a.createBiquadFilter();f.type='lowpass';f.frequency.value=2400;const g=a.createGain();g.gain.value=.5;
   s.connect(f);f.connect(g);g.connect(a.destination);s.start(t0);
   const o=a.createOscillator(),og=a.createGain();o.type='sine';o.frequency.setValueAtTime(190,t0);o.frequency.exponentialRampToValueAtTime(70,t0+.09);
   og.gain.setValueAtTime(.4,t0);og.gain.exponentialRampToValueAtTime(.001,t0+.11);o.connect(og);og.connect(a.destination);o.start(t0);o.stop(t0+.12);
@@ -941,7 +950,7 @@ function sfxApplause(dur){
   for(let i=0,n=Math.round(dur*45);i<n;i++){const s=a.createBufferSource();s.buffer=CLAP;s.playbackRate.value=.8+Math.random()*.5;
     const f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=900+Math.random()*1600;f.Q.value=.9;const g=a.createGain();g.gain.value=.12+Math.random()*.22;
     s.connect(f);f.connect(g);g.connect(out);s.start(t0+Math.random()*dur*.95)}
-  const bed=a.createBufferSource();bed.buffer=noiseBuf(a,dur,.6);const bf=a.createBiquadFilter();bf.type='bandpass';bf.frequency.value=1200;bf.Q.value=.5;
+  const bed=a.createBufferSource();bed.buffer=BEDS[dur]||(BEDS[dur]=noiseBuf(a,dur,.6));const bf=a.createBiquadFilter();bf.type='bandpass';bf.frequency.value=1200;bf.Q.value=.5;
   const bg=a.createGain();bg.gain.value=.08;bed.connect(bf);bf.connect(bg);bg.connect(out);bed.start(t0);
 }
 function vibTriple(){if(!DB.settings.vibrate)return;const H=CAP('Haptics');
@@ -971,7 +980,9 @@ function animNums(){
 }
 
 /* ---------- personal bests and achievements ---------- */
-function playerBests(pid,skipId){
+const PB={};
+function playerBests(pid,skipId){const key=histSig()+'|'+pid+'|'+(skipId||'');if(PB.k!==histSig())for(const x in PB)delete PB[x];PB.k=histSig();if(PB[key])return Object.assign({},PB[key]);return Object.assign({},PB[key]=playerBestsRaw(pid,skipId))}
+function playerBestsRaw(pid,skipId){
   const b={hiCo:0,leg:0,hiV:0,avg:0,has180:false,games:0};
   for(const h of DB.history){
     if(h.id===skipId||h.mode==='drill')continue;const i=h.players.findIndex(p=>p.id===pid);if(i<0)continue;b.games++;
@@ -1170,7 +1181,9 @@ function heatSVG(hm){
 
 /* ---------- head to head ---------- */
 let H2H=[null,null];
-function h2hHtml(){
+const H2HC={};
+function h2hHtml(){const key=histSig()+'|'+H2H.join(',')+'|'+LANG+'|'+DB.players.length;if(H2HC.k===key)return H2HC.v;H2HC.k=key;return H2HC.v=h2hRaw()}
+function h2hRaw(){
   const ps=DB.players;if(ps.length<2)return'';let[a,b]=H2H;
   if(!ps.some(p=>p.id===a))a=ps[0].id;if(!ps.some(p=>p.id===b)||b===a)b=ps.find(p=>p.id!==a).id;H2H=[a,b];
   const sel=(k,v)=>`<select class="field" data-h2h="${k}" aria-label="${t('players')}">${ps.map(p=>`<option value="${p.id}" ${p.id===v?'selected':''}>${esc(p.name)}</option>`).join('')}</select>`;
@@ -1469,6 +1482,7 @@ function vResults(){
    <div style="margin-top:20px"><button class="btn primary" data-act="rematch">${t('rematch')}</button><button class="btn" data-act="home">${t('home')}</button><button class="btn" data-act="undo">${t('undoLast')}</button></div></div>`;
 }
 function worksheet(log,players,start,editable){
+  log=log.map(v=>Array.isArray(v)?{p:v[0],s:v[1],n:v[2],r:v[3],b:v[4]}:v);
   const cols=players.map((_,i)=>log.map((v,j)=>Object.assign({j},v)).filter(v=>v.p===i));const rows=Math.max(0,...cols.map(c=>c.length));
   if(!rows)return`<p class="muted">${t('noVisits')}</p>`;
   let h=`<div class="tw"><table class="ws"><thead><tr><th></th>${players.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody><tr><td class="n">${t('wsStart')}</td>${players.map((_,i)=>`<td><span>${Array.isArray(start)?start[i]:start}</span></td>`).join('')}</tr>`;
@@ -1487,13 +1501,14 @@ function vMstats(){
   const ws=G.mode==='x01'?`<div class="lbl">${t('curSheet')}</div>${G.finished||!G.legLog.length?'':`<p class="muted" style="font-size:14px">${t('editHint')}</p>`}${worksheet(G.legLog,G.players,G.starts||G.opts.start,!G.finished)}`:'';
   return topbar(t('matchStats'))+`<div class="page"><div class="score">${scoreLine(G)}</div>${statTable(G)}${ws}${matchCharts(G)}${legsList(Object.assign({},G,{legs:G.legsHist}))}${G.finished?'':`<div style="margin-top:24px"><button class="btn danger" data-act="abandon">${t('abandon')}</button></div>`}</div>`;
 }
-function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString(LOC,{day:'numeric',month:'short',year:'numeric'})+', '+d.toLocaleTimeString(LOC,{hour:'2-digit',minute:'2-digit'})}
-let HFILT='all';
+const DTF={};
+function fmtDate(ts){const f=DTF[LOC]||(DTF[LOC]=[new Intl.DateTimeFormat(LOC,{day:'numeric',month:'short',year:'numeric'}),new Intl.DateTimeFormat(LOC,{hour:'2-digit',minute:'2-digit'})]);const d=new Date(ts);return f[0].format(d)+', '+f[1].format(d)}
+let HFILT='all',HPAGE=50;
 function vHistory(){
-  const L=DB.history.filter(h=>HFILT==='all'||h.mode===HFILT);
+  const ALLH=DB.history.filter(h=>HFILT==='all'||h.mode===HFILT),L=ALLH.slice(0,HPAGE);
   const used=['x01','cricket','killer','atc','shanghai','bobs','drill'].filter(m=>DB.history.some(h=>h.mode===m));
   const f=used.length>1?`<div class="scroller" style="margin-bottom:6px">${[['all',t('all')]].concat(used.map(m=>[m,MODES[m]()])).map(([k,l])=>`<button class="chip ${HFILT===k?'on':''}" data-act="hfilt" data-v="${k}">${l}</button>`).join('')}</div>`:'';
-  return topbar(t('history'))+`<div class="page">${f}${L.length?L.map(h=>`<button class="hrow" data-act="match" data-v="${h.id}"><b>${esc(modeLabel(h.mode,h.opts))}</b><div>${h.players.map((p,i)=>i===h.winner&&h.players.length>1?`<strong style="color:var(--text)">${esc(p.name)}</strong>`:esc(p.name)).join(', ')}${scoreLine(h)?'  '+scoreLine(h):''}</div><div>${fmtDate(h.ended)}</div></button>`).join(''):`<div class="empty">${t('noHistory')}</div>`}</div>`;
+  return topbar(t('history'))+`<div class="page">${f}${L.length?L.map(h=>`<button class="hrow" data-act="match" data-v="${h.id}"><b>${esc(modeLabel(h.mode,h.opts))}</b><div>${h.players.map((p,i)=>i===h.winner&&h.players.length>1?`<strong style="color:var(--text)">${esc(p.name)}</strong>`:esc(p.name)).join(', ')}${scoreLine(h)?'  '+scoreLine(h):''}</div><div>${fmtDate(h.ended)}</div></button>`).join('')+(ALLH.length>L.length?`<button class="btn" data-act="hmore" style="margin-top:12px">${t('showMore')} (${ALLH.length-L.length})</button>`:''):`<div class="empty">${t('noHistory')}</div>`}</div>`;
 }
 function vMatch(){
   const h=DB.history.find(x=>x.id===V.arg);if(!h)return vHistory();
@@ -1503,7 +1518,9 @@ function vPlayers(){
   return topbar(t('players'))+`<div class="page"><div class="addrow"><input id="newp" placeholder="${t('newName')}" maxlength="24" enterkeyhint="done"><button class="ib" data-act="addp">${t('add')}</button></div>
   <div style="margin-top:12px">${DB.players.length?DB.players.map(p=>`<div class="prow2"><b>${esc(p.name)}</b><button class="ib" data-act="renp" data-v="${p.id}">${t('renameBtn')}</button><button class="ib" data-act="delp" data-v="${p.id}">${t('del')}</button></div>`).join(''):`<div class="empty">${t('noPlayers')}</div>`}</div></div>`;
 }
-function aggregate(pid,since){
+const AGG={};
+function aggregate(pid,since){const key=histSig()+'|'+pid+'|'+Math.floor(since/6e4);if(AGG.k!==histSig())for(const x in AGG)delete AGG[x];AGG.k=histSig();if(AGG[key])return AGG[key];return AGG[key]=aggregateRaw(pid,since)}
+function aggregateRaw(pid,since){
   const a={g:0,w:0,pts:0,d:0,f9p:0,f9d:0,coH:0,coA:0,hiCo:0,best:0,v180:0,v140:0,v100:0,hiV:0,crM:0,crR:0,bob:null,atc:0,x01:0,cr:0,tx:[],tc:[],dbl:{},hm:{},dr:{}};
   for(const h of DB.history){if(h.ended<since)continue;const i=h.players.findIndex(p=>p.id===pid);if(i<0)continue;
     for(const k in h.stats[i].hm||{})a.hm[k]=(a.hm[k]||0)+h.stats[i].hm[k];
@@ -1575,7 +1592,7 @@ function cleanBackup(d){
     players:h.players.map(p=>({id:str(p&&p.id),name:str(p&&p.name),cpu:!!(p&&p.cpu),level:num(p&&p.level)})),
     winner:h.winner==null||!(num(h.winner)<h.players.length)?null:num(h.winner),legsWon:arr(h.legsWon).map(num),setsWon:arr(h.setsWon).map(num),
     stats:h.stats.map(s=>{s=s||{};const r={};['pts','darts','f9p','f9d','coHit','coAtt','hiCo','marks','rounds','hits','score'].forEach(k=>r[k]=num(s[k]));r.visits=arr(s.visits).map(num);r.legDarts=arr(s.legDarts).map(num);r.hm={};if(s.hm&&typeof s.hm==='object')for(const k in s.hm)if(/^\d{1,2}-[0-3]$/.test(k))r.hm[k]=num(s.hm[k]);r.dbl={};if(s.dbl&&typeof s.dbl==='object')for(const k in s.dbl)if(/^(D\d{1,2}|T\d{1,2}|Bull|\d{1,2}|25)$/.test(k)&&Array.isArray(s.dbl[k]))r.dbl[k]=[num(s.dbl[k][0]),num(s.dbl[k][1])];return r}),
-    legs:arr(h.legs).map(e=>{e=e||{};return{set:num(e.set),leg:num(e.leg),w:num(e.w),d:num(e.d),co:num(e.co),r:num(e.r),avg:e.avg?arr(e.avg).map(num):undefined,mpr:e.mpr?arr(e.mpr).map(num):undefined,log:arr(e.log).map(v=>({p:num(v&&v.p),s:num(v&&v.s),n:num(v&&v.n),r:num(v&&v.r),b:v&&v.b?1:0}))}})}});
+    legs:arr(h.legs).map(e=>{e=e||{};return{set:num(e.set),leg:num(e.leg),w:num(e.w),d:num(e.d),co:num(e.co),r:num(e.r),avg:e.avg?arr(e.avg).map(num):undefined,mpr:e.mpr?arr(e.mpr).map(num):undefined,log:arr(e.log).map(v=>Array.isArray(v)?[num(v[0]),num(v[1]),num(v[2]),num(v[3]),v[4]?1:0]:[num(v&&v.p),num(v&&v.s),num(v&&v.n),num(v&&v.r),v&&v.b?1:0])}})}});
   return{players,history};
 }
 function applyTheme(){const t=DB.settings.theme;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
@@ -1668,10 +1685,11 @@ const ACT={
   mstats:()=>go('mstats'),
   match:d=>go('match',d.v),
   delmatch:d=>confirmBox(t('delMatchQ'),t('delMatchTxt'),t('del'),()=>{DB.history=DB.history.filter(h=>h.id!==d.v);save();back()},true),
-  renp:d=>{const p=DB.players.find(x=>x.id===d.v);promptBox(t('renamePlayer'),p.name,v=>{p.name=v;DB.history.forEach(h=>h.players.forEach(q=>{if(q.id===p.id)q.name=v}));if(G)G.players.forEach(q=>{if(q.id===p.id)q.name=v});save();saveGame();render()})},
+  renp:d=>{const p=DB.players.find(x=>x.id===d.v);promptBox(t('renamePlayer'),p.name,v=>{p.name=v;HREV++;DB.history.forEach(h=>h.players.forEach(q=>{if(q.id===p.id)q.name=v}));if(G)G.players.forEach(q=>{if(q.id===p.id)q.name=v});save();saveGame();render()})},
   delp:d=>{const p=DB.players.find(x=>x.id===d.v);confirmBox(t('delPlayerQ',esc(p.name)),t('delPlayerTxt'),t('del'),()=>{DB.players=DB.players.filter(x=>x.id!==d.v);SETUP.players=SETUP.players.filter(x=>x!==d.v);saveSetup();save();render()},true)},
   statp:d=>{STATP=d.v;render()},
-  hfilt:d=>{HFILT=d.v;render()},
+  hfilt:d=>{HFILT=d.v;HPAGE=50;render()},
+  hmore:()=>{HPAGE+=50;render()},
   tset:d=>{DB.settings[d.v]=!DB.settings[d.v];save();render()},
   teams:()=>{SETUP.teams=!SETUP.teams;saveSetup();render()},
   hcpon:()=>{SETUP.x01.hcpOn=!SETUP.x01.hcpOn;saveSetup();render()},
@@ -1690,7 +1708,7 @@ const ACT={
     try{await navigator.clipboard.writeText(data);toast(t('copied'))}catch(e){ta.select();try{document.execCommand('copy');toast(t('copied'))}catch(e2){toast(t('copyBox'))}}},
   import:()=>importText(document.getElementById('bk').value.trim()),
   _import:txt=>{try{const raw=JSON.parse(txt);/* 'freccette' = backups made by the first prototype */if(!['darts','freccette'].includes(raw.app)||!Array.isArray(raw.players)||!Array.isArray(raw.history))throw 0;const d=cleanBackup(raw);
-    confirmBox(t('restoreQ'),t('restoreTxt',d.players.length,d.history.length),t('restore'),()=>{DB.players=d.players;DB.history=d.history;save();SETUP=getSetup();toast(t('restored'));render()},true)}catch(e){toast(t('badBk'))}},
+    confirmBox(t('restoreQ'),t('restoreTxt',d.players.length,d.history.length),t('restore'),()=>{DB.players=d.players;DB.history=d.history;HREV++;save();SETUP=getSetup();toast(t('restored'));render()},true)}catch(e){toast(t('badBk'))}},
   wipe:()=>confirmBox(t('wipeQ'),t('wipeTxt'),t('wipeAll'),()=>{DB.players=[];DB.history=[];G=null;UNDO=[];DB.settings.setup=null;SETUP=getSetup();save();saveGame();toast(t('wiped'));render()},true)
 };
 /* long press: [data-long] runs its own action after 450 ms; the click that follows is ignored */
@@ -1725,7 +1743,7 @@ try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;
 (async()=>{
   await restoreFromPreferences();loadAll();applyLang();applyTheme();
   setTimeout(()=>checkUpdate(),1500);
-  try{const A=CAP('App');if(A)A.addListener('resume',()=>checkUpdate())}catch(e){}
+  try{const A=CAP('App');if(A){A.addListener('resume',()=>checkUpdate());A.addListener('pause',()=>{if(SAVE_T)flushGame()})}}catch(e){}
   if(G&&G.finished){G=null;saveGame()}
   render();
 })();
