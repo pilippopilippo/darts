@@ -681,16 +681,22 @@ let FX=null;
 function vib(strong){if(!DB.settings.vibrate)return;const H=CAP('Haptics');if(H){H.impact({style:strong?'HEAVY':'LIGHT'}).catch(()=>{});return}if(navigator.vibrate)try{navigator.vibrate(strong?[35,50,35]:12)}catch(e){}}
 /* the dart just entered is spoken first and joined to whatever the visit announces next */
 let DSAY='';
-const BUST_IT=['Noooooo!','Fai schifo!','Caneee!','Palo!','Orco diaz!'];let LASTBP='';
-function bustPhrase(){if(LANG!=='it')return t('vBust');let p;do{p=BUST_IT[Math.floor(Math.random()*BUST_IT.length)]}while(p===LASTBP);LASTBP=p;return p}
+/* bust exclamations: the screen shows the written form, the voice gets a spelling it can pronounce plus its own speed and tone */
+const BUST_IT=[{show:'Noooooo!',say:'No, no, no',rate:.85,pitch:.85},{show:'Fai schifo!',say:'Fai schifo',rate:.95,pitch:.95},{show:'Caneee!',say:'Cane',rate:.7,pitch:1.1},
+  {show:'Palo!',say:'Palo',rate:.95,pitch:1.1},{show:'Orco diaz!',say:'Orco diàz',rate:.9,pitch:.9}];let LASTBP='';
+function bustPhrase(){if(LANG!=='it')return{show:t('vBust'),say:t('vBust')};let p;do{p=BUST_IT[Math.floor(Math.random()*BUST_IT.length)]}while(p.show===LASTBP);LASTBP=p.show;return p}
 function dartWord(n,m){if(!m)return t('dw_miss');if(n===25)return m===2?'Bull':t('dw_25');return m===3?t('dw_t',n):m===2?t('dw_d',n):String(n)}
-function say(txt){
-  const pre=DSAY;DSAY='';txt=pre&&txt?pre+'. '+txt:(txt||pre);
-  txt=txt.replace(/([!?])\./g,'$1');
-  if(!DB.settings.voice||!txt)return;
+/* text-to-speech engines read "!" with an odd tone and spell out stretched words ("Noooo"): both are cleaned before speaking */
+function speakable(x){return String(x||'').replace(/!/g,'').replace(/([a-zàèéìòù])\1{2,}/gi,'$1').replace(/\s+/g,' ').trim()}
+function say(input){
+  let segs=(Array.isArray(input)?input:[{t:input}]).map(s=>typeof s==='string'?{t:s}:s);
+  const pre=DSAY;DSAY='';if(pre)segs.unshift({t:pre});
+  segs=segs.map(s=>Object.assign({},s,{t:speakable(s.t)})).filter(s=>s.t);
+  const out=[];for(const s of segs){const p=out[out.length-1];if(p&&!p.rate&&!p.pitch&&!s.rate&&!s.pitch)p.t+='. '+s.t;else out.push(s)}
+  if(!DB.settings.voice||!out.length)return;
   try{const T=CAP('TextToSpeech');
-    if(T){T.stop&&T.stop().catch(()=>{});T.speak({text:txt,lang:LOC,rate:1.05}).catch(()=>{});return}
-    if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang=LOC;u.rate=1.05;speechSynthesis.speak(u)}
+    if(T){T.stop&&T.stop().catch(()=>{});out.forEach((s,k)=>T.speak({text:s.t,lang:LOC,rate:1.05*(s.rate||1),pitch:s.pitch||1,queueStrategy:k?1:0}).catch(()=>{}));return}
+    if('speechSynthesis' in window){speechSynthesis.cancel();out.forEach(s=>{const u=new SpeechSynthesisUtterance(s.t);u.lang=LOC;u.rate=1.05*(s.rate||1);u.pitch=s.pitch||1;speechSynthesis.speak(u)})}
   }catch(e){}
 }
 let WL=null,AWAKE=false;
@@ -807,14 +813,14 @@ function x01EndVisit(bust){
   const score=G.visitStart-G.rem[p];
   x01Record(p,score,nd,bust);
   const bp=bust?bustPhrase():null;
-  G.last[p]={score,bust,bp,d:G.visit.filter(d=>!d.tot).map(lab)};
+  G.last[p]={score,bust,bp:bp&&bp.show,d:G.visit.filter(d=>!d.tot).map(lab)};
   if(score===180&&!bust){big180();FX={k:'180',p}}else if(bust)FX={k:'bust',p};
   if(!bust)recVisit(p,score);
   nextTurn();
   const q=G.turn,r=G.rem[q];
-  let txt=bust?bp:score===180?t('v180'):score===0?t('vNone'):String(score);
-  if(G.opened[q]&&checkout(r,3,G.opts.outMode))txt+='. '+t('vReq',pname(q),r);
-  say(txt);
+  const segs=[bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch}:{t:score===180?t('v180'):score===0?t('vNone'):String(score)}];
+  if(G.opened[q]&&checkout(r,3,G.opts.outMode))segs.push({t:t('vReq',pname(q),r)});
+  say(segs);
 }
 function x01Checkout(){
   const p=G.turn,st=G.stats[p],nd=G.visit.length,score=G.visitStart;
