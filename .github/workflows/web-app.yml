@@ -1,0 +1,45 @@
+name: Web app (iPhone)
+
+# Publishes www/ on GitHub Pages as an installable web app:
+# open https://<user>.github.io/darts/ in Safari -> Share -> Add to Home Screen.
+# Runs on every version tag (together with the APK) or by hand from the Actions tab.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Stamp version, drop online fonts
+        run: |
+          VN="${GITHUB_REF_NAME#v}"
+          case "$VN" in [0-9]*) ;; *) VN="web-$(date -u +%Y%m%d%H%M)" ;; esac
+          sed -i "s/const APP_BUILD='dev'/const APP_BUILD='$VN'/" www/index.html
+          sed -i "s/const SW_VERSION='dev'/const SW_VERSION='$VN'/" www/sw.js
+          sed -i '/fonts\.googleapis\.com\|fonts\.gstatic\.com/d' www/index.html
+          grep -q "APP_BUILD='$VN'" www/index.html && grep -q "SW_VERSION='$VN'" www/sw.js
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: www
+
+      - id: deployment
+        uses: actions/deploy-pages@v5

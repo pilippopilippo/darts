@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F1E17">
 <title>Darts</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Darts">
 <meta name="description" content="Darts scorer: X01, Cricket and practice games">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,6 +234,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .c-catScore{background:color-mix(in srgb,var(--brass) 14%,var(--surf))}.c-catScore .dic{color:var(--brass)}
 .c-catPrec{background:color-mix(in srgb,var(--green) 12%,var(--surf))}.c-catPrec .dic{color:var(--green)}
 select.field{appearance:auto}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@supports (-webkit-touch-callout:none){.h2hsel .field,textarea.field,select.field,input.field{font-size:16px}}
 /* ---- game board: every player always on screen, every row sizes its own content ---- */
 .board{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;padding:8px 10px}
 .board>.banner{flex:none;margin:0 2px 6px}.board>.banner b{font-size:clamp(24px,7vw,40px)}
@@ -1272,6 +1280,7 @@ async function backupFile(){
   const data=JSON.stringify({app:'darts',v:1,players:DB.players,history:DB.history}),name=`darts-backup-${new Date().toISOString().slice(0,10)}.json`;
   const FS=CAP('Filesystem'),SH=CAP('Share');
   if(FS&&SH){try{const w=await FS.writeFile({path:name,data,directory:'CACHE',encoding:'utf8'});await SH.share({title:name,files:[w.uri]});return}catch(e){if(/cancel/i.test(String(e&&e.message||e)))return}}
+  try{const f=new File([data],name,{type:'application/json'});if(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:name});return}}catch(e){if(e&&e.name==='AbortError')return}
   try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();toast(t('bkSaved'))}catch(e){toast(t('copyBox'))}
 }
 
@@ -1309,6 +1318,9 @@ function openPicker(focusNew){
   showModal(pickerHtml(q));const sh=document.querySelector('.modal .sheet');if(sh)sh.scrollTop=top;filterPicker();
   const f=document.getElementById(focusNew?'newp':'psearch');if(f&&(focusNew||q))f.focus();else document.activeElement&&document.activeElement.blur();
 }
+/* ---------- web app (iPhone / browsers): offline cache ---------- */
+if('serviceWorker' in navigator&&!window.Capacitor&&(location.protocol==='https:'||location.hostname==='localhost'))
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 /* ---------- navigation ---------- */
 let V={name:'home'},NAV=[];
 const PAD={mul:1,typed:''};
@@ -1619,7 +1631,7 @@ function vSettings(){
   return topbar(t('settings'))+`<div class="page">
    <div class="lbl" style="margin-top:4px">${t('lang')}</div>${chips('s.lang',[['auto',t('langAuto')],['it','Italiano'],['en','English']],s.lang)}
    <div class="lbl">${t('theme')}</div>${chips('s.theme',[['auto',t('auto')],['light',t('light')],['dark',t('dark')]],s.theme)}
-   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('voiceDart',t('s_voiceDart')).replace('class="toggle','class="toggle'+(DB.settings.voice?'':' dim'))}${tg('sfx',t('sfx'))}${tg('vibrate',t('s_vib'))}${tg('awake',t('s_awake'))}</div>
+   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('voiceDart',t('s_voiceDart')).replace('class="toggle','class="toggle'+(DB.settings.voice?'':' dim'))}${tg('sfx',t('sfx'))}${CAP('Haptics')||navigator.vibrate?tg('vibrate',t('s_vib')):''}${tg('awake',t('s_awake'))}</div>
    <div class="lbl">Backup</div>
    <button class="btn" data-act="bkfile">${t('bkFile')}</button><button class="btn" data-act="bkopen">${t('bkOpen')}</button><input type="file" id="bkfile" accept="application/json,.json" hidden>
    <button class="btn" data-act="export" style="margin-top:10px">${t('copyBk')}</button>
