@@ -350,6 +350,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @container (max-height:118px){.cr2 .cell{height:clamp(14px,calc(100cqh - 68px),64px)}}
 @container (max-height:100px){.cr2 .lastv{display:none}.cr2 .cell{height:clamp(14px,calc(100cqh - 44px),64px)}}
 .toggle.dim{opacity:.5}
+.rcnt{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:999px;border:1px solid var(--brass);font:700 16px var(--fc);white-space:nowrap}
+.rcnt .rl{margin-right:.3em}
+@media (max-width:359px){.rcnt .rl{display:none}.rcnt{padding:0 8px}}
 /* small and short screens */
 .ver{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
 .top h2{font-size:clamp(16px,5.2vw,21px)}
@@ -470,7 +473,8 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, vince il leg chi ha meno punti.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
+  coPts:s=>`Turni finiti: vince chi ha meno punti rimasti (${s})`,tieT:'Turni finiti: parità',tieTxt:(n,p)=>`${n} sono a ${p} punti. Spareggio al bull: chi è più vicino al centro?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} a ${n}`,vMatchPts:n=>`Partita finita. Vince ${n}`,legPtsShow:'Leg vinto ai punti',matchPts:'Partita vinta ai punti',vLimit:'Turni finiti',vTie:'Parità. Spareggio al bull',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,and:'e',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:(d,v)=>`Record personale: leg in ${v} turni (${d} freccette)`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
   achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
@@ -552,7 +556,8 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the player with the fewest points left wins the leg.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
+  coPts:s=>`Visit limit reached: fewest points left wins (${s})`,tieT:'Visit limit reached: tie',tieTxt:(n,p,k)=>`${n} are ${k===2?'both':'all'} on ${p}. Bull-off: who’s closest to the bull?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} to ${n}`,vMatchPts:n=>`${n} wins the match`,legPtsShow:'Leg won on points',matchPts:'Match won on points',vLimit:'Visit limit reached',vTie:'Tie. Bull-off',legPts:(v,s)=>`won on points after ${v} visits (${s})`,and:'and',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:(d,v)=>`Personal best: ${v}-visit leg (${d} darts)`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
   achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
@@ -603,7 +608,7 @@ const LS={
 };
 const DEF_SETTINGS={voice:true,voiceDart:true,vibrate:true,sfx:true,theme:'auto',lang:'auto',awake:true,input:'dart',setup:null};
 const DEF_SETUP={mode:'x01',players:[],random:false,cpu:{on:false,level:5,name:''},teams:false,bulloff:false,tgt:'T20',trp:null,
-  x01:{start:501,inMode:'single',outMode:'double',legs:1,sets:1,hcpOn:false,hcp:{}},
+  x01:{start:501,inMode:'single',outMode:'double',legs:1,sets:1,hcpOn:false,hcp:{},maxv:0},
   cricket:{variant:'standard',legs:1},killer:{lives:3},atc:{variant:'any',bull:true},shanghai:{rounds:7},bobs:{}};
 const DB={players:[],history:[],settings:{}};
 let G=null,UNDO=[],SETUP=null;
@@ -768,14 +773,14 @@ function pushUndo(){UNDO.push(JSON.stringify(G));if(UNDO.length>200)UNDO.shift()
 
 function legSummary(p){
   const e={set:G.setNo,leg:G.legNo,w:p};
-  if(G.mode==='x01'){e.d=G.legDarts[p];e.v=G.legVisits[p];e.co=G.visitStart;e.log=G.legLog;
+  if(G.mode==='x01'){e.d=G.legDarts[p];e.v=G.legVisits[p];e.co=G.ptsWin?0:G.visitStart;if(G.ptsWin)e.pts=G.ptsWin;e.log=G.legLog;
     e.avg=G.players.map((_,i)=>{let pt=0,d=0;G.legLog.forEach(v=>{if(v.p===i){pt+=v.s;d+=v.n}});return d?+(pt/d*3).toFixed(1):0})}
   if(G.mode==='cricket'){e.mpr=G.stats.map((s,i)=>{const r=s.rounds-G.legBase[i].r;return r?+((s.marks-G.legBase[i].m)/r).toFixed(2):0});e.r=G.stats[p].rounds-G.legBase[p].r}
   return e;
 }
 function legWon(p){
   if(G.mode==='x01'||G.mode==='cricket')G.legsHist.push(legSummary(p));
-  FX={k:'win'};
+  FX={k:'win',pts:!!G.ptsWin};
   const o=G.opts,n=G.players.length;G.legsWon[p]++;let setDone=false;
   if(o.sets>1&&G.legsWon[p]>=o.legs){G.setsWon[p]++;setDone=true}
   const done=o.sets>1?G.setsWon[p]>=o.sets:G.legsWon[p]>=o.legs;
@@ -784,14 +789,14 @@ function legWon(p){
   if(setDone){G.legsWon=G.legsWon.map(()=>0);G.setNo++;G.legNo=1}else G.legNo++;
   if(setDone){G.setStarter=(G.setStarter+1)%n;G.legStarter=G.setStarter}else G.legStarter=(G.legStarter+1)%n;
   initLeg();G.notice=info;G.coInfo=null;
-  say(t('vLeg',setDone,G.players[p].name));
+  say(t(G.ptsWin?'vLegPts':'vLeg',setDone,G.players[p].name));
 }
 function matchWon(p){
-  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1};
+  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1,pts:!!G.ptsWin};
   DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist.map(e=>Object.assign({},e,{log:(e.log||[]).map(v=>[v.p,v.s,v.n,v.r,v.b])})),starts:G.starts});
   recMatch();
   if(DB.history.length>600)DB.history.length=600;save();
-  say(p===null?t('vDraw'):t('vMatch',G.players[p].name));
+  say(p===null?t('vDraw'):t(G.ptsWin?'vMatchPts':'vMatch',G.players[p].name));
   V={name:'results'};NAV=[];
 }
 
@@ -825,11 +830,22 @@ function x01EndVisit(bust){
   if(score===180&&!bust){big180();FX={k:'180',p}}else if(bust)FX={k:'bust',p};
   if(!bust)recVisit(p,score);
   nextTurn();
+  if(G.opts.maxv>0&&G.legVisits.every(v=>v>=G.opts.maxv)){
+    const said=bust?bp.say:score===180?t('v180'):score===0?t('vNone'):String(score);
+    const lo=Math.min(...G.rem),tied=G.rem.map((x,i)=>x===lo?i:-1).filter(i=>i>=0);
+    if(tied.length>1){G.tie=tied;say([{t:said},{t:t('vLimit')+'. '+t('vTie')}]);return}
+    DSAY=[DSAY,said,t('vLimit')].filter(Boolean).join('. ');return winByPoints(tied[0]);
+  }
   const q=G.turn,r=G.rem[q];
   const segs=[bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch}:{t:score===180?t('v180'):score===0?t('vNone'):String(score)}];
   if(G.opened[q]&&checkout(r,3,G.opts.outMode))segs.push({t:t('vReq',pname(q),r)});
   say(segs);
 }
+function winByPoints(p){
+  G.tie=null;G.ptsWin=G.rem.slice();const s=G.players.map((pl,i)=>pl.name+' '+G.rem[i]).join(', ');G.coInfo={k:'coPts',a:[s]};
+  legWon(p);G.ptsWin=null;if(G.finished)toast(t('coPts',s));
+}
+function joinNames(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' '+t('and')+' '+a[a.length-1]}
 function x01Checkout(){
   const p=G.turn,st=G.stats[p],nd=G.visit.length,score=G.visitStart;
   x01Record(p,score,nd,false);st.coHit++;st.hiCo=Math.max(st.hiCo,score);st.legDarts.push(G.legDarts[p]);(st.legVis=st.legVis||[]).push(G.legVisits[p]);
@@ -976,7 +992,7 @@ function cpuTarget(){
   if(G.mode==='atc'){const t=atcSeq()[G.pos[p]],v=o.variant;if(t===25)return{n:25,m:v==='any'?1:2};return{n:t,m:v==='double'?2:v==='triple'?3:1}}
   return{n:G.round,m:3};
 }
-function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.bulloff&&G.players[G.turn].cpu}
+function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.bulloff&&!G.tie&&G.players[G.turn].cpu}
 function scheduleCpu(){if(CPU_T||!cpuActive())return;CPU_T=setTimeout(()=>{CPU_T=null;if(cpuActive())cpuStep()},G.visit.length?650:950)}
 function stopCpu(){clearTimeout(CPU_T);CPU_T=null}
 function cpuStep(){
@@ -1012,8 +1028,8 @@ function sfxApplause(dur){
 function vibTriple(){if(!DB.settings.vibrate)return;const H=CAP('Haptics');
   if(H){[0,140,280].forEach(d=>setTimeout(()=>H.impact({style:'HEAVY'}).catch(()=>{}),d));return}
   if(navigator.vibrate)try{navigator.vibrate([40,70,40,70,40])}catch(e){}}
-function celebrate(match){
-  const d=document.createElement('div');d.className='celeb';d.innerHTML=`<div>${boardSVG()}<b>${t(match?'matchShot':'gameShot')}</b></div>`;
+function celebrate(match,pts){
+  const d=document.createElement('div');d.className='celeb';d.innerHTML=`<div>${boardSVG()}<b>${t(pts?(match?'matchPts':'legPtsShow'):(match?'matchShot':'gameShot'))}</b></div>`;
   document.body.appendChild(d);setTimeout(()=>d.remove(),1600);
 }
 function runFx(){
@@ -1021,7 +1037,7 @@ function runFx(){
   const row=f.p!=null?document.querySelector(`.sb [data-p="${f.p}"]`):null;
   if(f.k==='bust'){if(row)row.classList.add('shake');vib(true)}
   if(f.k==='180'){if(row)row.classList.add('glow');vibTriple();sfxApplause(2.2)}
-  if(f.k==='win'){celebrate(f.match);vibTriple();sfxApplause(f.match?3.4:2)}
+  if(f.k==='win'){celebrate(f.match,f.pts);vibTriple();sfxApplause(f.match?3.4:2)}
 }
 /* rolling numbers: [data-anim] elements count from their previous value to the new one */
 const ANIM={};
@@ -1382,7 +1398,9 @@ function vSetup(){
     o=`<div class="lbl">${t('startScore')}</div>${chips('x01.start',[[101,'101'],[201,'201'],[301,'301'],[501,'501'],[701,'701'],[1001,'1001']],x.start)}
     <div class="lbl">${t('in')}</div>${chips('x01.inMode',[['single',t('straight')],['double',t('double')],['master','Master']],x.inMode)}
     <div class="lbl">${t('out')}</div>${chips('x01.outMode',[['double',t('double')],['single',t('straight')],['master','Master']],x.outMode)}
-    <div class="lbl">${t('format')}</div><div class="steps">${stepper('x01.legs',x.sets>1?t('legsPerSet'):t('legsToWin'),x.legs)}${stepper('x01.sets',t('setsToWin'),x.sets>1?x.sets:'–')}</div>`}
+    <div class="lbl">${t('format')}</div><div class="steps">${stepper('x01.legs',x.sets>1?t('legsPerSet'):t('legsToWin'),x.legs)}${stepper('x01.sets',t('setsToWin'),x.sets>1?x.sets:'–')}</div>
+    <div class="lbl">${t('maxv')}</div>${(()=>{const mv=+x.maxv||0,cu=mv>0&&![10,15,20].includes(mv);return chips('x01.maxv',[[0,t('noLimit')],[10,'10'],[15,'15'],[20,'20']],cu?-1:mv).replace(/<\/div>$/,`<button class="chip ${cu?'on':''}" data-act="maxvother">${cu?t('otherN',mv):t('other')}</button></div>`)})()}
+    <p class="muted" style="font-size:14px;margin:8px 2px 0">${t('maxvHelp')}</p>`}
   if(m==='cricket')o=`<div class="lbl">${t('variant')}</div>${chips('cricket.variant',[['standard',t('standard')],['cut','Cut-throat'],['noscore',t('noScore')]],s.cricket.variant)}
     <div class="lbl">${t('format')}</div><div class="steps">${stepper('cricket.legs',t('legsToWin'),s.cricket.legs)}</div>`;
   if(m==='atc')o=`<div class="lbl">${t('validTarget')}</div>${chips('atc.variant',[['any',t('anySeg')],['double',t('dblOnly')],['triple',t('trbOnly')]],s.atc.variant)}
@@ -1419,7 +1437,7 @@ function slots(){
   let h='<div class="slots">';for(let i=0;i<3;i++){const d=G.visit[i];h+=`<div class="slot ${d?'f':''}">${d?lab(d):''}</div>`}return h+'</div>';
 }
 function lastLine(i){const l=G.last[i];if(!l)return'';const chips=(l.d||[]).map(x=>`<span>${esc(x)}</span>`).join('');
-  const tail=l.bust?`<b class="bust">${esc(l.bp||t('bust'))}</b>`:l.score!=null?`<b>= ${l.score}</b>`:'';
+  const tail=l.bust?`<b class="bust">= 0</b>`:l.score!=null?`<b>= ${l.score}</b>`:'';
   return chips||tail?`<div class="lastv"><small>${t('lastVisit')}</small>${chips}${tail}</div>`:''}
 function lastTxt(i){const l=G.last[i];if(!l)return'–';if(l.bust)return`<span class="bust">${t('bust')}</span>`;if(l.score!=null)return l.score;return l.d.join(' ')}
 function dots(won,need){if(need>5)return`<b class="lgn">${won}/${need}</b>`;let h='<span class="dots">';for(let k=0;k<need;k++)h+=`<i class="${k<won?'w':''}"></i>`;return h+'</span>'}
@@ -1470,9 +1488,9 @@ function bRound(){
     return`<section class="pl ${on?'on':''}" data-p="${i}"><div class="pl-top"><b class="nm">${esc(pl.name)}</b>${lastLine(i)}${G.out[i]?`<span class="lg bust">${t('outTag')}</span>`:''}</div><div class="rem" data-anim="s${i}" data-v="${G.score[i]}">${G.score[i]}</div><div class="meta"><span>${t('visits',G.stats[i].rounds)}</span></div>${on&&sh?slots():''}</section>`}).join('')+'</div>';
 }
 function padDarts(hl){
-  const m=PAD.mul,pre=m===2?'D':m===3?'T':'';
+  const m=PAD.mul;
   let h=`<div class="pad ${m>1?'m'+m:''}"><div class="mulrow"><button class="mul d ${m===2?'on':''}" data-act="mul" data-v="2" aria-pressed="${m===2}">${t('double')}</button><button class="mul t ${m===3?'on':''}" data-act="mul" data-v="3" aria-pressed="${m===3}">${t('treble')}</button></div><div class="nums">`;
-  for(let i=1;i<=20;i++)h+=`<button class="k ${hl.includes(i)?'hl':''}" data-act="num" data-v="${i}">${pre}${i}</button>`;
+  for(let i=1;i<=20;i++)h+=`<button class="k ${hl.includes(i)?'hl':''}" data-act="num" data-v="${i}">${i}</button>`;
   h+=`</div><div class="row4"><button class="k ${hl.includes(25)?'hl':''}" data-act="num" data-v="25" ${m===3?'disabled':''}>25</button><button class="k bull" data-act="bull">Bull</button><button class="k miss" data-act="miss" data-long="missrest">Miss<small>${t('missHint')}</small></button><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
   if(G.mode==='x01')h+=`<button class="k small wide" data-act="inmode">${t('enterTotal')}</button>`;
   return h+'</div>';
@@ -1503,7 +1521,8 @@ function vGame(){
   if(G.mode==='killer'){b=bKiller();p=padDarts(kHl())}
   if(G.mode==='drill'){b=bDrill();p=padDarts(drHl())}
   if(!G.finished&&G.players[G.turn].cpu)p=`<div class="pad"><div class="cpuwait" aria-live="polite">${t('throwing',esc(G.players[G.turn].name))}</div><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoMine')}</button></div>`;
-  return`<div class="game">${topbar(esc(modeLabel(G.mode,G.opts)),`<button class="ib" data-act="mstats">${t('statsBtn')}</button>`)}<div class="board">${b}</div>${p}</div>`;
+  const mv=G.mode==='x01'&&G.opts.maxv>0?G.opts.maxv:0,cnt=mv?`<span class="rcnt" aria-label="${t('visitN')} ${Math.min(G.legVisits[G.turn]+1,mv)} / ${mv}"><span class="rl">${t('visitN')}</span>${Math.min(G.legVisits[G.turn]+1,mv)}/${mv}</span>`:'';
+  return`<div class="game">${topbar(esc(modeLabel(G.mode,G.opts)),`${cnt}<button class="ib" data-act="mstats">${t('statsBtn')}</button>`)}<div class="board">${b}</div>${p}</div>`;
 }
 
 /* stats rows */
@@ -1555,7 +1574,7 @@ function worksheet(log,players,start,editable){
 function legsList(r){
   const L=r.legs||[];if(!L.length)return'';
   return`<div class="lbl">${t('legByLeg')}</div>`+L.map(e=>{const w=r.players[e.w]?esc(r.players[e.w].name):'?';
-    const det=r.mode==='x01'?t('legX01',e.d,e.co,r.players.map((p,i)=>esc(p.name)+' '+(e.avg&&e.avg[i]?nf(e.avg[i],1):'–')).join(', '),e.v)
+    const det=r.mode==='x01'&&e.pts?t('legPts',e.v,r.players.map((p,i)=>esc(p.name)+' '+e.pts[i]).join(', ')):r.mode==='x01'?t('legX01',e.d,e.co,r.players.map((p,i)=>esc(p.name)+' '+(e.avg&&e.avg[i]?nf(e.avg[i],1):'–')).join(', '),e.v)
       :t('legCr',e.r,r.players.map((p,i)=>esc(p.name)+' '+(e.mpr?nf(e.mpr[i],2):'–')).join(', '));
     const head=`<b>${r.opts.sets>1?`Set ${e.set}, leg ${e.leg}`:`Leg ${e.leg}`}: ${w}</b><div>${det}</div>`;
     return e.log&&e.log.length?`<details class="legrow"><summary>${head}<div style="color:var(--text);text-decoration:underline">${t('showSheet')}</div></summary>${worksheet(e.log,r.players,r.starts||r.opts.start)}</details>`:`<div class="legrow">${head}</div>`}).join('');
@@ -1655,7 +1674,7 @@ function cleanBackup(d){
     players:h.players.map(p=>({id:str(p&&p.id),name:str(p&&p.name),cpu:!!(p&&p.cpu),level:num(p&&p.level)})),
     winner:h.winner==null||!(num(h.winner)<h.players.length)?null:num(h.winner),legsWon:arr(h.legsWon).map(num),setsWon:arr(h.setsWon).map(num),
     stats:h.stats.map(s=>{s=s||{};const r={};['pts','darts','f9p','f9d','coHit','coAtt','hiCo','marks','rounds','turns','hits','score'].forEach(k=>r[k]=num(s[k]));r.visits=arr(s.visits).map(num);r.legDarts=arr(s.legDarts).map(num);r.legVis=arr(s.legVis).map(num);r.hm={};if(s.hm&&typeof s.hm==='object')for(const k in s.hm)if(/^\d{1,2}-[0-3]$/.test(k))r.hm[k]=num(s.hm[k]);r.dbl={};if(s.dbl&&typeof s.dbl==='object')for(const k in s.dbl)if(/^(D\d{1,2}|T\d{1,2}|Bull|\d{1,2}|25)$/.test(k)&&Array.isArray(s.dbl[k]))r.dbl[k]=[num(s.dbl[k][0]),num(s.dbl[k][1])];return r}),
-    legs:arr(h.legs).map(e=>{e=e||{};return{set:num(e.set),leg:num(e.leg),w:num(e.w),d:num(e.d),v:num(e.v)||undefined,co:num(e.co),r:num(e.r),avg:e.avg?arr(e.avg).map(num):undefined,mpr:e.mpr?arr(e.mpr).map(num):undefined,log:arr(e.log).map(v=>Array.isArray(v)?[num(v[0]),num(v[1]),num(v[2]),num(v[3]),v[4]?1:0]:[num(v&&v.p),num(v&&v.s),num(v&&v.n),num(v&&v.r),v&&v.b?1:0])}})}});
+    legs:arr(h.legs).map(e=>{e=e||{};return{set:num(e.set),leg:num(e.leg),w:num(e.w),d:num(e.d),v:num(e.v)||undefined,co:num(e.co),pts:Array.isArray(e.pts)?e.pts.map(num):undefined,r:num(e.r),avg:e.avg?arr(e.avg).map(num):undefined,mpr:e.mpr?arr(e.mpr).map(num):undefined,log:arr(e.log).map(v=>Array.isArray(v)?[num(v[0]),num(v[1]),num(v[2]),num(v[3]),v[4]?1:0]:[num(v&&v.p),num(v&&v.s),num(v&&v.n),num(v&&v.r),v&&v.b?1:0])}})}});
   return{players,history};
 }
 function applyTheme(){const t=DB.settings.theme;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
@@ -1675,6 +1694,9 @@ function render(){
     showModal(`<h3>${t('legTo',n.set,nm)}</h3><p>${esc(det)}${det?'. ':''}${G.players.length>1?sc+'.':''}</p>${rec}<p>${t('throwsFirst',esc(pname(G.turn)))}</p><button class="btn primary" data-act="noticeok">${t('cont')}</button><button class="btn" data-act="undo">${t('undoLast')}</button>`);}
   if(V.name==='game'&&G&&G.bulloff&&!G.finished&&document.getElementById('modal').hidden)
     ask(t('bullQ'),'',G.players.map((pl,i)=>({v:i,l:esc(pl.name)})),i=>{G.legStarter=G.setStarter=G.turn=i;G.bulloff=false;if(G.mode==='x01'){G.visitStart=G.rem[i];G.visitOpen=G.opened[i]}saveGame();render()});
+  if(V.name==='game'&&G&&G.tie&&!G.finished&&!G.notice&&document.getElementById('modal').hidden){
+    ASKCB=i=>{winByPoints(+i);saveGame();render()};
+    showModal(`<h3>${t('tieT')}</h3><p>${t('tieTxt',joinNames(G.tie.map(i=>esc(G.players[i].name))),G.rem[G.tie[0]],G.tie.length)}</p><div class="opts">${G.tie.map(i=>`<button class="k" data-act="askpick" data-v="${i}">${esc(G.players[i].name)}</button>`).join('')}</div><button class="btn" data-act="undo">${t('undoLast')}</button>`)}
   scheduleCpu();
 }
 
@@ -1723,6 +1745,7 @@ const ACT={
   step:d=>{const cur=getPath(SETUP,d.k);const v=Math.max(1,Math.min(d.k==='cpu.level'?10:d.k.endsWith('sets')?7:11,cur+(+d.d)));setPath(SETUP,d.k,v);saveSetup();render()},
   pick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else SETUP.players.push(d.v);saveSetup();render()},
   picker:()=>openPicker(false),
+  maxvother:()=>promptNum(t('maxvAsk'),SETUP.x01.maxv||'',v=>{v=Math.round(+v);if(v>=1&&v<=99){SETUP.x01.maxv=v;saveSetup()}render()}),
   ppick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else if(SETUP.players.length<MAXP-(SETUP.cpu.on?1:0))SETUP.players.push(d.v);saveSetup();render();openPicker(false)},
   pdone:()=>{closeModal();render()},
   pmove:d=>{const a=SETUP.players,i=a.indexOf(d.v);if(i>0){[a[i-1],a[i]]=[a[i],a[i-1]];saveSetup();render()}},
@@ -1796,7 +1819,7 @@ document.addEventListener('keydown',e=>{
   if(V.name==='game'&&G&&!G.finished&&!G.players[G.turn].cpu&&G.mode==='x01'&&G.input==='total'&&document.getElementById('modal').hidden&&!/INPUT|TEXTAREA/.test(e.target.tagName)){
     if(/^\d$/.test(e.key))ACT.digit({v:e.key});else if(e.key==='Backspace')ACT.del();else if(e.key==='Enter')totOk();}
 });
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!(G&&G.notice&&V.name==='game'))closeModal()});
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!(G&&(G.notice||G.tie)&&V.name==='game'))closeModal()});
 
 /* Android back button (Capacitor) */
 try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;
