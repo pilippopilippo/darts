@@ -693,24 +693,53 @@ function big180(){const d=document.createElement('div');d.className='big180';d.i
 let FX=null;
 function vib(strong){if(!DB.settings.vibrate)return;const H=CAP('Haptics');if(H){H.impact({style:strong?'HEAVY':'LIGHT'}).catch(()=>{});return}if(navigator.vibrate)try{navigator.vibrate(strong?[35,50,35]:12)}catch(e){}}
 /* the dart just entered is spoken first and joined to whatever the visit announces next */
-let DSAY='';
+let DSAY=[];
 /* bust exclamations: the screen shows the written form, the voice gets a spelling it can pronounce plus its own speed and tone */
-const BUST_IT=[{show:'Noooooo!',say:'No, no, no',rate:.85,pitch:.85},{show:'Fai schifo!',say:'Fai schifo',rate:.95,pitch:.95},{show:'Caneee!',say:'Cane',rate:.7,pitch:1.1},
-  {show:'Palo!',say:'Palo',rate:.95,pitch:1.1},{show:'Orco diaz!',say:'Orco diàz',rate:.9,pitch:.9}];let LASTBP='';
-function bustPhrase(){if(LANG!=='it')return{show:t('vBust'),say:t('vBust')};let p;do{p=BUST_IT[Math.floor(Math.random()*BUST_IT.length)]}while(p.show===LASTBP);LASTBP=p.show;return p}
+const BUST_IT=[{show:'Noooooo!',say:'No, no, no',rate:.85,pitch:.85,c:'bust_it_1'},{show:'Fai schifo!',say:'Fai schifo',rate:.95,pitch:.95,c:'bust_it_2'},
+  {show:'Palo!',say:'Palo',rate:.95,pitch:1.1,c:'bust_it_4'},{show:'Porco dio!',say:'Porco dio',rate:.9,pitch:.9,c:'bust_it_5'}];let LASTBP='';
+function bustPhrase(){if(LANG!=='it')return{show:t('vBust'),say:t('vBust'),c:'bust'};let p;do{p=BUST_IT[Math.floor(Math.random()*BUST_IT.length)]}while(p.show===LASTBP);LASTBP=p.show;return p}
 function dartWord(n,m){if(!m)return t('dw_miss');if(n===25)return m===2?'Bull':t('dw_25');return m===3?t('dw_t',n):m===2?t('dw_d',n):String(n)}
+function dartSeg(n,m){return{t:dartWord(n,m),c:!m?'dart_miss':n===25?(m===2?'dart_bull':'dart_25'):'dart_'+' sdt'[m]+n}}
+function scoreSeg(score){return score===180?{t:t('v180'),c:'score_180_'+'abc'[Math.floor(Math.random()*3)]}:score===0?{t:t('vNone'),c:'score_0'}:{t:String(score),c:'score_'+score}}
 /* text-to-speech engines read "!" with an odd tone and spell out stretched words ("Noooo"): both are cleaned before speaking */
 function speakable(x){return String(x||'').replace(/!/g,'').replace(/([a-zàèéìòù])\1{2,}/gi,'$1').replace(/\s+/g,' ').trim()}
-function say(input){
-  let segs=(Array.isArray(input)?input:[{t:input}]).map(s=>typeof s==='string'?{t:s}:s);
-  const pre=DSAY;DSAY='';if(pre)segs.unshift({t:pre});
+/* Recorded caller: one clip per call in audio/<lang>/, decoded with Web Audio and chained so each part starts as
+   the previous one finishes speaking, while its hall tail is still ringing. A call plays from clips only when every
+   part has one; parts marked opt (they only add a player name) are left out there. Otherwise, or if the clips can't
+   be loaded or decoded, the whole call goes to text-to-speech as before. */
+const VP={ctx:null,meta:{},buf:new Map(),bus:null,gen:0,off:false};
+function vpCtx(){if(!VP.ctx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;VP.ctx=new C()}
+  if(VP.ctx.state==='suspended')VP.ctx.resume().catch(()=>{});return VP.ctx}
+function vpMeta(){const l=LANG;return VP.meta[l]||(VP.meta[l]=fetch('audio/'+l+'/clips.json').then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>{delete VP.meta[l];return null}))}
+function vpLoad(name){const k=LANG+'/'+name;let p=VP.buf.get(k);
+  if(p){VP.buf.delete(k);VP.buf.set(k,p);return p}
+  p=fetch('audio/'+k+'.ogg').then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(a=>new Promise((ok,ko)=>vpCtx().decodeAudioData(a,ok,ko)));
+  p.catch(()=>VP.buf.delete(k));VP.buf.set(k,p);if(VP.buf.size>40)VP.buf.delete(VP.buf.keys().next().value);return p}
+function vpStop(){const b=VP.bus;VP.bus=null;if(!b)return;b.g.gain.setTargetAtTime(0,VP.ctx.currentTime,.03);
+  setTimeout(()=>b.s.forEach(x=>{try{x.stop()}catch(e){}}),250)}
+function vpPlay(segs,g){const ctx=vpCtx();if(!ctx)return Promise.reject(0);vpStop();
+  return vpMeta().then(m=>{if(!m)throw 0;const use=segs.filter(x=>!(x.opt&&!x.c));if(!use.length||use.some(x=>!m[x.c]))throw 0;
+    return Promise.all(use.map(x=>vpLoad(x.c))).then(bufs=>{if(g!==VP.gen)return;
+      const bus={g:ctx.createGain(),s:[]};bus.g.connect(ctx.destination);VP.bus=bus;let at=ctx.currentTime+.02;
+      bufs.forEach((b,i)=>{const x=ctx.createBufferSource();x.buffer=b;x.connect(bus.g);x.start(at);bus.s.push(x);at+=m[use[i].c]+.12})})})}
+function ttsStop(){try{const T=CAP('TextToSpeech');if(T){T.stop&&T.stop().catch(()=>{})}else if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}}
+function ttsSay(segs){
   segs=segs.map(s=>Object.assign({},s,{t:speakable(s.t)})).filter(s=>s.t);
   const out=[];for(const s of segs){const p=out[out.length-1];if(p&&!p.rate&&!p.pitch&&!s.rate&&!s.pitch)p.t+='. '+s.t;else out.push(s)}
-  if(!DB.settings.voice||!out.length)return;
+  if(!out.length)return;
   try{const T=CAP('TextToSpeech');
     if(T){T.stop&&T.stop().catch(()=>{});out.forEach((s,k)=>T.speak({text:s.t,lang:LOC,rate:1.05*(s.rate||1),pitch:s.pitch||1,queueStrategy:k?1:0}).catch(()=>{}));return}
     if('speechSynthesis' in window){speechSynthesis.cancel();out.forEach(s=>{const u=new SpeechSynthesisUtterance(s.t);u.lang=LOC;u.rate=1.05*(s.rate||1);u.pitch=s.pitch||1;speechSynthesis.speak(u)})}
   }catch(e){}
+}
+function say(input){
+  let segs=(Array.isArray(input)?input:[input]).map(s=>typeof s==='string'?{t:s}:s);
+  segs=DSAY.concat(segs).filter(s=>s&&(s.t||s.c));DSAY=[];
+  if(!DB.settings.voice||!segs.length)return;
+  const g=++VP.gen;
+  if(VP.off){vpStop();ttsSay(segs);return}
+  ttsStop();
+  vpPlay(segs,g).catch(e=>{if(e&&e.name==='EncodingError')VP.off=true;if(VP.gen===g)ttsSay(segs)});
 }
 let WL=null,AWAKE=false;
 async function keepAwake(on){
@@ -789,14 +818,14 @@ function legWon(p){
   if(setDone){G.legsWon=G.legsWon.map(()=>0);G.setNo++;G.legNo=1}else G.legNo++;
   if(setDone){G.setStarter=(G.setStarter+1)%n;G.legStarter=G.setStarter}else G.legStarter=(G.legStarter+1)%n;
   initLeg();G.notice=info;G.coInfo=null;
-  say(t(G.ptsWin?'vLegPts':'vLeg',setDone,G.players[p].name));
+  say(G.ptsWin?{t:t('vLegPts',setDone,G.players[p].name),opt:1}:{t:t('vLeg',setDone,G.players[p].name),c:setDone?'game_shot_set':'game_shot_leg'});
 }
 function matchWon(p){
   G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1,pts:!!G.ptsWin};
   DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist.map(e=>Object.assign({},e,{log:(e.log||[]).map(v=>[v.p,v.s,v.n,v.r,v.b])})),starts:G.starts});
   recMatch();
   if(DB.history.length>600)DB.history.length=600;save();
-  say(p===null?t('vDraw'):t(G.ptsWin?'vMatchPts':'vMatch',G.players[p].name));
+  say(p===null?{t:t('vDraw'),c:'draw'}:G.ptsWin?{t:t('vMatchPts',G.players[p].name),opt:1}:{t:t('vMatch',G.players[p].name),c:'game_shot_match'});
   V={name:'results'};NAV=[];
 }
 
@@ -831,14 +860,14 @@ function x01EndVisit(bust){
   if(!bust)recVisit(p,score);
   nextTurn();
   if(G.opts.maxv>0&&G.legVisits.every(v=>v>=G.opts.maxv)){
-    const said=bust?bp.say:score===180?t('v180'):score===0?t('vNone'):String(score);
+    const said=bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch,c:bp.c}:scoreSeg(score);
     const lo=Math.min(...G.rem),tied=G.rem.map((x,i)=>x===lo?i:-1).filter(i=>i>=0);
-    if(tied.length>1){G.tie=tied;say([{t:said},{t:t('vLimit')+'. '+t('vTie')}]);return}
-    DSAY=[DSAY,said,t('vLimit')].filter(Boolean).join('. ');return winByPoints(tied[0]);
+    if(tied.length>1){G.tie=tied;say([said,{t:t('vLimit'),c:'visit_limit'},{t:t('vTie'),c:'tie_bull_off'}]);return}
+    DSAY=DSAY.concat([said,{t:t('vLimit'),c:'visit_limit'}]);return winByPoints(tied[0]);
   }
   const q=G.turn,r=G.rem[q];
-  const segs=[bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch}:{t:score===180?t('v180'):score===0?t('vNone'):String(score)}];
-  if(G.opened[q]&&checkout(r,3,G.opts.outMode))segs.push({t:t('vReq',pname(q),r)});
+  const segs=[bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch,c:bp.c}:scoreSeg(score)];
+  if(G.opened[q]&&checkout(r,3,G.opts.outMode))segs.push({t:t('vReq',pname(q),r),c:'req_'+r});
   say(segs);
 }
 function winByPoints(p){
@@ -919,9 +948,9 @@ function bobHits(h){
 function dart(n,m){
   if(!G||G.finished)return;pushUndo();PAD.mul=1;
   const st=G.stats[G.turn];st.hm=st.hm||{};st.hm[n+'-'+m]=(st.hm[n+'-'+m]||0)+1;sfxThud();
-  DSAY=DB.settings.voice&&DB.settings.voiceDart?dartWord(n,m):'';
+  DSAY=DB.settings.voice&&DB.settings.voiceDart?[dartSeg(n,m)]:[];
   ({x01:x01Dart,cricket:crDart,atc:atcDart,shanghai:shDart,killer:kDart,drill:drDart})[G.mode](n,m);
-  if(DSAY)say('');
+  if(DSAY.length)say([]);
   after();
 }
 function missRest(){
@@ -1712,12 +1741,16 @@ function addPlayer(){
 function saveSetup(){DB.settings.setup=SETUP;save()}
 function setPath(obj,path,val){const k=path.split('.');let o=obj;while(k.length>1)o=o[k.shift()];o[k[0]]=val}
 function getPath(obj,path){return path.split('.').reduce((o,k)=>o[k],obj)}
+/* opening call: a bull-off decides who throws first; otherwise the X01 start (when everyone starts from it) or just "game on" */
+function sayStart(){const o=G.opts,st=G.mode==='x01'&&G.starts.every(x=>x===o.start)?o.start:0;
+  if(G.bulloff)return say({t:LANG==='it'?'Tiro al bull':'Throw for the bull',c:'throw_for_bull'});
+  say(st&&[301,401,501,601,701,801,901,1001].includes(st)?{t:st+'. Game on',c:'start_'+st}:{t:'Game on',c:'game_on'})}
 function startMatch(){
   const s=SETUP;
   const plist=s.players.map(id=>({id,name:DB.players.find(p=>p.id===id).name}));
   if(s.cpu.on)plist.push({id:'cpu',name:cpuName(),cpu:true,level:s.cpu.level});
   const teams=s.teams&&(s.mode==='x01'||s.mode==='cricket')&&plist.length===4&&!s.cpu.on;
-  const go2=()=>{newMatch({mode:s.mode,plist,random:s.random,teams,bulloff:s.bulloff&&!s.random,hcp:s.mode==='x01'&&s.x01.hcpOn&&!teams?s.x01.hcp:null,opts:Object.assign({},s[s.mode],s.mode==='atc'?{bull:!!s.atc.bull}:{})});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
+  const go2=()=>{newMatch({mode:s.mode,plist,random:s.random,teams,bulloff:s.bulloff&&!s.random,hcp:s.mode==='x01'&&s.x01.hcpOn&&!teams?s.x01.hcp:null,opts:Object.assign({},s[s.mode],s.mode==='atc'?{bull:!!s.atc.bull}:{})});saveGame();NAV=[{name:'home'}];V={name:'game'};render();sayStart()};
   if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2();
 }
 function totOk(){
