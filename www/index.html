@@ -483,7 +483,7 @@ it:{
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
   missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',s_nsfw:'Esclamazioni volgari (NSFW)',vcTitle:'Punti a voce',vcOff:'Disattivato',vcPtt:'Premi e parla',vcAlways:'Sempre in ascolto',
   vcHelp:'Di’ il totale del turno o le singole freccette, per esempio “centoquaranta” o “triplo venti”. Di’ “annulla” per correggere. Con “Sempre in ascolto” il microfono resta acceso per tutta la partita e ignora la voce dell’arbitro: aspetta che abbia finito di parlare.',
-  vcNA:'Il riconoscimento vocale non è disponibile su questo dispositivo.',vcBad:'Punteggio non valido: ripeti',vcPerm:'Per i punti a voce serve il permesso del microfono',vcMic:'Parla',vcStop:'In ascolto, tocca per fermare',vcLive:'Ascolto continuo attivo, tocca per spegnerlo',vcLiveOff:'Ascolto continuo spento, tocca per attivarlo',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, vince il leg chi ha meno punti.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
+  vcNA:'Il riconoscimento vocale non è disponibile su questo dispositivo.',vcBad:'Punteggio non valido: ripeti',vcPerm:'Per i punti a voce serve il permesso del microfono',vcMic:'Parla',vcStop:'In ascolto, tocca per fermare',vcLive:'Ascolto continuo attivo, tocca per spegnerlo',vcLiveOff:'Ascolto continuo spento, tocca per attivarlo',vcOnline:'Riconoscimento offline non scaricato: uso quello online',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, vince il leg chi ha meno punti.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
   coPts:s=>`Turni finiti: vince chi ha meno punti rimasti (${s})`,tieT:'Turni finiti: parità',tieTxt:(n,p)=>`${n} sono a ${p} punti. Spareggio al bull: chi è più vicino al centro?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} a ${n}`,vMatchPts:n=>`Partita finita. Vince ${n}`,legPtsShow:'Leg vinto ai punti',matchPts:'Partita vinta ai punti',vLimit:'Turni finiti',vTie:'Parità. Spareggio al bull',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,and:'e',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:(d,v)=>`Record personale: leg in ${v} turni (${d} freccette)`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
@@ -568,7 +568,7 @@ en:{
   wipeAll:'Delete everything',wiped:'Data deleted',
   missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',s_nsfw:'Explicit exclamations (NSFW)',vcTitle:'Voice scoring',vcOff:'Off',vcPtt:'Push to talk',vcAlways:'Always listening',
   vcHelp:'Say the visit total or each dart, for example “one hundred and forty” or “treble twenty”. Say “undo” to correct. With “Always listening” the microphone stays on for the whole match and ignores the caller: wait until it has finished speaking.',
-  vcNA:'Speech recognition isn’t available on this device.',vcBad:'Not a valid score: say it again',vcPerm:'Voice scoring needs microphone permission',vcMic:'Speak',vcStop:'Listening, tap to stop',vcLive:'Always listening is on, tap to turn it off',vcLiveOff:'Always listening is off, tap to turn it on',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the player with the fewest points left wins the leg.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
+  vcNA:'Speech recognition isn’t available on this device.',vcBad:'Not a valid score: say it again',vcPerm:'Voice scoring needs microphone permission',vcMic:'Speak',vcStop:'Listening, tap to stop',vcLive:'Always listening is on, tap to turn it off',vcLiveOff:'Always listening is off, tap to turn it on',vcOnline:'Offline speech model not installed: using online recognition',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the player with the fewest points left wins the leg.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
   coPts:s=>`Visit limit reached: fewest points left wins (${s})`,tieT:'Visit limit reached: tie',tieTxt:(n,p,k)=>`${n} are ${k===2?'both':'all'} on ${p}. Bull-off: who’s closest to the bull?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} to ${n}`,vMatchPts:n=>`${n} wins the match`,legPtsShow:'Leg won on points',matchPts:'Match won on points',vLimit:'Visit limit reached',vTie:'Tie. Bull-off',legPts:(v,s)=>`won on points after ${v} visits (${s})`,and:'and',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:(d,v)=>`Personal best: ${v}-visit leg (${d} darts)`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
@@ -1427,7 +1427,8 @@ function vcListeners(S){if(VC.ls)return;VC.ls=true;
   S.addListener('segmentResults',ev=>{if(!VC.cont)return;VC.segSeen=true;vcHeard(ev&&ev.matches)});
   S.addListener('partialResults',ev=>{if(VC.cont&&ev&&ev.matches&&ev.matches.length)VC.last=ev.matches});
   S.addListener('endOfSegmentedSession',()=>vcContEnded());
-  S.addListener('error',ev=>{if(VC.od&&/language|unavailable|not supported|download/i.test(JSON.stringify(ev||{})))VC.od=false});
+  // the offline model is missing and its download was refused or postponed: carry on with the regular recognizer
+  S.addListener('error',ev=>{const c=String(ev&&ev.code||'');if(VC.od&&VC.cont&&!/^(NO_MATCH|SPEECH_TIMEOUT|RECOGNIZER_BUSY)$/.test(c)){VC.od=false;if(c!=='MODEL_DOWNLOAD_SCHEDULED')LS.set('vcNoOd',true);toast(t('vcOnline'))}});
   S.addListener('listeningState',ev=>{const st=ev&&(ev.state||ev.status);if(st==='stopped'||st==='idle')vcContEnded()})}
 async function vcContStart(){if(VC.cont||!vcSessionWanted())return;const e=vcEngine();if(!e)return;
   if(!(await vcPermission())){VC.on=false;vcRefresh();return}
@@ -1435,7 +1436,7 @@ async function vcContStart(){if(VC.cont||!vcSessionWanted())return;const e=vcEng
   VC.cont=true;VC.segSeen=false;VC.last=null;const now=Date.now();VC.starts=VC.starts.filter(x=>now-x<60000);VC.starts.push(now);
   try{
     if(e.k==='cap'){const S=e.S;vcListeners(S);
-      if(VC.od===null)VC.od=await S.isOnDeviceRecognitionAvailable({language:LOC}).then(r=>!!(r&&r.available),()=>false);
+      if(VC.od===null)VC.od=LS.get('vcNoOd',false)?false:await S.isOnDeviceRecognitionAvailable({language:LOC}).then(r=>!!(r&&r.available),()=>false);
       await S.start({language:LOC,maxResults:5,partialResults:true,popup:false,allowForSilence:900,useOnDeviceRecognition:VC.od,muteRecognizerBeep:true})}
     else{const r=new e.W();VC.rec=r;r.lang=LOC;r.continuous=true;r.interimResults=false;r.maxAlternatives=5;
       r.onresult=ev=>{for(let i=ev.resultIndex||0;i<ev.results.length;i++){const res=ev.results[i];if(res.isFinal!==false)vcHeard([...res].map(a=>a.transcript))}};
@@ -1933,7 +1934,7 @@ const ACT={
   go:d=>go(d.v),back:()=>back(),home:()=>{NAV=[];V={name:'home'};render()},
   resume:()=>{NAV=[{name:'home'}];V={name:'game'};render()},
   mode:d=>{SETUP.mode=d.v;saveSetup();render()},
-  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang();if(d.k==='s.voiceIn'){VC.on=false;VC.auto=null;vcStop();if(v!=='off')vcPermission()}}else{setPath(SETUP,d.k,v);saveSetup()}render()},
+  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang();if(d.k==='s.voiceIn'){VC.on=false;VC.auto=null;VC.od=null;LS.del('vcNoOd');vcStop();if(v!=='off')vcPermission()}}else{setPath(SETUP,d.k,v);saveSetup()}render()},
   step:d=>{const cur=getPath(SETUP,d.k);const v=Math.max(1,Math.min(d.k==='cpu.level'?10:d.k.endsWith('sets')?7:11,cur+(+d.d)));setPath(SETUP,d.k,v);saveSetup();render()},
   pick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else SETUP.players.push(d.v);saveSetup();render()},
   picker:()=>openPicker(false),
