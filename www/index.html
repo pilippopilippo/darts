@@ -354,6 +354,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .rcnt .rl{margin-right:.3em}
 @media (max-width:359px){.rcnt .rl{display:none}.rcnt{padding:0 8px}}
 .mulrow.vm{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 64px}
+.mulrow.vm1{grid-template-columns:minmax(0,1fr) 64px}
 .mic{display:grid;place-items:center;align-self:stretch;min-height:0;border:2px solid var(--brass);border-radius:10px;background:var(--surf);color:var(--brass);transition:opacity .2s}
 .mic.on{background:var(--brass);color:#fff}
 .mic.rec{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--brass);animation:micpulse 1.2s ease-in-out infinite}
@@ -481,7 +482,7 @@ it:{
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
   missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',s_nsfw:'Esclamazioni volgari (NSFW)',vcTitle:'Punti a voce',vcOff:'Disattivato',vcPtt:'Premi e parla',vcAlways:'Sempre in ascolto',
-  vcHelp:'Di’ il totale del turno o le singole freccette, per esempio “centoquaranta” o “triplo venti”. Di’ “annulla” per correggere. Il microfono si ferma mentre parla l’arbitro.',
+  vcHelp:'Di’ il totale del turno o le singole freccette, per esempio “centoquaranta” o “triplo venti”. Di’ “annulla” per correggere. Con “Sempre in ascolto” il microfono resta acceso per tutta la partita e ignora la voce dell’arbitro: aspetta che abbia finito di parlare.',
   vcNA:'Il riconoscimento vocale non è disponibile su questo dispositivo.',vcBad:'Punteggio non valido: ripeti',vcPerm:'Per i punti a voce serve il permesso del microfono',vcMic:'Parla',vcStop:'In ascolto, tocca per fermare',vcLive:'Ascolto continuo attivo, tocca per spegnerlo',vcLiveOff:'Ascolto continuo spento, tocca per attivarlo',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, vince il leg chi ha meno punti.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
   coPts:s=>`Turni finiti: vince chi ha meno punti rimasti (${s})`,tieT:'Turni finiti: parità',tieTxt:(n,p)=>`${n} sono a ${p} punti. Spareggio al bull: chi è più vicino al centro?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} a ${n}`,vMatchPts:n=>`Partita finita. Vince ${n}`,legPtsShow:'Leg vinto ai punti',matchPts:'Partita vinta ai punti',vLimit:'Turni finiti',vTie:'Parità. Spareggio al bull',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,and:'e',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:(d,v)=>`Record personale: leg in ${v} turni (${d} freccette)`,recAvg:v=>`Record personale: media ${v}`,
@@ -566,7 +567,7 @@ en:{
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
   missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',s_nsfw:'Explicit exclamations (NSFW)',vcTitle:'Voice scoring',vcOff:'Off',vcPtt:'Push to talk',vcAlways:'Always listening',
-  vcHelp:'Say the visit total or each dart, for example “one hundred and forty” or “treble twenty”. Say “undo” to correct. The microphone pauses while the caller speaks.',
+  vcHelp:'Say the visit total or each dart, for example “one hundred and forty” or “treble twenty”. Say “undo” to correct. With “Always listening” the microphone stays on for the whole match and ignores the caller: wait until it has finished speaking.',
   vcNA:'Speech recognition isn’t available on this device.',vcBad:'Not a valid score: say it again',vcPerm:'Voice scoring needs microphone permission',vcMic:'Speak',vcStop:'Listening, tap to stop',vcLive:'Always listening is on, tap to turn it off',vcLiveOff:'Always listening is off, tap to turn it on',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the player with the fewest points left wins the leg.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
   coPts:s=>`Visit limit reached: fewest points left wins (${s})`,tieT:'Visit limit reached: tie',tieTxt:(n,p,k)=>`${n} are ${k===2?'both':'all'} on ${p}. Bull-off: who’s closest to the bull?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} to ${n}`,vMatchPts:n=>`${n} wins the match`,legPtsShow:'Leg won on points',matchPts:'Match won on points',vLimit:'Visit limit reached',vTie:'Tie. Bull-off',legPts:(v,s)=>`won on points after ${v} visits (${s})`,and:'and',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:(d,v)=>`Personal best: ${v}-visit leg (${d} darts)`,recAvg:v=>`Personal best: ${v} average`,
@@ -733,14 +734,14 @@ function vpPlay(segs,g){const ctx=vpCtx();if(!ctx)return Promise.reject(0);vpSto
     return Promise.all(use.map(x=>vpLoad(x.c))).then(bufs=>{if(g!==VP.gen)return;
       const bus={g:ctx.createGain(),s:[]};bus.g.connect(ctx.destination);VP.bus=bus;let at=ctx.currentTime+.02;
       bufs.forEach((b,i)=>{const x=ctx.createBufferSource();x.buffer=b;x.connect(bus.g);x.start(at);bus.s.push(x);at+=m[use[i].c]+.12});
-      VP.until=performance.now()+(at-ctx.currentTime)*1000+250})})}
+      VP.until=performance.now()+(at-ctx.currentTime)*1000+250;vcMarkRef(VP.until)})})}
 function ttsStop(){TTSB=0;try{const T=CAP('TextToSpeech');if(T){T.stop&&T.stop().catch(()=>{})}else if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}}
 function ttsSay(segs){
   segs=segs.map(s=>Object.assign({},s,{t:speakable(s.t)})).filter(s=>s.t);
   const out=[];for(const s of segs){const p=out[out.length-1];if(p&&!p.rate&&!p.pitch&&!s.rate&&!s.pitch)p.t+='. '+s.t;else out.push(s)}
   if(!out.length)return;
   try{const T=CAP('TextToSpeech');
-    const tk=TTSB=Date.now()+12000,done=()=>{if(TTSB===tk)TTSB=0};
+    const tk=TTSB=Date.now()+12000,done=()=>{if(TTSB===tk){TTSB=0;vcMarkRef()}};vcRefresh();
     if(T){T.stop&&T.stop().catch(()=>{});out.forEach((s,k)=>{const pr=T.speak({text:s.t,lang:LOC,rate:1.05*(s.rate||1),pitch:s.pitch||1,queueStrategy:k?1:0});if(k===out.length-1)pr.then(done,done);else pr.catch(()=>{})});return}
     if('speechSynthesis' in window){speechSynthesis.cancel();out.forEach((s,k)=>{const u=new SpeechSynthesisUtterance(s.t);u.lang=LOC;u.rate=1.05*(s.rate||1);u.pitch=s.pitch||1;if(k===out.length-1){u.onend=done;u.onerror=done}speechSynthesis.speak(u)})}
   }catch(e){}
@@ -749,6 +750,7 @@ function say(input){
   let segs=(Array.isArray(input)?input:[input]).map(s=>typeof s==='string'?{t:s}:s);
   segs=DSAY.concat(segs).filter(s=>s&&(s.t||s.c));DSAY=[];
   if(!DB.settings.voice||!segs.length)return;
+  VC.refText=segs.map(x=>x.t||'').join(' ');
   const g=++VP.gen;
   if(VP.off){vpStop();ttsSay(segs);return}
   ttsStop();
@@ -1380,50 +1382,99 @@ function openPicker(focusNew){
 
 /* ---------- voice scoring ----------
    Engines: the Android/iOS recognizer through the SpeechRecognition plugin in the app, the browser's own in the iPhone web app.
-   What is said is matched against a small darts grammar (visit totals, single darts, "undo") in the current language;
-   anything else, or a score that cannot be made, is rejected and the player is asked to say it again.
-   The microphone only listens on a human player's turn, with no window open, and waits while the caller speaks. */
-const VC={on:false,listening:false,timer:null,eng:undefined,rec:null,avail:null};
+   Push to talk: one recognition per tap. Always listening: one long session kept open for the whole match (Android 13+
+   segmented sessions, the browser's continuous mode), so the microphone is not switched on and off at every call. Results are
+   ignored on the CPU's turn, with a window open, and while and just after the caller speaks, so the app never scores its own voice.
+   What is said is matched against a small darts grammar in the current language; anything else is rejected. */
+const VC={on:false,listening:false,timer:null,eng:undefined,rec:null,avail:null,cont:false,segSeen:false,last:null,refEnd:-1e9,rt:null,ls:false,od:null,starts:[],auto:null};
 const MICSVG="<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3\"/></svg>";
 function vcEngine(){if(VC.eng!==undefined)return VC.eng;const S=CAP('SpeechRecognition');if(S)return VC.eng={k:'cap',S};
   const W=window.SpeechRecognition||window.webkitSpeechRecognition;return VC.eng=W?{k:'web',W}:null}
+function vcAlways(){return DB.settings.voiceIn==='always'}
 function vcShown(){const m=DB.settings.voiceIn;return!!(m&&m!=='off'&&vcEngine()&&VC.avail!==false&&G&&!G.finished&&!(G.input==='total'&&G.mode!=='x01'))}
-function micBtn(){if(!vcShown())return'';const al=DB.settings.voiceIn==='always',st=VC.listening?'on rec':al&&VC.on?'on'+(vcSpeaking()?' wait':''):'';
+function micBtn(){if(!vcShown())return'';const al=vcAlways();
+  const st=al?(VC.on?'on'+(VC.cont&&vcAllowed()&&!vcDeaf()?' rec':' wait'):''):(VC.listening?'on rec':'');
   const lab=al?(VC.on?t('vcLive'):t('vcLiveOff')):VC.listening?t('vcStop'):t('vcMic');
   return`<button class="mic ${st}" data-act="mic" aria-label="${lab}" aria-pressed="${!!(VC.listening||al&&VC.on)}">${MICSVG}</button>`}
-function vcRefresh(){const b=document.querySelector('.mic');if(!b)return;const w=document.createElement('div');w.innerHTML=micBtn();const n=w.firstElementChild;if(n)b.replaceWith(n)}
+function vcRefresh(){const b=document.querySelector('.mic');if(!b)return;const w=document.createElement('div');w.innerHTML=micBtn();const n=w.firstElementChild;if(n&&n.className!==b.className||n&&n.getAttribute('aria-label')!==b.getAttribute('aria-label'))b.replaceWith(n)}
 function vcSpeaking(){return VP.until>performance.now()||TTSB>Date.now()||('speechSynthesis' in window&&!CAP('TextToSpeech')&&speechSynthesis.speaking)}
-function vcAllowed(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.tie&&!G.bulloff&&!G.players[G.turn].cpu&&G.mode!=='bobs'&&document.getElementById('modal').hidden&&document.visibilityState==='visible'&&vcShown()}
+/* the caller has just spoken (or will finish at `end`): stay deaf a little longer, the recognizer delivers a call only after a pause */
+function vcMarkRef(end){VC.refEnd=Math.max(VC.refEnd,end||performance.now());clearTimeout(VC.rt);VC.rt=setTimeout(vcRefresh,Math.max(0,VC.refEnd+1550-performance.now()));vcRefresh()}
+function vcDeaf(){return vcSpeaking()||performance.now()<VC.refEnd+1500}
+function vcAllowed(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.tie&&!G.bulloff&&!G.players[G.turn].cpu&&document.getElementById('modal').hidden&&document.visibilityState==='visible'&&vcShown()}
 async function vcPermission(){const e=vcEngine();if(!e)return false;
   try{if(e.k==='cap'){if(VC.avail===null){try{VC.avail=!!(await e.S.available()).available}catch(x){VC.avail=true}}
       let p=await e.S.checkPermissions();if(p.speechRecognition!=='granted')p=await e.S.requestPermissions();
       if(p.speechRecognition!=='granted'){toast(t('vcPerm'));return false}}
     return true}catch(x){return true}}
+const vcPermErr=x=>/not-allowed|denied|permission|insufficient/i.test(String(x&&(x.message||x.error||x)));
+/* push to talk: one call per tap */
 function vcListenOnce(){const e=vcEngine();
-  if(e.k==='cap')return e.S.start({language:LOC,maxResults:5,partialResults:false,popup:false,muteRecognizerBeep:DB.settings.voiceIn==='always'}).then(r=>(r&&r.matches)||[]);
+  if(e.k==='cap')return e.S.start({language:LOC,maxResults:5,partialResults:false,popup:false}).then(r=>(r&&r.matches)||[]);
   return new Promise((ok,ko)=>{const r=new e.W();VC.rec=r;r.lang=LOC;r.maxAlternatives=5;r.interimResults=false;r.continuous=false;let got=[];
     r.onresult=ev=>{const res=ev.results[0];got=res?[...res].map(a=>a.transcript):[]};r.onerror=ev=>{VC.rec=null;ko(ev.error||'error')};r.onend=()=>{VC.rec=null;ok(got)};
     try{r.start()}catch(x){VC.rec=null;ko(x)}})}
-function vcStop(){clearTimeout(VC.timer);const e=vcEngine();if(!e)return;
-  try{if(e.k==='cap'){if(VC.listening)e.S.stop().catch(()=>{})}else if(VC.rec)VC.rec.abort()}catch(x){}}
 async function vcStart(){if(VC.listening||!vcAllowed())return;
-  if(!(await vcPermission())){VC.on=false;vcRefresh();return}
-  if(!vcAllowed())return;VC.listening=true;vcRefresh();let alts=null,err=null;
+  if(!(await vcPermission())||!vcAllowed())return;VC.listening=true;vcRefresh();let alts=null,err=null;
   try{alts=await vcListenOnce()}catch(x){err=x}
   VC.listening=false;vcRefresh();
-  if(err&&/not-allowed|denied|permission/i.test(String(err&&(err.message||err)))){VC.on=false;toast(t('vcPerm'));vcRefresh();return}
-  if(alts&&alts.length&&vcAllowed())vcHandle(alts);
-  if(DB.settings.voiceIn==='always'&&VC.on)vcLater(err?900:350)}
+  if(err&&vcPermErr(err)){toast(t('vcPerm'));return}
+  if(err&&/no ?match|not recogni/i.test(String(err&&(err.message||err.error||err)))){toast(t('vcBad'));return}
+  if(alts&&alts.length&&vcAllowed())vcHandle(alts,false)}
+/* always listening: one session for the whole match */
+function vcSessionWanted(){return vcAlways()&&VC.on&&V.name==='game'&&G&&!G.finished&&vcShown()&&document.visibilityState==='visible'}
+function vcListeners(S){if(VC.ls)return;VC.ls=true;
+  S.addListener('segmentResults',ev=>{if(!VC.cont)return;VC.segSeen=true;vcHeard(ev&&ev.matches)});
+  S.addListener('partialResults',ev=>{if(VC.cont&&ev&&ev.matches&&ev.matches.length)VC.last=ev.matches});
+  S.addListener('endOfSegmentedSession',()=>vcContEnded());
+  S.addListener('error',ev=>{if(VC.od&&/language|unavailable|not supported|download/i.test(JSON.stringify(ev||{})))VC.od=false});
+  S.addListener('listeningState',ev=>{const st=ev&&(ev.state||ev.status);if(st==='stopped'||st==='idle')vcContEnded()})}
+async function vcContStart(){if(VC.cont||!vcSessionWanted())return;const e=vcEngine();if(!e)return;
+  if(!(await vcPermission())){VC.on=false;vcRefresh();return}
+  if(VC.cont||!vcSessionWanted())return;
+  VC.cont=true;VC.segSeen=false;VC.last=null;const now=Date.now();VC.starts=VC.starts.filter(x=>now-x<60000);VC.starts.push(now);
+  try{
+    if(e.k==='cap'){const S=e.S;vcListeners(S);
+      if(VC.od===null)VC.od=await S.isOnDeviceRecognitionAvailable({language:LOC}).then(r=>!!(r&&r.available),()=>false);
+      await S.start({language:LOC,maxResults:5,partialResults:true,popup:false,allowForSilence:900,useOnDeviceRecognition:VC.od,muteRecognizerBeep:true})}
+    else{const r=new e.W();VC.rec=r;r.lang=LOC;r.continuous=true;r.interimResults=false;r.maxAlternatives=5;
+      r.onresult=ev=>{for(let i=ev.resultIndex||0;i<ev.results.length;i++){const res=ev.results[i];if(res.isFinal!==false)vcHeard([...res].map(a=>a.transcript))}};
+      r.onerror=ev=>{if(vcPermErr(ev)){VC.on=false;toast(t('vcPerm'))}};
+      r.onend=()=>{if(VC.rec===r)VC.rec=null;vcContEnded()};r.start()}
+  }catch(x){VC.cont=false;if(vcPermErr(x)){VC.on=false;toast(t('vcPerm'))}else vcLater(3000)}
+  vcRefresh()}
+function vcContEnded(){if(!VC.cont)return;VC.cont=false;
+  if(!VC.segSeen&&VC.last)vcHeard(VC.last);   // recognizers without segments hand over the whole call when the session closes
+  VC.last=null;vcRefresh();
+  // reopen at once; if the recognizer keeps closing, slow down so it cannot beep in a loop
+  if(vcSessionWanted())vcLater(VC.starts.length>6?5000:VC.starts.length>3?1500:250)}
+function vcContStop(){const was=VC.cont;VC.cont=false;const e=vcEngine();if(!e)return;
+  try{if(e.k==='cap'){if(was)e.S.stop().catch(()=>{})}else if(VC.rec){const r=VC.rec;VC.rec=null;r.onend=null;r.abort()}}catch(x){}}
+function vcCanon(s){const g=vcGrammar(LANG==='it'?'it':'en');return vcNorm(s).split(' ').filter(Boolean).map(w=>g.num.has(w)?String(g.num.get(w)):w)}
+/* a call heard soon after the caller spoke: if it starts with the caller's own words, keep only what follows */
+function vcStripEcho(a){if(!VC.refText||performance.now()>VC.refEnd+8000)return a;const r=vcCanon(VC.refText),h=vcCanon(a);
+  // only when something follows: a call made of exactly the caller's words, heard after the pause, is the player repeating it
+  for(let k=Math.min(r.length,h.length-1);k>0;k--){if(r.slice(r.length-k).join(' ')===h.slice(0,k).join(' '))return h.slice(k).join(' ')}return a}
+function vcHeard(alts){if(!alts||!alts.length||!vcAllowed()||vcDeaf())return;alts=alts.map(vcStripEcho).filter(x=>x&&x.trim());if(alts.length)vcHandle(alts,true)}
+function vcStop(){clearTimeout(VC.timer);vcContStop();const e=vcEngine();if(!e)return;
+  try{if(e.k==='cap'){if(VC.listening)e.S.stop().catch(()=>{})}else if(VC.rec)VC.rec.abort()}catch(x){}}
 function vcLater(ms){clearTimeout(VC.timer);VC.timer=setTimeout(vcLoop,ms)}
-function vcLoop(){if(!VC.on||DB.settings.voiceIn!=='always'||VC.listening)return;if(!vcAllowed())return vcLater(700);if(vcSpeaking()){vcRefresh();return vcLater(250)}vcStart()}
-function vcTap(){if(DB.settings.voiceIn==='always'){VC.on=!VC.on;if(VC.on){vcPermission();vcLoop()}else vcStop();vcRefresh();return}
+function vcLoop(){if(vcSessionWanted()){if(!VC.cont)vcContStart()}else if(VC.cont)vcContStop();vcRefresh()}
+/* after every screen change: a new match starts with the microphone on, the session follows the screen */
+function vcSync(){if(vcAlways()&&V.name==='game'&&G&&!G.finished&&VC.auto!==G.id){VC.auto=G.id;VC.on=true}
+  if(vcAlways()){if(vcSessionWanted()!==VC.cont)vcLater(200)}else if(VC.listening&&!vcAllowed())vcStop()}
+function vcTap(){if(vcAlways()){VC.on=!VC.on;if(G)VC.auto=G.id;if(VC.on)vcLoop();else vcContStop();vcRefresh();return}
   if(VC.listening){vcStop();return}vpStop();ttsStop();vcStart()}
-function vcHandle(alts){const mode=G.input==='total'&&G.mode==='x01'?'total':'darts',left=3-G.visit.length;
-  for(const a of alts){const r=vcParse(a,mode,LANG);if(!r)continue;
-    if(r.undo){undo();render();return}
-    if(r.total!=null){PAD.typed=String(r.total);totOk();return}
-    if(r.darts&&r.darts.length<=left){const p=G.turn;for(const d of r.darts){if(G.turn!==p||G.finished||G.notice||G.tie)break;dart(d[0],d[1])}return}}
-  toast(t('vcBad'));vib(true)}
+function vcLooksLike(alts){const g=vcGrammar(LANG==='it'?'it':'en');return alts.some(a=>{const s=vcNorm(a);return/\d/.test(s)||s.split(' ').some(w=>g.num.has(w)||g.tre.includes(w)||g.dbl.includes(w)||g.miss.includes(w)||w==='bull')})}
+function vcHandle(alts,quiet){const bob=G.mode==='bobs',tot=G.input==='total'&&G.mode==='x01',left=3-G.visit.length;
+  for(const a of alts){const r=vcParse(a,bob?'bob':tot?'total':'darts',LANG);
+    if(r&&r.undo){undo();render();return}
+    if(r&&r.hits!=null){bobHits(r.hits);return}
+    if(r&&r.total!=null){PAD.typed=String(r.total);totOk();return}
+    if(r&&r.darts&&r.darts.length<=left){const p=G.turn;for(const d of r.darts){if(G.turn!==p||G.finished||G.notice||G.tie)break;dart(d[0],d[1])}return}
+    // X01, one dart at a time, nothing scored yet in this visit: the visit total is accepted too
+    if(!r&&!tot&&!bob&&G.mode==='x01'&&!G.visit.length){const q=vcParse(a,'total',LANG);if(q&&q.total!=null){PAD.typed=String(q.total);totOk();return}}}
+  if(!quiet||vcLooksLike(alts)){toast(t('vcBad'));vib(true)}}
 /* --- the darts grammar, both languages --- */
 const VG={};
 function vcNorm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[-’']/g,' ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
@@ -1448,6 +1499,7 @@ function vcGrammar(lang){if(VG[lang])return VG[lang];const num=new Map();const p
   return VG[lang]}
 function vcParse(raw,mode,lang){const g=vcGrammar(lang==='it'?'it':'en');let s=vcNorm(raw);if(!s)return null;
   if(g.undo.includes(s))return{undo:true};
+  if(mode==='bob'){const v=/^[0-3]$/.test(s)?+s:g.num.has(s)&&g.num.get(s)<=3?g.num.get(s):g.miss.includes(s)?0:null;return v==null?null:{hits:v}}
   if(mode==='total'){s=s.replace(/\b(punti|punto|points|point|scored|ho fatto|fatto)\b/g,' ').replace(/\s+/g,' ').trim();
     let v=/^\d{1,3}$/.test(s)?+s:g.num.has(s)?g.num.get(s):null;
     if(v==null&&/^ton \d{1,2}$/.test(s))v=100+ +s.slice(4);
@@ -1642,7 +1694,7 @@ function padTotal(){
 }
 function padBob(){
   const tg=BSEQ[G.round];
-  return`<div class="pad"><div class="muted" style="text-align:center">${t('bobHits',tg===25?'Bull':'D'+tg)}</div><div class="bob">${[0,1,2,3].map(h=>`<button class="k" data-act="bob" data-v="${h}">${h}</button>`).join('')}</div><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
+  return`<div class="pad"><div class="muted" style="text-align:center">${t('bobHits',tg===25?'Bull':'D'+tg)}</div><div class="bob">${[0,1,2,3].map(h=>`<button class="k" data-act="bob" data-v="${h}">${h}</button>`).join('')}</div><div class="mulrow ${vcShown()?'vm1':''}"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button>${micBtn()}</div></div>`;
 }
 function vGame(){
   if(!G)return vHome();
@@ -1833,8 +1885,7 @@ function render(){
     ASKCB=i=>{winByPoints(+i);saveGame();render()};
     showModal(`<h3>${t('tieT')}</h3><p>${t('tieTxt',joinNames(G.tie.map(i=>esc(G.players[i].name))),G.rem[G.tie[0]],G.tie.length)}</p><div class="opts">${G.tie.map(i=>`<button class="k" data-act="askpick" data-v="${i}">${esc(G.players[i].name)}</button>`).join('')}</div><button class="btn" data-act="undo">${t('undoLast')}</button>`)}
   scheduleCpu();
-  if(DB.settings.voiceIn==='always'&&VC.on&&!VC.listening)vcLater(300);
-  if(VC.listening&&!vcAllowed())vcStop();
+  vcSync();
 }
 
 /* ---------- actions ---------- */
@@ -1882,7 +1933,7 @@ const ACT={
   go:d=>go(d.v),back:()=>back(),home:()=>{NAV=[];V={name:'home'};render()},
   resume:()=>{NAV=[{name:'home'}];V={name:'game'};render()},
   mode:d=>{SETUP.mode=d.v;saveSetup();render()},
-  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang();if(d.k==='s.voiceIn'){VC.on=false;vcStop();if(v!=='off')vcPermission()}}else{setPath(SETUP,d.k,v);saveSetup()}render()},
+  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang();if(d.k==='s.voiceIn'){VC.on=false;VC.auto=null;vcStop();if(v!=='off')vcPermission()}}else{setPath(SETUP,d.k,v);saveSetup()}render()},
   step:d=>{const cur=getPath(SETUP,d.k);const v=Math.max(1,Math.min(d.k==='cpu.level'?10:d.k.endsWith('sets')?7:11,cur+(+d.d)));setPath(SETUP,d.k,v);saveSetup();render()},
   pick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else SETUP.players.push(d.v);saveSetup();render()},
   picker:()=>openPicker(false),
