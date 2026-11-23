@@ -353,6 +353,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .rcnt{flex:none;display:inline-flex;align-items:center;height:32px;padding:0 10px;border-radius:999px;border:1px solid var(--brass);font:700 16px var(--fc);white-space:nowrap}
 .rcnt .rl{margin-right:.3em}
 @media (max-width:359px){.rcnt .rl{display:none}.rcnt{padding:0 8px}}
+.mulrow.vm{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 64px}
+.mulrow.vm1{grid-template-columns:minmax(0,1fr) 64px}
+.mic{display:grid;place-items:center;align-self:stretch;min-height:0;border:2px solid var(--brass);border-radius:10px;background:var(--surf);color:var(--brass);transition:opacity .2s}
+.mic.on{background:var(--brass);color:#fff}
+.mic.rec{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--brass);animation:micpulse 1.2s ease-in-out infinite}
+.mic.wait{opacity:.5}
+@keyframes micpulse{50%{box-shadow:0 0 0 3px var(--bg),0 0 0 8px color-mix(in srgb,var(--brass) 35%,transparent)}}
+@media (prefers-reduced-motion:reduce){.mic.rec{animation:none}}
 /* small and short screens */
 .ver{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
 .top h2{font-size:clamp(16px,5.2vw,21px)}
@@ -473,8 +481,10 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, vince il leg chi ha meno punti.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
-  coPts:s=>`Turni finiti: vince chi ha meno punti rimasti (${s})`,tieT:'Turni finiti: parità',tieTxt:(n,p)=>`${n} sono a ${p} punti. Spareggio al bull: chi è più vicino al centro?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} a ${n}`,vMatchPts:n=>`Partita finita. Vince ${n}`,legPtsShow:'Leg vinto ai punti',matchPts:'Partita vinta ai punti',vLimit:'Turni finiti',vTie:'Parità. Spareggio al bull',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,and:'e',showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',s_nsfw:'Esclamazioni volgari (NSFW)',vcTitle:'Punti a voce',vcOff:'Disattivato',vcPtt:'Premi e parla',vcAlways:'Sempre in ascolto',
+  vcHelp:'Di’ il totale del turno o le singole freccette, per esempio “centoquaranta” o “triplo venti”. Di’ “annulla” per correggere. Con “Sempre in ascolto” il microfono resta acceso per tutta la partita e ignora la voce dell’arbitro: aspetta che abbia finito di parlare.',
+  vcNA:'Il riconoscimento vocale non è disponibile su questo dispositivo.',vcBad:'Punteggio non valido: ripeti',vcPerm:'Per i punti a voce serve il permesso del microfono',vcMic:'Parla',vcStop:'In ascolto, tocca per fermare',vcLive:'Ascolto continuo attivo, tocca per spegnerlo',vcLiveOff:'Ascolto continuo spento, tocca per attivarlo',vcOnline:'Riconoscimento offline non scaricato: uso quello online',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, la partita è annullata e non conta nello storico né nelle statistiche.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
+  vLimit:'Turni finiti',vVoid:'Partita annullata',voidT:'Partita annullata',voidTxt:'Turni finiti senza chiusura: la partita non è valida e non viene salvata nello storico né nelle statistiche.',voidAgain:'Rigioca',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
   recVisit:v=>`Record personale: turno da ${v}`,recCo:v=>`Record personale: chiusura da ${v}`,recLeg:(d,v)=>`Record personale: leg in ${v} turni (${d} freccette)`,recAvg:v=>`Record personale: media ${v}`,
   a180:'Primo 180',aCo100:'Chiusura da 100+',aLeg15:'Leg sotto le 15 freccette',aNine:'Nove freccette',aGames:'100 partite',
   achUnlocked:n=>`Traguardo raggiunto: ${n}!`,achTitle:'Traguardi',
@@ -556,8 +566,10 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the player with the fewest points left wins the leg.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
-  coPts:s=>`Visit limit reached: fewest points left wins (${s})`,tieT:'Visit limit reached: tie',tieTxt:(n,p,k)=>`${n} are ${k===2?'both':'all'} on ${p}. Bull-off: who’s closest to the bull?`,vLegPts:(set,n)=>`${set?'Set':'Leg'} to ${n}`,vMatchPts:n=>`${n} wins the match`,legPtsShow:'Leg won on points',matchPts:'Match won on points',vLimit:'Visit limit reached',vTie:'Tie. Bull-off',legPts:(v,s)=>`won on points after ${v} visits (${s})`,and:'and',showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',s_nsfw:'Explicit exclamations (NSFW)',vcTitle:'Voice scoring',vcOff:'Off',vcPtt:'Push to talk',vcAlways:'Always listening',
+  vcHelp:'Say the visit total or each dart, for example “one hundred and forty” or “treble twenty”. Say “undo” to correct. With “Always listening” the microphone stays on for the whole match and ignores the caller: wait until it has finished speaking.',
+  vcNA:'Speech recognition isn’t available on this device.',vcBad:'Not a valid score: say it again',vcPerm:'Voice scoring needs microphone permission',vcMic:'Speak',vcStop:'Listening, tap to stop',vcLive:'Always listening is on, tap to turn it off',vcLiveOff:'Always listening is off, tap to turn it on',vcOnline:'Offline speech model not installed: using online recognition',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the match is void and isn’t saved to history or statistics.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
+  vLimit:'Visit limit reached',vVoid:'Match void',voidT:'Match void',voidTxt:'Visit limit reached with no checkout: the match doesn’t count and won’t be saved to history or statistics.',voidAgain:'Play again',legPts:(v,s)=>`won on points after ${v} visits (${s})`,showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
   recVisit:v=>`Personal best: ${v} visit`,recCo:v=>`Personal best: ${v} checkout`,recLeg:(d,v)=>`Personal best: ${v}-visit leg (${d} darts)`,recAvg:v=>`Personal best: ${v} average`,
   a180:'First 180',aCo100:'Ton-plus checkout',aLeg15:'Sub-15-dart leg',aNine:'Nine-darter',aGames:'100 matches',
   achUnlocked:n=>`Achievement unlocked: ${n}!`,achTitle:'Achievements',
@@ -606,7 +618,7 @@ const LS={
     const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.set({key:'frc_'+k,value:txt}).catch(()=>{})},
   del(k){try{localStorage.removeItem('frc_'+k)}catch(e){}const P=CAP('Preferences');if(P&&MIRROR.includes(k))P.remove({key:'frc_'+k}).catch(()=>{})}
 };
-const DEF_SETTINGS={voice:true,voiceDart:true,vibrate:true,sfx:true,theme:'auto',lang:'auto',awake:true,input:'dart',setup:null};
+const DEF_SETTINGS={voice:true,voiceDart:true,voiceIn:'off',nsfw:false,vibrate:true,sfx:true,theme:'auto',lang:'auto',awake:true,input:'dart',setup:null};
 const DEF_SETUP={mode:'x01',players:[],random:false,cpu:{on:false,level:5,name:''},teams:false,bulloff:false,tgt:'T20',trp:null,
   x01:{start:501,inMode:'single',outMode:'double',legs:1,sets:1,hcpOn:false,hcp:{},maxv:0},
   cricket:{variant:'standard',legs:1},killer:{lives:3},atc:{variant:'any',bull:true},shanghai:{rounds:7},bobs:{}};
@@ -696,8 +708,8 @@ function vib(strong){if(!DB.settings.vibrate)return;const H=CAP('Haptics');if(H)
 let DSAY=[];
 /* bust exclamations: the screen shows the written form, the voice gets a spelling it can pronounce plus its own speed and tone */
 const BUST_IT=[{show:'Noooooo!',say:'No, no, no',rate:.85,pitch:.85,c:'bust_it_1'},{show:'Fai schifo!',say:'Fai schifo',rate:.95,pitch:.95,c:'bust_it_2'},
-  {show:'Palo!',say:'Palo',rate:.95,pitch:1.1,c:'bust_it_4'},{show:'Porco dio!',say:'Porco dio',rate:.9,pitch:.9,c:'bust_it_5'}];let LASTBP='';
-function bustPhrase(){if(LANG!=='it')return{show:t('vBust'),say:t('vBust'),c:'bust'};let p;do{p=BUST_IT[Math.floor(Math.random()*BUST_IT.length)]}while(p.show===LASTBP);LASTBP=p.show;return p}
+  {show:'Palo!',say:'Palo',rate:.95,pitch:1.1,c:'bust_it_4'},{show:'Porco dio!',say:'Porco dio',rate:.9,pitch:.9,c:'bust_it_5',nsfw:true}];let LASTBP='';
+function bustPhrase(){if(LANG!=='it')return{show:t('vBust'),say:t('vBust'),c:'bust'};const pool=BUST_IT.filter(x=>!x.nsfw||DB.settings.nsfw);let p;do{p=pool[Math.floor(Math.random()*pool.length)]}while(p.show===LASTBP&&pool.length>1);LASTBP=p.show;return p}
 function dartWord(n,m){if(!m)return t('dw_miss');if(n===25)return m===2?'Bull':t('dw_25');return m===3?t('dw_t',n):m===2?t('dw_d',n):String(n)}
 function dartSeg(n,m){return{t:dartWord(n,m),c:!m?'dart_miss':n===25?(m===2?'dart_bull':'dart_25'):'dart_'+' sdt'[m]+n}}
 function scoreSeg(score){return score===180?{t:t('v180'),c:'score_180_'+'abc'[Math.floor(Math.random()*3)]}:score===0?{t:t('vNone'),c:'score_0'}:{t:String(score),c:'score_'+score}}
@@ -707,7 +719,7 @@ function speakable(x){return String(x||'').replace(/!/g,'').replace(/([a-zàèé
    the previous one finishes speaking, while its hall tail is still ringing. A call plays from clips only when every
    part has one; parts marked opt (they only add a player name) are left out there. Otherwise, or if the clips can't
    be loaded or decoded, the whole call goes to text-to-speech as before. */
-const VP={ctx:null,meta:{},buf:new Map(),bus:null,gen:0,off:false};
+const VP={ctx:null,meta:{},buf:new Map(),bus:null,gen:0,off:false,until:0};let TTSB=0;
 function vpCtx(){if(!VP.ctx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;VP.ctx=new C()}
   if(VP.ctx.state==='suspended')VP.ctx.resume().catch(()=>{});return VP.ctx}
 function vpMeta(){const l=LANG;return VP.meta[l]||(VP.meta[l]=fetch('audio/'+l+'/clips.json').then(r=>{if(!r.ok)throw 0;return r.json()}).catch(()=>{delete VP.meta[l];return null}))}
@@ -715,27 +727,30 @@ function vpLoad(name){const k=LANG+'/'+name;let p=VP.buf.get(k);
   if(p){VP.buf.delete(k);VP.buf.set(k,p);return p}
   p=fetch('audio/'+k+'.ogg').then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(a=>new Promise((ok,ko)=>vpCtx().decodeAudioData(a,ok,ko)));
   p.catch(()=>VP.buf.delete(k));VP.buf.set(k,p);if(VP.buf.size>40)VP.buf.delete(VP.buf.keys().next().value);return p}
-function vpStop(){const b=VP.bus;VP.bus=null;if(!b)return;b.g.gain.setTargetAtTime(0,VP.ctx.currentTime,.03);
+function vpStop(){VP.until=0;const b=VP.bus;VP.bus=null;if(!b)return;b.g.gain.setTargetAtTime(0,VP.ctx.currentTime,.03);
   setTimeout(()=>b.s.forEach(x=>{try{x.stop()}catch(e){}}),250)}
 function vpPlay(segs,g){const ctx=vpCtx();if(!ctx)return Promise.reject(0);vpStop();
-  return vpMeta().then(m=>{if(!m)throw 0;const use=segs.filter(x=>!(x.opt&&!x.c));if(!use.length||use.some(x=>!m[x.c]))throw 0;
+  return vpMeta().then(m=>{if(!m)throw 0;const use=segs.filter(x=>!(x.opt&&(!x.c||!m[x.c])));if(!use.length||use.some(x=>!m[x.c]))throw 0;
     return Promise.all(use.map(x=>vpLoad(x.c))).then(bufs=>{if(g!==VP.gen)return;
       const bus={g:ctx.createGain(),s:[]};bus.g.connect(ctx.destination);VP.bus=bus;let at=ctx.currentTime+.02;
-      bufs.forEach((b,i)=>{const x=ctx.createBufferSource();x.buffer=b;x.connect(bus.g);x.start(at);bus.s.push(x);at+=m[use[i].c]+.12})})})}
-function ttsStop(){try{const T=CAP('TextToSpeech');if(T){T.stop&&T.stop().catch(()=>{})}else if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}}
+      bufs.forEach((b,i)=>{const x=ctx.createBufferSource();x.buffer=b;x.connect(bus.g);x.start(at);bus.s.push(x);at+=m[use[i].c]+.12});
+      VP.until=performance.now()+(at-ctx.currentTime)*1000+250;vcMarkRef(VP.until)})})}
+function ttsStop(){TTSB=0;try{const T=CAP('TextToSpeech');if(T){T.stop&&T.stop().catch(()=>{})}else if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}}
 function ttsSay(segs){
   segs=segs.map(s=>Object.assign({},s,{t:speakable(s.t)})).filter(s=>s.t);
   const out=[];for(const s of segs){const p=out[out.length-1];if(p&&!p.rate&&!p.pitch&&!s.rate&&!s.pitch)p.t+='. '+s.t;else out.push(s)}
   if(!out.length)return;
   try{const T=CAP('TextToSpeech');
-    if(T){T.stop&&T.stop().catch(()=>{});out.forEach((s,k)=>T.speak({text:s.t,lang:LOC,rate:1.05*(s.rate||1),pitch:s.pitch||1,queueStrategy:k?1:0}).catch(()=>{}));return}
-    if('speechSynthesis' in window){speechSynthesis.cancel();out.forEach(s=>{const u=new SpeechSynthesisUtterance(s.t);u.lang=LOC;u.rate=1.05*(s.rate||1);u.pitch=s.pitch||1;speechSynthesis.speak(u)})}
+    const tk=TTSB=Date.now()+12000,done=()=>{if(TTSB===tk){TTSB=0;vcMarkRef()}};vcRefresh();
+    if(T){T.stop&&T.stop().catch(()=>{});out.forEach((s,k)=>{const pr=T.speak({text:s.t,lang:LOC,rate:1.05*(s.rate||1),pitch:s.pitch||1,queueStrategy:k?1:0});if(k===out.length-1)pr.then(done,done);else pr.catch(()=>{})});return}
+    if('speechSynthesis' in window){speechSynthesis.cancel();out.forEach((s,k)=>{const u=new SpeechSynthesisUtterance(s.t);u.lang=LOC;u.rate=1.05*(s.rate||1);u.pitch=s.pitch||1;if(k===out.length-1){u.onend=done;u.onerror=done}speechSynthesis.speak(u)})}
   }catch(e){}
 }
 function say(input){
   let segs=(Array.isArray(input)?input:[input]).map(s=>typeof s==='string'?{t:s}:s);
   segs=DSAY.concat(segs).filter(s=>s&&(s.t||s.c));DSAY=[];
   if(!DB.settings.voice||!segs.length)return;
+  VC.refText=segs.map(x=>x.t||'').join(' ');
   const g=++VP.gen;
   if(VP.off){vpStop();ttsSay(segs);return}
   ttsStop();
@@ -751,6 +766,7 @@ async function keepAwake(on){
   }catch(e){}
 }
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&V.name==='game'&&DB.settings.awake){AWAKE=false;keepAwake(true)}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&typeof vcStop==='function')vcStop()});
 
 /* ---------- match engine ---------- */
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
@@ -802,14 +818,14 @@ function pushUndo(){UNDO.push(JSON.stringify(G));if(UNDO.length>200)UNDO.shift()
 
 function legSummary(p){
   const e={set:G.setNo,leg:G.legNo,w:p};
-  if(G.mode==='x01'){e.d=G.legDarts[p];e.v=G.legVisits[p];e.co=G.ptsWin?0:G.visitStart;if(G.ptsWin)e.pts=G.ptsWin;e.log=G.legLog;
+  if(G.mode==='x01'){e.d=G.legDarts[p];e.v=G.legVisits[p];e.co=G.visitStart;e.log=G.legLog;
     e.avg=G.players.map((_,i)=>{let pt=0,d=0;G.legLog.forEach(v=>{if(v.p===i){pt+=v.s;d+=v.n}});return d?+(pt/d*3).toFixed(1):0})}
   if(G.mode==='cricket'){e.mpr=G.stats.map((s,i)=>{const r=s.rounds-G.legBase[i].r;return r?+((s.marks-G.legBase[i].m)/r).toFixed(2):0});e.r=G.stats[p].rounds-G.legBase[p].r}
   return e;
 }
 function legWon(p){
   if(G.mode==='x01'||G.mode==='cricket')G.legsHist.push(legSummary(p));
-  FX={k:'win',pts:!!G.ptsWin};
+  FX={k:'win'};
   const o=G.opts,n=G.players.length;G.legsWon[p]++;let setDone=false;
   if(o.sets>1&&G.legsWon[p]>=o.legs){G.setsWon[p]++;setDone=true}
   const done=o.sets>1?G.setsWon[p]>=o.sets:G.legsWon[p]>=o.legs;
@@ -818,14 +834,14 @@ function legWon(p){
   if(setDone){G.legsWon=G.legsWon.map(()=>0);G.setNo++;G.legNo=1}else G.legNo++;
   if(setDone){G.setStarter=(G.setStarter+1)%n;G.legStarter=G.setStarter}else G.legStarter=(G.legStarter+1)%n;
   initLeg();G.notice=info;G.coInfo=null;
-  say(G.ptsWin?{t:t('vLegPts',setDone,G.players[p].name),opt:1}:{t:t('vLeg',setDone,G.players[p].name),c:setDone?'game_shot_set':'game_shot_leg'});
+  say({t:t('vLeg',setDone,G.players[p].name),c:setDone?'game_shot_set':'game_shot_leg'});
 }
 function matchWon(p){
-  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1,pts:!!G.ptsWin};
+  G.finished=true;G.winner=p;G.ended=Date.now();G.notice=null;FX={k:'win',match:G.players.length>1};
   DB.history.unshift({id:G.id,mode:G.mode,opts:G.opts,created:G.created,ended:G.ended,players:G.players,winner:p,legsWon:G.legsWon,setsWon:G.setsWon,stats:G.stats,legs:G.legsHist.map(e=>Object.assign({},e,{log:(e.log||[]).map(v=>[v.p,v.s,v.n,v.r,v.b])})),starts:G.starts});
   recMatch();
   if(DB.history.length>600)DB.history.length=600;save();
-  say(p===null?{t:t('vDraw'),c:'draw'}:G.ptsWin?{t:t('vMatchPts',G.players[p].name),opt:1}:{t:t('vMatch',G.players[p].name),c:'game_shot_match'});
+  say(p===null?{t:t('vDraw'),c:'draw'}:{t:t('vMatch',G.players[p].name),c:'game_shot_match'});
   V={name:'results'};NAV=[];
 }
 
@@ -861,20 +877,16 @@ function x01EndVisit(bust){
   nextTurn();
   if(G.opts.maxv>0&&G.legVisits.every(v=>v>=G.opts.maxv)){
     const said=bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch,c:bp.c}:scoreSeg(score);
-    const lo=Math.min(...G.rem),tied=G.rem.map((x,i)=>x===lo?i:-1).filter(i=>i>=0);
-    if(tied.length>1){G.tie=tied;say([said,{t:t('vLimit'),c:'visit_limit'},{t:t('vTie'),c:'tie_bull_off'}]);return}
-    DSAY=DSAY.concat([said,{t:t('vLimit'),c:'visit_limit'}]);return winByPoints(tied[0]);
+    G.void=true;stopCpu();FX=null;
+    say([said,{t:t('vLimit'),c:'visit_limit'},{t:t('vVoid'),c:'match_void',opt:1}]);return;
   }
   const q=G.turn,r=G.rem[q];
   const segs=[bust?{t:bp.say,rate:bp.rate,pitch:bp.pitch,c:bp.c}:scoreSeg(score)];
   if(G.opened[q]&&checkout(r,3,G.opts.outMode))segs.push({t:t('vReq',pname(q),r),c:'req_'+r});
   say(segs);
 }
-function winByPoints(p){
-  G.tie=null;G.ptsWin=G.rem.slice();const s=G.players.map((pl,i)=>pl.name+' '+G.rem[i]).join(', ');G.coInfo={k:'coPts',a:[s]};
-  legWon(p);G.ptsWin=null;if(G.finished)toast(t('coPts',s));
-}
-function joinNames(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' '+t('and')+' '+a[a.length-1]}
+/* visit limit reached with no checkout: nothing of this match is saved */
+function voidLeave(){stopCpu();G=null;UNDO=[];PAD.typed='';closeModal();saveGame()}
 function x01Checkout(){
   const p=G.turn,st=G.stats[p],nd=G.visit.length,score=G.visitStart;
   x01Record(p,score,nd,false);st.coHit++;st.hiCo=Math.max(st.hiCo,score);st.legDarts.push(G.legDarts[p]);(st.legVis=st.legVis||[]).push(G.legVisits[p]);
@@ -946,14 +958,14 @@ function bobHits(h){
   roundNext();after();
 }
 function dart(n,m){
-  if(!G||G.finished)return;pushUndo();PAD.mul=1;
+  if(!G||G.finished||G.void)return;pushUndo();PAD.mul=1;
   const st=G.stats[G.turn];st.hm=st.hm||{};st.hm[n+'-'+m]=(st.hm[n+'-'+m]||0)+1;sfxThud();
   DSAY=DB.settings.voice&&DB.settings.voiceDart?[dartSeg(n,m)]:[];
   ({x01:x01Dart,cricket:crDart,atc:atcDart,shanghai:shDart,killer:kDart,drill:drDart})[G.mode](n,m);
   if(DSAY.length)say([]);
   after();
 }
-function missRest(){
+function missRest(){if(G&&G.void)return;
   if(!G||G.finished||G.notice||G.players[G.turn].cpu||G.mode==='bobs')return;
   const p=G.turn,n=3-G.visit.length;if(n<=0)return;
   pushUndo();PAD.mul=1;
@@ -1021,7 +1033,7 @@ function cpuTarget(){
   if(G.mode==='atc'){const t=atcSeq()[G.pos[p]],v=o.variant;if(t===25)return{n:25,m:v==='any'?1:2};return{n:t,m:v==='double'?2:v==='triple'?3:1}}
   return{n:G.round,m:3};
 }
-function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.bulloff&&!G.tie&&G.players[G.turn].cpu}
+function cpuActive(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.bulloff&&!G.void&&G.players[G.turn].cpu}
 function scheduleCpu(){if(CPU_T||!cpuActive())return;CPU_T=setTimeout(()=>{CPU_T=null;if(cpuActive())cpuStep()},G.visit.length?650:950)}
 function stopCpu(){clearTimeout(CPU_T);CPU_T=null}
 function cpuStep(){
@@ -1057,8 +1069,8 @@ function sfxApplause(dur){
 function vibTriple(){if(!DB.settings.vibrate)return;const H=CAP('Haptics');
   if(H){[0,140,280].forEach(d=>setTimeout(()=>H.impact({style:'HEAVY'}).catch(()=>{}),d));return}
   if(navigator.vibrate)try{navigator.vibrate([40,70,40,70,40])}catch(e){}}
-function celebrate(match,pts){
-  const d=document.createElement('div');d.className='celeb';d.innerHTML=`<div>${boardSVG()}<b>${t(pts?(match?'matchPts':'legPtsShow'):(match?'matchShot':'gameShot'))}</b></div>`;
+function celebrate(match){
+  const d=document.createElement('div');d.className='celeb';d.innerHTML=`<div>${boardSVG()}<b>${t(match?'matchShot':'gameShot')}</b></div>`;
   document.body.appendChild(d);setTimeout(()=>d.remove(),1600);
 }
 function runFx(){
@@ -1066,7 +1078,7 @@ function runFx(){
   const row=f.p!=null?document.querySelector(`.sb [data-p="${f.p}"]`):null;
   if(f.k==='bust'){if(row)row.classList.add('shake');vib(true)}
   if(f.k==='180'){if(row)row.classList.add('glow');vibTriple();sfxApplause(2.2)}
-  if(f.k==='win'){celebrate(f.match,f.pts);vibTriple();sfxApplause(f.match?3.4:2)}
+  if(f.k==='win'){celebrate(f.match);vibTriple();sfxApplause(f.match?3.4:2)}
 }
 /* rolling numbers: [data-anim] elements count from their previous value to the new one */
 const ANIM={};
@@ -1363,6 +1375,148 @@ function openPicker(focusNew){
   showModal(pickerHtml(q));const sh=document.querySelector('.modal .sheet');if(sh)sh.scrollTop=top;filterPicker();
   const f=document.getElementById(focusNew?'newp':'psearch');if(f&&(focusNew||q))f.focus();else document.activeElement&&document.activeElement.blur();
 }
+
+/* ---------- voice scoring ----------
+   Engines: the Android/iOS recognizer through the SpeechRecognition plugin in the app, the browser's own in the iPhone web app.
+   Push to talk: one recognition per tap. Always listening: one long session kept open for the whole match (Android 13+
+   segmented sessions, the browser's continuous mode), so the microphone is not switched on and off at every call. Results are
+   ignored on the CPU's turn, with a window open, and while and just after the caller speaks, so the app never scores its own voice.
+   What is said is matched against a small darts grammar in the current language; anything else is rejected. */
+const VC={on:false,listening:false,timer:null,eng:undefined,rec:null,avail:null,cont:false,segSeen:false,last:null,refEnd:-1e9,rt:null,ls:false,od:null,starts:[],auto:null};
+const MICSVG="<svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0 0 14 0M12 18v3\"/></svg>";
+function vcEngine(){if(VC.eng!==undefined)return VC.eng;const S=CAP('SpeechRecognition');if(S)return VC.eng={k:'cap',S};
+  const W=window.SpeechRecognition||window.webkitSpeechRecognition;return VC.eng=W?{k:'web',W}:null}
+function vcAlways(){return DB.settings.voiceIn==='always'}
+function vcShown(){const m=DB.settings.voiceIn;return!!(m&&m!=='off'&&vcEngine()&&VC.avail!==false&&G&&!G.finished&&!(G.input==='total'&&G.mode!=='x01'))}
+function micBtn(){if(!vcShown())return'';const al=vcAlways();
+  const st=al?(VC.on?'on'+(VC.cont&&vcAllowed()&&!vcDeaf()?' rec':' wait'):''):(VC.listening?'on rec':'');
+  const lab=al?(VC.on?t('vcLive'):t('vcLiveOff')):VC.listening?t('vcStop'):t('vcMic');
+  return`<button class="mic ${st}" data-act="mic" aria-label="${lab}" aria-pressed="${!!(VC.listening||al&&VC.on)}">${MICSVG}</button>`}
+function vcRefresh(){const b=document.querySelector('.mic');if(!b)return;const w=document.createElement('div');w.innerHTML=micBtn();const n=w.firstElementChild;if(n&&n.className!==b.className||n&&n.getAttribute('aria-label')!==b.getAttribute('aria-label'))b.replaceWith(n)}
+function vcSpeaking(){return VP.until>performance.now()||TTSB>Date.now()||('speechSynthesis' in window&&!CAP('TextToSpeech')&&speechSynthesis.speaking)}
+/* the caller has just spoken (or will finish at `end`): stay deaf a little longer, the recognizer delivers a call only after a pause */
+function vcMarkRef(end){VC.refEnd=Math.max(VC.refEnd,end||performance.now());clearTimeout(VC.rt);VC.rt=setTimeout(vcRefresh,Math.max(0,VC.refEnd+1550-performance.now()));vcRefresh()}
+function vcDeaf(){return vcSpeaking()||performance.now()<VC.refEnd+1500}
+function vcAllowed(){return V.name==='game'&&G&&!G.finished&&!G.notice&&!G.void&&!G.bulloff&&!G.players[G.turn].cpu&&document.getElementById('modal').hidden&&document.visibilityState==='visible'&&vcShown()}
+async function vcPermission(){const e=vcEngine();if(!e)return false;
+  try{if(e.k==='cap'){if(VC.avail===null){try{VC.avail=!!(await e.S.available()).available}catch(x){VC.avail=true}}
+      let p=await e.S.checkPermissions();if(p.speechRecognition!=='granted')p=await e.S.requestPermissions();
+      if(p.speechRecognition!=='granted'){toast(t('vcPerm'));return false}}
+    return true}catch(x){return true}}
+const vcPermErr=x=>/not-allowed|denied|permission|insufficient/i.test(String(x&&(x.message||x.error||x)));
+/* push to talk: one call per tap */
+function vcListenOnce(){const e=vcEngine();
+  if(e.k==='cap')return e.S.start({language:LOC,maxResults:5,partialResults:false,popup:false}).then(r=>(r&&r.matches)||[]);
+  return new Promise((ok,ko)=>{const r=new e.W();VC.rec=r;r.lang=LOC;r.maxAlternatives=5;r.interimResults=false;r.continuous=false;let got=[];
+    r.onresult=ev=>{const res=ev.results[0];got=res?[...res].map(a=>a.transcript):[]};r.onerror=ev=>{VC.rec=null;ko(ev.error||'error')};r.onend=()=>{VC.rec=null;ok(got)};
+    try{r.start()}catch(x){VC.rec=null;ko(x)}})}
+async function vcStart(){if(VC.listening||!vcAllowed())return;
+  if(!(await vcPermission())||!vcAllowed())return;VC.listening=true;vcRefresh();let alts=null,err=null;
+  try{alts=await vcListenOnce()}catch(x){err=x}
+  VC.listening=false;vcRefresh();
+  if(err&&vcPermErr(err)){toast(t('vcPerm'));return}
+  if(err&&/no ?match|not recogni/i.test(String(err&&(err.message||err.error||err)))){toast(t('vcBad'));return}
+  if(alts&&alts.length&&vcAllowed())vcHandle(alts,false)}
+/* always listening: one session for the whole match */
+function vcSessionWanted(){return vcAlways()&&VC.on&&V.name==='game'&&G&&!G.finished&&vcShown()&&document.visibilityState==='visible'}
+function vcListeners(S){if(VC.ls)return;VC.ls=true;
+  S.addListener('segmentResults',ev=>{if(!VC.cont)return;VC.segSeen=true;vcHeard(ev&&ev.matches)});
+  S.addListener('partialResults',ev=>{if(VC.cont&&ev&&ev.matches&&ev.matches.length)VC.last=ev.matches});
+  S.addListener('endOfSegmentedSession',()=>vcContEnded());
+  // the offline model is missing and its download was refused or postponed: carry on with the regular recognizer
+  S.addListener('error',ev=>{const c=String(ev&&ev.code||'');if(VC.od&&VC.cont&&!/^(NO_MATCH|SPEECH_TIMEOUT|RECOGNIZER_BUSY)$/.test(c)){VC.od=false;if(c!=='MODEL_DOWNLOAD_SCHEDULED')LS.set('vcNoOd',true);toast(t('vcOnline'))}});
+  S.addListener('listeningState',ev=>{const st=ev&&(ev.state||ev.status);if(st==='stopped'||st==='idle')vcContEnded()})}
+async function vcContStart(){if(VC.cont||!vcSessionWanted())return;const e=vcEngine();if(!e)return;
+  if(!(await vcPermission())){VC.on=false;vcRefresh();return}
+  if(VC.cont||!vcSessionWanted())return;
+  VC.cont=true;VC.segSeen=false;VC.last=null;const now=Date.now();VC.starts=VC.starts.filter(x=>now-x<60000);VC.starts.push(now);
+  try{
+    if(e.k==='cap'){const S=e.S;vcListeners(S);
+      if(VC.od===null)VC.od=LS.get('vcNoOd',false)?false:await S.isOnDeviceRecognitionAvailable({language:LOC}).then(r=>!!(r&&r.available),()=>false);
+      await S.start({language:LOC,maxResults:5,partialResults:true,popup:false,allowForSilence:900,useOnDeviceRecognition:VC.od,muteRecognizerBeep:true})}
+    else{const r=new e.W();VC.rec=r;r.lang=LOC;r.continuous=true;r.interimResults=false;r.maxAlternatives=5;
+      r.onresult=ev=>{for(let i=ev.resultIndex||0;i<ev.results.length;i++){const res=ev.results[i];if(res.isFinal!==false)vcHeard([...res].map(a=>a.transcript))}};
+      r.onerror=ev=>{if(vcPermErr(ev)){VC.on=false;toast(t('vcPerm'))}};
+      r.onend=()=>{if(VC.rec===r)VC.rec=null;vcContEnded()};r.start()}
+  }catch(x){VC.cont=false;if(vcPermErr(x)){VC.on=false;toast(t('vcPerm'))}else vcLater(3000)}
+  vcRefresh()}
+function vcContEnded(){if(!VC.cont)return;VC.cont=false;
+  if(!VC.segSeen&&VC.last)vcHeard(VC.last);   // recognizers without segments hand over the whole call when the session closes
+  VC.last=null;vcRefresh();
+  // reopen at once; if the recognizer keeps closing, slow down so it cannot beep in a loop
+  if(vcSessionWanted())vcLater(VC.starts.length>6?5000:VC.starts.length>3?1500:250)}
+function vcContStop(){const was=VC.cont;VC.cont=false;const e=vcEngine();if(!e)return;
+  try{if(e.k==='cap'){if(was)e.S.stop().catch(()=>{})}else if(VC.rec){const r=VC.rec;VC.rec=null;r.onend=null;r.abort()}}catch(x){}}
+function vcCanon(s){const g=vcGrammar(LANG==='it'?'it':'en');return vcNorm(s).split(' ').filter(Boolean).map(w=>g.num.has(w)?String(g.num.get(w)):w)}
+/* a call heard soon after the caller spoke: if it starts with the caller's own words, keep only what follows */
+function vcStripEcho(a){if(!VC.refText||performance.now()>VC.refEnd+8000)return a;const r=vcCanon(VC.refText),h=vcCanon(a);
+  // only when something follows: a call made of exactly the caller's words, heard after the pause, is the player repeating it
+  for(let k=Math.min(r.length,h.length-1);k>0;k--){if(r.slice(r.length-k).join(' ')===h.slice(0,k).join(' '))return h.slice(k).join(' ')}return a}
+function vcHeard(alts){if(!alts||!alts.length||!vcAllowed()||vcDeaf())return;alts=alts.map(vcStripEcho).filter(x=>x&&x.trim());if(alts.length)vcHandle(alts,true)}
+function vcStop(){clearTimeout(VC.timer);vcContStop();const e=vcEngine();if(!e)return;
+  try{if(e.k==='cap'){if(VC.listening)e.S.stop().catch(()=>{})}else if(VC.rec)VC.rec.abort()}catch(x){}}
+function vcLater(ms){clearTimeout(VC.timer);VC.timer=setTimeout(vcLoop,ms)}
+function vcLoop(){if(vcSessionWanted()){if(!VC.cont)vcContStart()}else if(VC.cont)vcContStop();vcRefresh()}
+/* after every screen change: a new match starts with the microphone on, the session follows the screen */
+function vcSync(){if(vcAlways()&&V.name==='game'&&G&&!G.finished&&VC.auto!==G.id){VC.auto=G.id;VC.on=true}
+  if(vcAlways()){if(vcSessionWanted()!==VC.cont)vcLater(200)}else if(VC.listening&&!vcAllowed())vcStop()}
+function vcTap(){if(vcAlways()){VC.on=!VC.on;if(G)VC.auto=G.id;if(VC.on)vcLoop();else vcContStop();vcRefresh();return}
+  if(VC.listening){vcStop();return}vpStop();ttsStop();vcStart()}
+function vcLooksLike(alts){const g=vcGrammar(LANG==='it'?'it':'en');return alts.some(a=>{const s=vcNorm(a);return/\d/.test(s)||s.split(' ').some(w=>g.num.has(w)||g.tre.includes(w)||g.dbl.includes(w)||g.miss.includes(w)||w==='bull')})}
+function vcHandle(alts,quiet){const bob=G.mode==='bobs',tot=G.input==='total'&&G.mode==='x01',left=3-G.visit.length;
+  for(const a of alts){const r=vcParse(a,bob?'bob':tot?'total':'darts',LANG);
+    if(r&&r.undo){undo();render();return}
+    if(r&&r.hits!=null){bobHits(r.hits);return}
+    if(r&&r.total!=null){PAD.typed=String(r.total);totOk();return}
+    if(r&&r.darts&&r.darts.length<=left){const p=G.turn;for(const d of r.darts){if(G.turn!==p||G.finished||G.notice||G.void)break;dart(d[0],d[1])}return}
+    // X01, one dart at a time, nothing scored yet in this visit: the visit total is accepted too
+    if(!r&&!tot&&!bob&&G.mode==='x01'&&!G.visit.length){const q=vcParse(a,'total',LANG);if(q&&q.total!=null){PAD.typed=String(q.total);totOk();return}}}
+  if(!quiet||vcLooksLike(alts)){toast(t('vcBad'));vib(true)}}
+/* --- the darts grammar, both languages --- */
+const VG={};
+function vcNorm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[-’']/g,' ').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
+function vcGrammar(lang){if(VG[lang])return VG[lang];const num=new Map();const put=(w,n)=>{w=vcNorm(w);if(w&&!num.has(w))num.set(w,n)};
+  if(lang==='it'){const u=['zero','uno','due','tre','quattro','cinque','sei','sette','otto','nove','dieci','undici','dodici','tredici','quattordici','quindici','sedici','diciassette','diciotto','diciannove'],
+      tn={2:'venti',3:'trenta',4:'quaranta',5:'cinquanta',6:'sessanta',7:'settanta',8:'ottanta',9:'novanta'},w=[];
+    for(let n=0;n<100;n++){if(n<20)w[n]=[u[n]];else{const t0=tn[Math.floor(n/10)],k=n%10;w[n]=k===0?[t0]:k===1||k===8?[t0.slice(0,-1)+u[k],t0+' '+u[k]]:[t0+u[k],t0+' '+u[k]]}}
+    w.forEach((f,n)=>f.forEach(x=>put(x,n)));put('cento',100);
+    for(let n=1;n<=80;n++)w[n].forEach(x=>{put('cento'+x,100+n);put('cento '+x,100+n);put('cento e '+x,100+n);if(/^o/.test(x))put('cent'+x,100+n)});
+    ['niente','nulla','nessun punto','nessuno'].forEach(x=>put(x,0));put('massimo',180);
+    VG.it={num,undo:['annulla','cancella','indietro','togli','correggi'],tre:['triplo','tripla','tripli','triple'],dbl:['doppio','doppia','doppi','doppie'],
+      sgl:['singolo','singola','semplice'],bull:['bull','centro','bullseye','bulls eye','doppio bull','occhio di bue'],b25:['venticinque','mezzo bull','bull esterno','singolo bull','25'],miss:['fuori','miss','zero','niente','nulla','mancata','mancato']}}
+  else{const u=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'],
+      tn={2:'twenty',3:'thirty',4:'forty',5:'fifty',6:'sixty',7:'seventy',8:'eighty',9:'ninety'},w=[];
+    for(let n=0;n<100;n++)w[n]=n<20?u[n]:tn[Math.floor(n/10)]+(n%10?' '+u[n%10]:'');
+    w.forEach((x,n)=>put(x,n));['one hundred','a hundred','hundred','ton'].forEach(x=>put(x,100));
+    for(let n=1;n<=80;n++)['one hundred and ','one hundred ','a hundred and ','a hundred ','hundred and ','hundred ','ton '].forEach(p=>put(p+w[n],100+n));
+    for(let n=10;n<=80;n++)put('one '+w[n],100+n);
+    ['nothing','no score','none','nil'].forEach(x=>put(x,0));put('maximum',180);put('fourty',40);
+    VG.en={num,undo:['undo','cancel','back','delete','go back'],tre:['treble','triple','trebles','triples'],dbl:['double','doubles'],sgl:['single'],
+      bull:['bull','bullseye','bulls eye','bull s eye','double bull','inner bull'],b25:['twenty five','outer bull','single bull','25'],miss:['miss','missed','out','zero','nothing','no score']}}
+  return VG[lang]}
+function vcParse(raw,mode,lang){const g=vcGrammar(lang==='it'?'it':'en');let s=vcNorm(raw);if(!s)return null;
+  if(g.undo.includes(s))return{undo:true};
+  if(mode==='bob'){const v=/^[0-3]$/.test(s)?+s:g.num.has(s)&&g.num.get(s)<=3?g.num.get(s):g.miss.includes(s)?0:null;return v==null?null:{hits:v}}
+  if(mode==='total'){s=s.replace(/\b(punti|punto|points|point|scored|ho fatto|fatto)\b/g,' ').replace(/\s+/g,' ').trim();
+    let v=/^\d{1,3}$/.test(s)?+s:g.num.has(s)?g.num.get(s):null;
+    if(v==null&&/^ton \d{1,2}$/.test(s))v=100+ +s.slice(4);
+    return v!=null&&v<=180&&!IMPOSSIBLE.includes(v)?{total:v}:null}
+  // darts: a sequence of up to three calls
+  const tk=s.split(' '),out=[];let i=0;
+  const phrase=(list)=>{for(const p of list.slice().sort((a,b)=>b.split(' ').length-a.split(' ').length)){const w=p.split(' ');if(tk.slice(i,i+w.length).join(' ')===p){i+=w.length;return true}}return false};
+  // one word or one figure per dart: "venti cinque" is two darts, "venticinque" one
+  const number=()=>{const w=tk[i]||'';if(/^\d{1,2}$/.test(w)){i++;return +w}if(g.num.has(w)&&g.num.get(w)<=60){i++;return g.num.get(w)}return null};
+  while(i<tk.length){
+    if(phrase(g.bull)){out.push([25,2]);continue}
+    if(phrase(g.b25)){out.push([25,1]);continue}
+    if(phrase(g.miss)){out.push([0,0]);continue}
+    let m=1;if(phrase(g.tre))m=3;else if(phrase(g.dbl))m=2;else phrase(g.sgl);
+    if(m===2&&phrase(g.bull)){out.push([25,2]);continue}
+    const n=number();if(n==null)return null;
+    if(n===50&&m===1){out.push([25,2]);continue}
+    if(n===25){if(m===3)return null;out.push([25,m===2?2:1]);continue}
+    if(n<1||n>20)return null;out.push([n,m])}
+  return out.length&&out.length<=3?{darts:out}:null}
 /* ---------- web app (iPhone / browsers): offline cache ---------- */
 if('serviceWorker' in navigator&&!window.Capacitor&&(location.protocol==='https:'||location.hostname==='localhost'))
   addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
@@ -1518,7 +1672,7 @@ function bRound(){
 }
 function padDarts(hl){
   const m=PAD.mul;
-  let h=`<div class="pad ${m>1?'m'+m:''}"><div class="mulrow"><button class="mul d ${m===2?'on':''}" data-act="mul" data-v="2" aria-pressed="${m===2}">${t('double')}</button><button class="mul t ${m===3?'on':''}" data-act="mul" data-v="3" aria-pressed="${m===3}">${t('treble')}</button></div><div class="nums">`;
+  let h=`<div class="pad ${m>1?'m'+m:''}"><div class="mulrow ${vcShown()?'vm':''}"><button class="mul d ${m===2?'on':''}" data-act="mul" data-v="2" aria-pressed="${m===2}">${t('double')}</button><button class="mul t ${m===3?'on':''}" data-act="mul" data-v="3" aria-pressed="${m===3}">${t('treble')}</button>${micBtn()}</div><div class="nums">`;
   for(let i=1;i<=20;i++)h+=`<button class="k ${hl.includes(i)?'hl':''}" data-act="num" data-v="${i}">${i}</button>`;
   h+=`</div><div class="row4"><button class="k ${hl.includes(25)?'hl':''}" data-act="num" data-v="25" ${m===3?'disabled':''}>25</button><button class="k bull" data-act="bull">Bull</button><button class="k miss" data-act="miss" data-long="missrest">Miss<small>${t('missHint')}</small></button><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
   if(G.mode==='x01')h+=`<button class="k small wide" data-act="inmode">${t('enterTotal')}</button>`;
@@ -1533,11 +1687,11 @@ function padTotal(){
     else pv=nr===0?t('checkoutWord'):t('left',nr)}
   return`<div class="pad tot"><div class="typerow"><div class="typed" aria-live="polite">${PAD.typed||'0'}</div><div class="preview">${pv}</div></div><div class="quick">${q.map(v=>`<button class="k" data-act="quick" data-v="${v}">${v}</button>`).join('')}</div>
   <div class="keys">${[1,2,3,4,5,6,7,8,9].map(d=>`<button class="k" data-act="digit" data-v="${d}">${d}</button>`).join('')}<button class="k small" data-act="del">⌫</button><button class="k" data-act="digit" data-v="0">0</button><button class="k ok" data-act="totok">OK</button></div>
-  <div class="mulrow"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoVisit')}</button><button class="k small two" data-act="inmode">${t('enterDarts')}</button></div></div>`;
+  <div class="mulrow ${vcShown()?'vm':''}"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undoVisit')}</button><button class="k small two" data-act="inmode">${t('enterDarts')}</button>${micBtn()}</div></div>`;
 }
 function padBob(){
   const tg=BSEQ[G.round];
-  return`<div class="pad"><div class="muted" style="text-align:center">${t('bobHits',tg===25?'Bull':'D'+tg)}</div><div class="bob">${[0,1,2,3].map(h=>`<button class="k" data-act="bob" data-v="${h}">${h}</button>`).join('')}</div><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button></div>`;
+  return`<div class="pad"><div class="muted" style="text-align:center">${t('bobHits',tg===25?'Bull':'D'+tg)}</div><div class="bob">${[0,1,2,3].map(h=>`<button class="k" data-act="bob" data-v="${h}">${h}</button>`).join('')}</div><div class="mulrow ${vcShown()?'vm1':''}"><button class="k small" data-act="undo" ${UNDO.length?'':'disabled'}>${t('undo')}</button>${micBtn()}</div></div>`;
 }
 function vGame(){
   if(!G)return vHome();
@@ -1679,7 +1833,8 @@ function vSettings(){
   return topbar(t('settings'))+`<div class="page">
    <div class="lbl" style="margin-top:4px">${t('lang')}</div>${chips('s.lang',[['auto',t('langAuto')],['it','Italiano'],['en','English']],s.lang)}
    <div class="lbl">${t('theme')}</div>${chips('s.theme',[['auto',t('auto')],['light',t('light')],['dark',t('dark')]],s.theme)}
-   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('voiceDart',t('s_voiceDart')).replace('class="toggle','class="toggle'+(DB.settings.voice?'':' dim'))}${tg('sfx',t('sfx'))}${CAP('Haptics')||navigator.vibrate?tg('vibrate',t('s_vib')):''}${tg('awake',t('s_awake'))}</div>
+   <div style="margin-top:10px">${tg('voice',t('s_voice'))}${tg('voiceDart',t('s_voiceDart')).replace('class="toggle','class="toggle'+(DB.settings.voice?'':' dim'))}${LANG==='it'?tg('nsfw',t('s_nsfw')).replace('class="toggle','class="toggle'+(DB.settings.voice?'':' dim')):''}${tg('sfx',t('sfx'))}${CAP('Haptics')||navigator.vibrate?tg('vibrate',t('s_vib')):''}${tg('awake',t('s_awake'))}</div>
+   <div class="lbl">${t('vcTitle')}</div>${vcEngine()?chips('s.voiceIn',[['off',t('vcOff')],['ptt',t('vcPtt')],['always',t('vcAlways')]],DB.settings.voiceIn||'off')+`<p class="muted" style="font-size:14px;margin:8px 2px 0">${t('vcHelp')}</p>`:`<p class="muted" style="font-size:14px;margin:0 2px">${t('vcNA')}</p>`}
    <div class="lbl">Backup</div>
    <button class="btn" data-act="bkfile">${t('bkFile')}</button><button class="btn" data-act="bkopen">${t('bkOpen')}</button><input type="file" id="bkfile" accept="application/json,.json" hidden>
    <button class="btn" data-act="export" style="margin-top:10px">${t('copyBk')}</button>
@@ -1723,10 +1878,11 @@ function render(){
     showModal(`<h3>${t('legTo',n.set,nm)}</h3><p>${esc(det)}${det?'. ':''}${G.players.length>1?sc+'.':''}</p>${rec}<p>${t('throwsFirst',esc(pname(G.turn)))}</p><button class="btn primary" data-act="noticeok">${t('cont')}</button><button class="btn" data-act="undo">${t('undoLast')}</button>`);}
   if(V.name==='game'&&G&&G.bulloff&&!G.finished&&document.getElementById('modal').hidden)
     ask(t('bullQ'),'',G.players.map((pl,i)=>({v:i,l:esc(pl.name)})),i=>{G.legStarter=G.setStarter=G.turn=i;G.bulloff=false;if(G.mode==='x01'){G.visitStart=G.rem[i];G.visitOpen=G.opened[i]}saveGame();render()});
-  if(V.name==='game'&&G&&G.tie&&!G.finished&&!G.notice&&document.getElementById('modal').hidden){
-    ASKCB=i=>{winByPoints(+i);saveGame();render()};
-    showModal(`<h3>${t('tieT')}</h3><p>${t('tieTxt',joinNames(G.tie.map(i=>esc(G.players[i].name))),G.rem[G.tie[0]],G.tie.length)}</p><div class="opts">${G.tie.map(i=>`<button class="k" data-act="askpick" data-v="${i}">${esc(G.players[i].name)}</button>`).join('')}</div><button class="btn" data-act="undo">${t('undoLast')}</button>`)}
+  if(G&&G.tie){G.void=true;delete G.tie}   // a tie saved by version 1.6 becomes a void match
+  if(V.name==='game'&&G&&G.void&&!G.finished&&document.getElementById('modal').hidden)
+    showModal(`<h3>${t('voidT')}</h3><p>${t('voidTxt')}</p><button class="btn primary" data-act="voidagain">${t('voidAgain')}</button><button class="btn" data-act="voidhome">${t('home')}</button><button class="btn" data-act="undo">${t('undoLast')}</button>`);
   scheduleCpu();
+  vcSync();
 }
 
 /* ---------- actions ---------- */
@@ -1753,7 +1909,7 @@ function startMatch(){
   const go2=()=>{newMatch({mode:s.mode,plist,random:s.random,teams,bulloff:s.bulloff&&!s.random,hcp:s.mode==='x01'&&s.x01.hcpOn&&!teams?s.x01.hcp:null,opts:Object.assign({},s[s.mode],s.mode==='atc'?{bull:!!s.atc.bull}:{})});saveGame();NAV=[{name:'home'}];V={name:'game'};render();sayStart()};
   if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2();
 }
-function totOk(){
+function totOk(){if(G&&G.void)return;
   const tv=parseInt(PAD.typed||'0',10);PAD.typed='';
   if(tv>180||IMPOSSIBLE.includes(tv)){toast(t('cantScore',tv));render();return}
   const p=G.turn,o=G.opts,rem=G.visitStart,nr=rem-tv;
@@ -1774,10 +1930,11 @@ const ACT={
   go:d=>go(d.v),back:()=>back(),home:()=>{NAV=[];V={name:'home'};render()},
   resume:()=>{NAV=[{name:'home'}];V={name:'game'};render()},
   mode:d=>{SETUP.mode=d.v;saveSetup();render()},
-  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang()}else{setPath(SETUP,d.k,v);saveSetup()}render()},
+  opt:d=>{let v=d.v;if(/^\d+$/.test(v))v=+v;if(d.k.startsWith('s.')){DB.settings[d.k.slice(2)]=v;save();applyTheme();applyLang();if(d.k==='s.voiceIn'){VC.on=false;VC.auto=null;VC.od=null;LS.del('vcNoOd');vcStop();if(v!=='off')vcPermission()}}else{setPath(SETUP,d.k,v);saveSetup()}render()},
   step:d=>{const cur=getPath(SETUP,d.k);const v=Math.max(1,Math.min(d.k==='cpu.level'?10:d.k.endsWith('sets')?7:11,cur+(+d.d)));setPath(SETUP,d.k,v);saveSetup();render()},
   pick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else SETUP.players.push(d.v);saveSetup();render()},
   picker:()=>openPicker(false),
+  mic:()=>vcTap(),
   maxvother:()=>promptNum(t('maxvAsk'),SETUP.x01.maxv||'',v=>{v=Math.round(+v);if(v>=1&&v<=99){SETUP.x01.maxv=v;saveSetup()}render()}),
   ppick:d=>{const i=SETUP.players.indexOf(d.v);if(i>=0)SETUP.players.splice(i,1);else if(SETUP.players.length<MAXP-(SETUP.cpu.on?1:0))SETUP.players.push(d.v);saveSetup();render();openPicker(false)},
   pdone:()=>{closeModal();render()},
@@ -1799,6 +1956,10 @@ const ACT={
   askpick:d=>{const cb=ASKCB;closeModal();cb&&cb(+d.v)},
   closemodal:()=>closeModal(),
   promptok:()=>{const v=document.getElementById('pin').value.trim();const cb=ASKCB;closeModal();if(v&&cb)cb(v)},
+  voidagain:()=>{const o=G,pl=o.players.map(p=>p.cpu?Object.assign({},p):p.members?Object.assign({},p,{mi:0}):Object.assign({},p,{name:(DB.players.find(x=>x.id===p.id)||p).name}));
+    const hcp={};o.players.forEach((p,i)=>{if(!p.members&&o.starts&&o.starts[i]!==o.opts.start)hcp[p.id]=o.starts[i]});
+    voidLeave();newMatch({mode:o.mode,plist:pl,random:false,opts:o.opts,hcp:Object.keys(hcp).length?hcp:null});saveGame();V={name:'game'};NAV=[{name:'home'}];render()},
+  voidhome:()=>{voidLeave();NAV=[];V={name:'home'};render()},
   rematch:()=>{const pl=G.players.map(p=>p.cpu?p:Object.assign({},p,{name:(DB.players.find(x=>x.id===p.id)||p).name}));pl.push(pl.shift());newMatch({mode:G.mode,plist:pl,random:false,opts:G.opts});saveGame();V={name:'game'};NAV=[{name:'home'}];render()},
   abandon:()=>confirmBox(t('abandonQ'),t('abandonTxt'),t('abandon'),()=>{stopCpu();G=null;UNDO=[];PAD.typed='';saveGame();NAV=[];V={name:'home'};render();toast(t('abandoned'))},true),
   mstats:()=>go('mstats'),
@@ -1852,7 +2013,7 @@ document.addEventListener('keydown',e=>{
   if(V.name==='game'&&G&&!G.finished&&!G.players[G.turn].cpu&&G.mode==='x01'&&G.input==='total'&&document.getElementById('modal').hidden&&!/INPUT|TEXTAREA/.test(e.target.tagName)){
     if(/^\d$/.test(e.key))ACT.digit({v:e.key});else if(e.key==='Backspace')ACT.del();else if(e.key==='Enter')totOk();}
 });
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!(G&&(G.notice||G.tie)&&V.name==='game'))closeModal()});
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal'&&!(G&&(G.notice||G.void)&&V.name==='game'))closeModal()});
 
 /* Android back button (Capacitor) */
 try{const A=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.App;

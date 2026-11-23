@@ -17,7 +17,8 @@
     "@capacitor/filesystem": "8.1.4",
     "@capacitor/haptics": "8.0.2",
     "@capacitor/preferences": "8.0.1",
-    "@capacitor/share": "8.0.2"
+    "@capacitor/share": "8.0.2",
+    "@capgo/capacitor-speech-recognition": "8.4.6"
   },
   "devDependencies": {
     "@capacitor/assets": "3.0.5",
