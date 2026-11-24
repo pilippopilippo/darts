@@ -6,7 +6,8 @@
   "scripts": {
     "android:add": "cap add android",
     "android:sync": "cap sync android",
-    "icons": "capacitor-assets generate --android"
+    "icons": "capacitor-assets generate --android",
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "@capacitor-community/keep-awake": "8.0.1",

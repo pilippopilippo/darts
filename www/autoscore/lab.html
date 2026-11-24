@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0F1E17">
+<title>Darts – Auto-scoring lab</title>
+<style>
+@font-face{font-family:'FrcCond';font-weight:700;font-display:swap;src:url('../fonts/barlow-condensed-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'FrcBody';font-weight:500;font-display:swap;src:url('../fonts/barlow-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'FrcBody';font-weight:600;font-display:swap;src:url('../fonts/barlow-latin-600-normal.woff2') format('woff2')}
+:root{--bg:#0F1E17;--surf:#172B22;--surf2:#1C3329;--line:#2C4A3B;--text:#F0EADB;--muted:#9EB1A2;--red:#E5493F;--green:#43B870;--brass:#D9B44C;
+  --fc:'FrcCond','Barlow Condensed','Arial Narrow',system-ui,sans-serif;--fb:'FrcBody','Barlow',system-ui,sans-serif;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html,body{background:var(--bg);color:var(--text);font:500 16px/1.4 var(--fb);-webkit-tap-highlight-color:transparent}
+body{padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+.top{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line)}
+.top a{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:10px;color:var(--text);text-decoration:none;font:700 24px var(--fc)}
+.top h1{font:700 21px var(--fc);flex:1}
+.wrap{max-width:900px;margin:0 auto;padding:10px 12px 24px}
+#stage{position:relative;margin:0 auto;background:#000;border-radius:10px;overflow:hidden;touch-action:none}
+#video,#ov{position:absolute;inset:0;display:block}
+#ov{touch-action:none}
+#stage.empty{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.panel{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.panel h2{font:700 22px var(--fc)}
+.panel p{color:var(--muted)}
+.panel ul{color:var(--muted);padding-left:20px}
+.status{font:700 20px var(--fc);color:var(--brass)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{min-height:48px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--surf);color:var(--text);font:700 18px var(--fc);flex:1 1 140px}
+.btn.primary{background:var(--brass);border-color:var(--brass);color:#0F1E17}
+.btn.on{background:var(--text);color:var(--bg)}
+.visit{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:8px;align-items:center}
+.dart{min-height:56px;border-radius:10px;border:2px solid var(--line);background:var(--surf);color:var(--text);font:700 26px var(--fc)}
+.dart.sel{border-color:var(--brass);box-shadow:0 0 0 2px var(--brass) inset}
+.dart.unsure{border-style:dashed}
+.dart.none{color:var(--muted);font-size:18px}
+.total{font:700 32px var(--fc);min-width:64px;text-align:right}
+details{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surf)}
+summary{font:700 18px var(--fc);cursor:pointer}
+label{display:flex;flex-direction:column;gap:4px;margin-top:10px;color:var(--muted)}
+input[type=range],select{width:100%;min-height:40px}
+select{background:var(--surf2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:0 8px;font:500 16px var(--fb)}
+.small{font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top"><a href="../index.html" id="back" aria-label="Darts">‹</a><h1 id="title">Auto-scoring</h1></header>
+<main class="wrap">
+  <div id="stage" class="empty"><video id="video" playsinline muted autoplay></video><canvas id="ov"></canvas></div>
+  <section class="panel" id="panel" aria-live="polite"></section>
+</main>
+<script src="board.js"></script>
+<script src="homography.js"></script>
+<script src="detector.js"></script>
+<script src="lab.js"></script>
+</body>
+</html>

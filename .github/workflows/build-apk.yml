@@ -41,6 +41,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Unit tests
+        run: npm test
+
       - name: Create Android project
         run: npx cap add android
 
@@ -71,6 +74,9 @@ jobs:
           # voice scoring: Android 11+ only lets the app see the speech recognizer if it declares it
           sed -i '0,/<application/s##<queries><intent><action android:name="android.speech.RecognitionService" /></intent></queries>\n    <application#' android/app/src/main/AndroidManifest.xml
           grep -q 'android.speech.RecognitionService' android/app/src/main/AndroidManifest.xml
+          # auto-scoring lab (test builds): the camera through getUserMedia
+          sed -i '0,/<application/s##<uses-permission android:name="android.permission.CAMERA" />\n    <uses-feature android:name="android.hardware.camera" android:required="false" />\n    <application#' android/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.CAMERA' android/app/src/main/AndroidManifest.xml
           grep -E "versionCode|versionName" android/app/build.gradle
           sed -i "s/const APP_BUILD='dev'/const APP_BUILD='$VN'/" www/index.html
           # the APK ships its own fonts: drop the Google Fonts links so the app never waits on the network at start-up

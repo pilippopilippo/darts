@@ -481,7 +481,7 @@ it:{
   restoreQ:'Ripristinare il backup?',restoreTxt:(p,h)=>`${p} giocatori e ${h} partite sostituiranno i dati attuali.`,restore:'Ripristina',restored:'Backup ripristinato',
   badBk:'Il testo incollato non è un backup valido',wipeQ:'Cancellare tutto?',wipeTxt:'Giocatori, storico e partita in corso verranno eliminati da questo dispositivo.',
   wipeAll:'Cancella tutto',wiped:'Dati cancellati',
-  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',s_nsfw:'Esclamazioni volgari (NSFW)',vcTitle:'Punti a voce',vcOff:'Disattivato',vcPtt:'Premi e parla',vcAlways:'Sempre in ascolto',
+  missHint:'tieni premuto: turno a vuoto',missTip:'Tieni premuto Miss per chiudere il turno a vuoto',choosePlayers:'Scegli i giocatori',s_nsfw:'Esclamazioni volgari (NSFW)',labT:'Laboratorio',labAuto:'Autoscoring con la fotocamera (prova)',vcTitle:'Punti a voce',vcOff:'Disattivato',vcPtt:'Premi e parla',vcAlways:'Sempre in ascolto',
   vcHelp:'Di’ il totale del turno o le singole freccette, per esempio “centoquaranta” o “triplo venti”. Di’ “annulla” per correggere. Con “Sempre in ascolto” il microfono resta acceso per tutta la partita e ignora la voce dell’arbitro: aspetta che abbia finito di parlare.',
   vcNA:'Il riconoscimento vocale non è disponibile su questo dispositivo.',vcBad:'Punteggio non valido: ripeti',vcPerm:'Per i punti a voce serve il permesso del microfono',vcMic:'Parla',vcStop:'In ascolto, tocca per fermare',vcLive:'Ascolto continuo attivo, tocca per spegnerlo',vcLiveOff:'Ascolto continuo spento, tocca per attivarlo',vcOnline:'Riconoscimento offline non scaricato: uso quello online',maxv:'Turni massimi',noLimit:'Nessun limite',other:'Altro…',otherN:n=>`Altro: ${n}`,maxvHelp:'Se nessuno chiude entro l’ultimo turno, la partita è annullata e non conta nello storico né nelle statistiche.',maxvAsk:'Turni massimi (da 1 a 99)',visitN:'Turno',
   vLimit:'Turni finiti',vVoid:'Partita annullata',voidT:'Partita annullata',voidTxt:'Turni finiti senza chiusura: la partita non è valida e non viene salvata nello storico né nelle statistiche.',voidAgain:'Rigioca',legPts:(v,s)=>`vinto ai punti dopo ${v} turni (${s})`,showMore:'Mostra altre',changePlayers:'Cambia giocatori',search:'Cerca',done:'Fatto',noMatch:'Nessun giocatore trovato',maxPlayers:n=>`Massimo ${n} giocatori`,moveUp:'Sposta su',remove:'Togli',appVer:'versione',updates:'Aggiornamenti',updCheck:'Cerca aggiornamenti',updChecking:'Controllo in corso…',updNone:'Hai già l’ultima versione',updFail:'Controllo non riuscito, riprova più tardi',startedLeg:'Ha iniziato il leg',sfx:'Effetti sonori',
@@ -566,7 +566,7 @@ en:{
   restoreQ:'Restore backup?',restoreTxt:(p,h)=>`${p} players and ${h} matches will replace the current data.`,restore:'Restore',restored:'Backup restored',
   badBk:'The pasted text is not a valid backup',wipeQ:'Delete everything?',wipeTxt:'Players, history and the current match will be removed from this device.',
   wipeAll:'Delete everything',wiped:'Data deleted',
-  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',s_nsfw:'Explicit exclamations (NSFW)',vcTitle:'Voice scoring',vcOff:'Off',vcPtt:'Push to talk',vcAlways:'Always listening',
+  missHint:'hold: miss the rest',missTip:'Hold Miss to miss the rest of the visit',choosePlayers:'Choose players',s_nsfw:'Explicit exclamations (NSFW)',labT:'Lab',labAuto:'Camera auto-scoring (trial)',vcTitle:'Voice scoring',vcOff:'Off',vcPtt:'Push to talk',vcAlways:'Always listening',
   vcHelp:'Say the visit total or each dart, for example “one hundred and forty” or “treble twenty”. Say “undo” to correct. With “Always listening” the microphone stays on for the whole match and ignores the caller: wait until it has finished speaking.',
   vcNA:'Speech recognition isn’t available on this device.',vcBad:'Not a valid score: say it again',vcPerm:'Voice scoring needs microphone permission',vcMic:'Speak',vcStop:'Listening, tap to stop',vcLive:'Always listening is on, tap to turn it off',vcLiveOff:'Always listening is off, tap to turn it on',vcOnline:'Offline speech model not installed: using online recognition',maxv:'Max visits',noLimit:'No limit',other:'Other…',otherN:n=>`Other: ${n}`,maxvHelp:'If nobody checks out by the last visit, the match is void and isn’t saved to history or statistics.',maxvAsk:'Max visits (1 to 99)',visitN:'Visit',
   vLimit:'Visit limit reached',vVoid:'Match void',voidT:'Match void',voidTxt:'Visit limit reached with no checkout: the match doesn’t count and won’t be saved to history or statistics.',voidAgain:'Play again',legPts:(v,s)=>`won on points after ${v} visits (${s})`,showMore:'Show more',changePlayers:'Change players',search:'Search',done:'Done',noMatch:'No players found',maxPlayers:n=>`${n} players max`,moveUp:'Move up',remove:'Remove',appVer:'version',updates:'Updates',updCheck:'Check for updates',updChecking:'Checking…',updNone:'You’re up to date',updFail:'Couldn’t check, try again later',startedLeg:'Threw first this leg',sfx:'Sound effects',
@@ -1841,6 +1841,7 @@ function vSettings(){
    <textarea class="field" id="bk" placeholder="${t('pasteBk')}"></textarea>
    <button class="btn" data-act="import">${t('restoreBk')}</button>
    ${window.Capacitor?`<div class="lbl">${t('updates')}</div>${UPD?`<div class="resume"><b>${t('updAvail',UPD.v)}</b><button class="btn primary" data-act="upd">${t('updGet')}</button></div>`:`<button class="btn" data-act="updcheck">${t('updCheck')}</button>`}`:''}
+   ${/^dev/.test(APP_BUILD)?`<div class="lbl">${t('labT')}</div><button class="btn" data-act="lab">${t('labAuto')}</button>`:''}
    <div class="lbl">${t('data')}</div><button class="btn danger" data-act="wipe">${t('wipeBtn')}</button>
    <p class="muted" style="margin-top:18px;font-size:14px">${t('local')}</p>
    <p class="ver">Darts – ${t('appVer')} ${esc(APPVER||APP_BUILD)}</p></div>`;
@@ -1980,6 +1981,7 @@ const ACT={
     const go2=()=>{if(v==='atc'||v==='bobs')newMatch({mode:v,plist:pl,opts:Object.assign({},SETUP[v],v==='atc'?{bull:!!SETUP.atc.bull}:{})});else newMatch({mode:'drill',plist:pl,opts:{drill:v,tgt:SETUP.tgt||'T20'}});saveGame();NAV=[{name:'home'}];V={name:'game'};render()};
     if(G&&!G.finished)confirmBox(t('inProg'),t('inProgTxt'),t('startAnyway'),go2,true);else go2()},
   upd:()=>{const u=`https://github.com/${REPO}/releases/latest/download/darts.apk`;UPD=null;render();location.href=u},
+  lab:()=>{location.href='autoscore/lab.html?lang='+LANG},
   updcheck:()=>{toast(t('updChecking'));checkUpdate(true)},
   updlater:()=>{if(UPD)LS.set('updskip',UPD.v);UPD=null;render()},
   bkfile:()=>backupFile(),

@@ -12,6 +12,7 @@ self.addEventListener('fetch',e=>{
   const r=e.request;if(r.method!=='GET')return;
   const url=new URL(r.url);if(url.origin!==location.origin)return;   // GitHub API and anything external: straight to the network
   if(r.mode==='navigate'){
+    if(!/\/(index\.html)?$/.test(url.pathname)){e.respondWith(fetch(r).catch(()=>caches.match('index.html')));return}   // other pages (the auto-scoring lab) are never cached as the app
     e.respondWith(fetch(r).then(res=>{const c=res.clone();caches.open(CACHE).then(k=>k.put('index.html',c));return res})
       .catch(()=>caches.match('index.html').then(m=>m||caches.match('./'))));
     return;

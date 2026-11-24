@@ -11,6 +11,8 @@ It ships as an Android APK (Capacitor 8) and as an installable web app for iPhon
 - `www/sw.js`, `www/manifest.webmanifest`, `www/icons/` – web app (offline cache, Home screen install).
 - `.github/workflows/build-apk.yml` – builds and signs the APK; `web-app.yml` – publishes `www/` to GitHub Pages.
 - `assets/` – icons and splash screens for the Android build.
+- `www/autoscore/` – camera auto-scoring lab, shown in Settings only in test builds; plan and research in `docs/autoscore.md`.
+- `tests/` – unit tests (`npm test`), also run by the APK workflow.
 
 ## Branches, builds and releases
 
